@@ -1,11 +1,20 @@
-# marmitaria
-## figma
+Artefatos e Pasta do Projeto para acessar informações adicionais do projeto
+
+## Pasta do Projeto no Drive
+https://drive.google.com/drive/folders/1Tntc-8M7vOsxWXNg16dbpgKP81VGnNGW?usp=sharing
+## Figma
 https://www.figma.com/file/LkS3iDlLYhDI7hXc9FLaLJ/App-de-marmitas?type=design&node-id=0-1&mode=design&t=kzZMUayiLYlSt4nE-0
 ## Documento de Visão
 https://docs.google.com/document/d/1mJkiEgpEXO5ssW1O9LVD7YSBBV79JkZnG1blBMSsDKA
+## Business Canva
+https://drive.google.com/file/d/1Zcwx7oz8t08U0I7hJcfET4hWpbXCOrU0/view?usp=sharing
+## Processo de desenvolvimento
+https://drive.google.com/file/d/1aJigDoyh-TP0RqNXWDGThomgtpZyZjpe/view?usp=sharing
+## Requisitos
+https://docs.google.com/document/d/1c8oYTj2-KdMzPpF3UxYP1AhngJ11izVtjnE1MAlYayg/edit?usp=sharing
+## Backlog
+https://projeto-integrado-3-es.atlassian.net/jira/software/projects/PIES3/boards/1/backlog
 ## Planejamento dos Testes
 https://docs.google.com/document/d/1Nl_U8-eOn6IGWiJ-3h_NJkggJ22Ls8znzy-SbOOYrJE
-## Drive unificado
-https://drive.google.com/drive/u/0/folders/1Tntc-8M7vOsxWXNg16dbpgKP81VGnNG
-## Arquitetura
-[https://github.com/danielvitor2d/marmitaria/blob/main/arquitetura.md](https://github.com/danielvitor2d/marmitaria/blob/main/arquitetura.md)https://github.com/danielvitor2d/marmitaria/blob/main/arquitetura.md
+## Arquitetura e Tecnologias
+https://github.com/danielvitor2d/marmitaria/blob/main/arquitetura.md
