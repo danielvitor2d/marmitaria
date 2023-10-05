@@ -1,11 +1,44 @@
 import { useRouter } from "expo-router";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
+import { useState } from "react";
 import logo from '../src/assets/logo.jpeg';
+import { api } from "../src/lib/api";
 
 export default function Login() {
   const router = useRouter()
+  const [email, setEmail] = useState('');
+  const [pwd, setPwd] = useState('');
+
+  async function login() {
+    // ToastAndroid.showWithGravity(
+    //   `Logando... e-mail: ${email}, pwd: ${pwd}`,
+    //   ToastAndroid.SHORT,
+    //   ToastAndroid.CENTER,
+    // );
+
+    try {
+      const { isLogged } = (await api.post('/users/session', { email, pwd })).data as { isLogged: boolean };
+    
+      if (isLogged) {
+        ToastAndroid.showWithGravity(
+          `Dados corretos.`,
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER,
+        );
+        router.replace('restaurants');
+      } else {
+        ToastAndroid.showWithGravity(
+          `E-mail e/ou senha incorretos`,
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER,
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <View
@@ -28,6 +61,7 @@ export default function Login() {
             className="px-4 py-2 border border-[#797979] rounded-xl"
             placeholder={"Digite seu e-mail"}
             selectionColor={'black'}
+            onChangeText={setEmail}
           ></TextInput>
 
         </View>
@@ -41,6 +75,7 @@ export default function Login() {
             className="px-4 py-2 border border-[#797979] rounded-xl"
             placeholder={"Digite sua senha"}
             selectionColor={'black'}
+            onChangeText={setPwd}
             secureTextEntry={true}
           ></TextInput>
 
@@ -59,7 +94,8 @@ export default function Login() {
       <View className="mt-10 w-full items-center gap-3">
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => router.push('restaurants')}
+          onPress={() => login()}
+          // onPress={() => router.push('restaurants')}
           className="px-4 py-2 w-8/12 bg-[#A60C0C] rounded-xl items-center"
         >
           <Text className="text-white text-base">
@@ -71,7 +107,7 @@ export default function Login() {
 
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => router.push('profile')}
+          // onPress={() => router.push('profile')}
           className="px-4 py-2 w-8/12 bg-[#34416D] rounded-xl items-center"
         >
           <Text className="text-white text-base">

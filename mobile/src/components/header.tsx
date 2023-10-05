@@ -20,8 +20,9 @@ export function Header({
         className="w-full h-14 px-4 bg-[#A60C0C] flex-row justify-between items-center"
       >
         <BackButton
-          name={'arrow-left'}
+          name={'log-out'}
           type={'NEUTRAL'}
+          onPress={() => router.replace('login')}
           size={26}
         />
 

@@ -1,11 +1,11 @@
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { View, ViewProps } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity, TouchableOpacityProps, View, ViewProps } from "react-native";
 
 interface Props extends ViewProps {
   name: keyof typeof Feather.glyphMap
   size: number
+  onPress?: TouchableOpacityProps['onPress']
   type?: 'PRIMARY' | 'NEUTRAL'
 }
 
@@ -13,6 +13,7 @@ export function BackButton({
   name,
   size,
   type = 'NEUTRAL',
+  onPress,
   ...rest
 }: Props) {
   const router = useRouter()
@@ -21,7 +22,7 @@ export function BackButton({
     <View {...rest}>
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={() => router.back()}
+        onPress={onPress === undefined ? () => router.back() : onPress}
       >
         <Feather
           name={name}

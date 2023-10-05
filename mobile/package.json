@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.3",
     "@expo-google-fonts/roboto": "^0.2.3",
+    "axios": "^1.5.1",
     "expo": "~49.0.13",
     "expo-constants": "~14.4.2",
     "expo-font": "~11.4.0",
