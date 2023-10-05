@@ -36,7 +36,7 @@ export default function Login() {
         );
       }
     } catch (error) {
-      console.error(error);
+      console.error('err: ' + error);
     }
   }
 
@@ -107,7 +107,13 @@ export default function Login() {
 
         <TouchableOpacity
           activeOpacity={0.7}
-          // onPress={() => router.push('profile')}
+          onPress={() => {
+            ToastAndroid.showWithGravity(
+              `Em breve.`,
+              ToastAndroid.SHORT,
+              ToastAndroid.CENTER,
+            );
+          }}
           className="px-4 py-2 w-8/12 bg-[#34416D] rounded-xl items-center"
         >
           <Text className="text-white text-base">

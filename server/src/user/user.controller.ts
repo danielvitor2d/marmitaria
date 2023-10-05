@@ -12,9 +12,15 @@ export class UserController {
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     try {
-      return this.userService.create(createUserDto);
+      const response = await this.userService.create(createUserDto);
+      return {
+        registered: response !== undefined,
+      };
     } catch (error) {
       this.logger.error(`could not create a new user due to error: ${error}`);
+      return {
+        registered: null,
+      };
     }
   }
 

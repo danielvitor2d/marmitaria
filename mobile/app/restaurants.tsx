@@ -33,22 +33,22 @@ export default function Restaurants() {
         </View>
 
         <View className='px-1'>
-          <Card name='Restaurante Bondiboka' />
-          <Card name='Sabores do Sertão' />
-          <Card name='Nori' />
-          <Card name="Pizza's" />
-          <Card name='Vila da Telha' />
-          <Card name='Quinta Estação' />
-          <Card name='Pannetus' />
-          <Card name='Restaurante Bondiboka' />
-          <Card name='Restaurante Bondiboka' />
-          <Card name='Sabores do Sertão' />
-          <Card name='Nori' />
-          <Card name="Pizza's" />
-          <Card name='Vila da Telha' />
-          <Card name='Quinta Estação' />
-          <Card name='Pannetus' />
-          <Card name='Restaurante Bondiboka' />
+          <Card key={0} name='Restaurante Bondiboka' />
+          <Card key={1} name='Sabores do Sertão' />
+          <Card key={2} name='Nori' />
+          <Card key={3} name="Pizza's" />
+          <Card key={4} name='Vila da Telha' />
+          <Card key={5} name='Quinta Estação' />
+          <Card key={6} name='Pannetus' />
+          <Card key={7} name='Restaurante Bondiboka' />
+          <Card key={8} name='Restaurante Bondiboka' />
+          <Card key={9} name='Sabores do Sertão' />
+          <Card key={10} name='Nori' />
+          <Card key={12} name="Pizza's" />
+          <Card key={13} name='Vila da Telha' />
+          <Card key={14} name='Quinta Estação' />
+          <Card key={15} name='Pannetus' />
+          <Card key={16} name='Restaurante Bondiboka' />
         </View>
 
       </View>

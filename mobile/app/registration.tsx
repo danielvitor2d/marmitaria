@@ -1,15 +1,66 @@
 import { ScrollView, Text, TextInput, ToastAndroid, View } from "react-native";
 
+import { useRouter } from "expo-router";
+import { useState } from "react";
 import { BackButton } from "../src/components/back_button";
 import { CustomButton } from "../src/components/custom_button";
+import { api } from "../src/lib/api";
 
 export default function Registration() {
-  function register() {
-    ToastAndroid.showWithGravity(
-      'Cadastrando...',
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER,
-    );
+  const router = useRouter();
+
+  const [name, setname] = useState('')
+  const [lastname, setlastname] = useState('')
+  const [address, setaddress] = useState('')
+  const [email, setemail] = useState('')
+  const [pwd, setpwd] = useState('')
+  const [confirmpwd, setconfirmpwd] = useState('')
+
+  async function register() {
+    if (pwd != confirmpwd) {
+      ToastAndroid.showWithGravity(
+        `As senhas estão diferentes.`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
+      return
+    }
+
+    // ToastAndroid.showWithGravity(
+    //   `Verificando dados...
+    //   Nome: ${name}
+    //   Sobrenome: ${lastname}
+    //   Endereço: ${address}
+    //   E-mail: ${email}
+    //   Password: ${pwd}
+    //   `,
+    //   ToastAndroid.SHORT,
+    //   ToastAndroid.CENTER,
+    // );
+
+    const { registered } = (await api.post('/users', {
+      name,
+      lastname,
+      address,
+      email,
+      pwd
+    })).data
+
+    if (registered) {
+      ToastAndroid.showWithGravity(
+        `Cadastrado com sucesso!`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
+
+      router.replace('login')
+    } else {
+      ToastAndroid.showWithGravity(
+        `Erro ao cadastrar`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
+    }
   }
 
   return (
@@ -39,6 +90,7 @@ export default function Registration() {
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Ex. João"}
               selectionColor={'black'}
+              onChangeText={setname}
             ></TextInput>
 
           </View>
@@ -54,6 +106,7 @@ export default function Registration() {
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Ex. Ferreira"}
               selectionColor={'black'}
+              onChangeText={setlastname}
             ></TextInput>
 
           </View>
@@ -69,6 +122,23 @@ export default function Registration() {
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Av. Equador, 556, Centro"}
               selectionColor={'black'}
+              onChangeText={setaddress}
+            ></TextInput>
+
+          </View>
+
+          <View className="w-8/12 gap-1 mb-5">
+            <Text
+              className="text-base text-[#A60C0C]"
+            >
+              E-mail
+            </Text>
+
+            <TextInput
+              className="px-4 py-2 border border-[#797979] rounded-xl"
+              placeholder={"fulano1234@gmail.com"}
+              selectionColor={'black'}
+              onChangeText={setemail}
             ></TextInput>
 
           </View>
@@ -85,6 +155,7 @@ export default function Registration() {
               placeholder={"Digite sua senha"}
               selectionColor={'black'}
               secureTextEntry={true}
+              onChangeText={setpwd}
             ></TextInput>
 
           </View>
@@ -101,6 +172,7 @@ export default function Registration() {
               placeholder={"Digite novamente sua senha"}
               selectionColor={'black'}
               secureTextEntry={true}
+              onChangeText={setconfirmpwd}
             ></TextInput>
 
           </View>
