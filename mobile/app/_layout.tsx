@@ -6,7 +6,8 @@ import {
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useCallback, useState } from "react";
-import { View } from "react-native";
+import { KeyboardAvoidingView, Platform } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -20,7 +21,7 @@ export default function Layout() {
 
   const onLayoutRootView = useCallback(async () => {
     if (hasLoadedFonts || fontError) {
-      await SplashScreen.hideAsync();
+      SplashScreen.hideAsync();
     }
   }, [hasLoadedFonts, fontError]);
 
@@ -29,24 +30,29 @@ export default function Layout() {
   }
 
   return (
-    <View
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       onLayout={onLayoutRootView}
-      className="flex-1"
+      className="flex-1 py-6"
     >
-      <StatusBar style="light" translucent />
-
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: "transparent" },
-          animation: "fade",
-        }}
+      <SafeAreaView
+        className="flex-1 w-full"
       >
-        <Stack.Screen name="index" redirect={!isUserAuthenticated} />
-        <Stack.Screen name="login" />
-        <Stack.Screen name="registration" />
-        <Stack.Screen name="forgot_password" />
-      </Stack>
-    </View>
+        <StatusBar style="light" translucent />
+
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: "transparent" },
+            animation: "fade",
+          }}
+        >
+          <Stack.Screen name="index" redirect={!isUserAuthenticated} />
+          <Stack.Screen name="login" />
+          <Stack.Screen name="registration" />
+          <Stack.Screen name="forgot_password" />
+        </Stack>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
