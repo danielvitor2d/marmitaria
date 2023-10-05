@@ -59,6 +59,7 @@ export default function Login() {
       <View className="mt-10 w-full items-center gap-3">
         <TouchableOpacity
           activeOpacity={0.7}
+          onPress={() => router.push('restaurants')}
           className="px-4 py-2 w-8/12 bg-[#A60C0C] rounded-xl items-center"
         >
           <Text className="text-white text-base">
@@ -70,6 +71,7 @@ export default function Login() {
 
         <TouchableOpacity
           activeOpacity={0.7}
+          onPress={() => router.push('profile')}
           className="px-4 py-2 w-8/12 bg-[#34416D] rounded-xl items-center"
         >
           <Text className="text-white text-base">

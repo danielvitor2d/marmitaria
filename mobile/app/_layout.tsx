@@ -49,8 +49,11 @@ export default function Layout() {
         >
           <Stack.Screen name="index" redirect={!isUserAuthenticated} />
           <Stack.Screen name="login" />
+          <Stack.Screen name="profile" />
           <Stack.Screen name="registration" />
           <Stack.Screen name="forgot_password" />
+
+          <Stack.Screen name="restaurants" />
         </Stack>
       </SafeAreaView>
     </KeyboardAvoidingView>

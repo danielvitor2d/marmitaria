@@ -1,31 +1,27 @@
-import { ScrollView, Text, TextInput, ToastAndroid, View } from "react-native";
+import { ScrollView, Text, TextInput, View } from "react-native";
 
+import ProfileImage from "../src/assets/profile.svg";
 import { BackButton } from "../src/components/back_button";
 import { CustomButton } from "../src/components/custom_button";
 
-export default function Registration() {
-  function register() {
-    ToastAndroid.showWithGravity(
-      'Cadastrando...',
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER,
-    );
-  }
-
+export default function Profile() {
   return (
     <ScrollView>
       <BackButton
-        className="w-full ml-4"
-        name={'arrow-left'}
-        type={'PRIMARY'}
+        name={"arrow-left"}
+        type={"PRIMARY"}
         size={28}
+        className={'w-full ml-4'}
       />
 
-      <View className="w-full flex-col items-center">
-
+      <View className="flex-1 w-full flex-col items-center gap-4">
         <Text className="text-2xl text-[#A60C0C] font-bold">
-          Cadastre-se
+          Perfil
         </Text>
+
+        <ProfileImage
+          className="h-32 w-44 border"
+        />
 
         <View className="w-full flex-col gap-2 items-center">
           <View className="w-8/12 gap-1 mb-5">
@@ -38,8 +34,9 @@ export default function Registration() {
             <TextInput
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Ex. João"}
-              selectionColor={'black'}
-            ></TextInput>
+              selectionColor={"black"}
+            >
+            </TextInput>
 
           </View>
 
@@ -53,8 +50,9 @@ export default function Registration() {
             <TextInput
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Ex. Ferreira"}
-              selectionColor={'black'}
-            ></TextInput>
+              selectionColor={"black"}
+            >
+            </TextInput>
 
           </View>
 
@@ -68,12 +66,13 @@ export default function Registration() {
             <TextInput
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Av. Equador, 556, Centro"}
-              selectionColor={'black'}
-            ></TextInput>
+              selectionColor={"black"}
+            >
+            </TextInput>
 
           </View>
 
-          <View className="w-8/12 gap-1 mb-5">
+          {/* <View className="w-8/12 gap-1 mb-5">
             <Text
               className="text-base text-[#A60C0C]"
             >
@@ -83,37 +82,22 @@ export default function Registration() {
             <TextInput
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Digite sua senha"}
-              selectionColor={'black'}
+              selectionColor={"black"}
               secureTextEntry={true}
-            ></TextInput>
-
-          </View>
-
-          <View className="w-8/12 gap-1 mb-5">
-            <Text
-              className="text-base text-[#A60C0C]"
             >
-              Confirmação de senha
-            </Text>
+            </TextInput>
 
-            <TextInput
-              className="px-4 py-2 border border-[#797979] rounded-xl"
-              placeholder={"Digite novamente sua senha"}
-              selectionColor={'black'}
-              secureTextEntry={true}
-            ></TextInput>
+          </View> */}
 
-          </View>
         </View>
-
       </View>
 
       <CustomButton
         fontSize={14}
-        text={'Cadastrar'}
+        text={"Ver restaurante"}
         type="PRIMARY"
         className="self-center mt-10"
-        onPress={() => register()}
+        onPress={() => {}}
       />
     </ScrollView>
   )
