@@ -69,6 +69,7 @@ export default function Registration() {
         className="w-full ml-4"
         name={'arrow-left'}
         type={'PRIMARY'}
+        testID={'backButton'}
         size={28}
       />
 
@@ -87,6 +88,7 @@ export default function Registration() {
             </Text>
 
             <TextInput
+              testID={'name'}
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Ex. João"}
               selectionColor={'black'}
@@ -103,6 +105,7 @@ export default function Registration() {
             </Text>
 
             <TextInput
+              testID={'lastname'}
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Ex. Ferreira"}
               selectionColor={'black'}
@@ -119,6 +122,7 @@ export default function Registration() {
             </Text>
 
             <TextInput
+              testID={'address'}
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Av. Equador, 556, Centro"}
               selectionColor={'black'}
@@ -135,6 +139,7 @@ export default function Registration() {
             </Text>
 
             <TextInput
+              testID={'email'}
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"fulano1234@gmail.com"}
               selectionColor={'black'}
@@ -151,6 +156,7 @@ export default function Registration() {
             </Text>
 
             <TextInput
+              testID={'pwd'}
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Digite sua senha"}
               selectionColor={'black'}
@@ -184,6 +190,7 @@ export default function Registration() {
         fontSize={14}
         text={'Cadastrar'}
         type="PRIMARY"
+        testID="registerButton"
         className="self-center mt-10"
         onPress={() => register()}
       />

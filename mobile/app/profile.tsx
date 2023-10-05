@@ -11,6 +11,7 @@ export default function Profile() {
         name={"arrow-left"}
         type={"PRIMARY"}
         size={28}
+        testID="goBack"
         className={'w-full ml-4'}
       />
 
@@ -96,6 +97,7 @@ export default function Profile() {
         fontSize={14}
         text={"Ver restaurante"}
         type="PRIMARY"
+        testID="seeRestaurants"
         className="self-center mt-10"
         onPress={() => {}}
       />

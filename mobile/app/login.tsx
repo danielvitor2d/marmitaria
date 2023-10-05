@@ -1,8 +1,8 @@
-import { useRouter } from "expo-router";
-import { Image, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-
 import { useState } from "react";
+import { useRouter } from "expo-router";
+import { TextInput } from "react-native-gesture-handler";
+import { Image, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
+
 import logo from '../src/assets/logo.jpeg';
 import { api } from "../src/lib/api";
 
@@ -81,6 +81,7 @@ export default function Login() {
 
           <TouchableOpacity
             activeOpacity={0.7}
+            testID="forgot_password"
             onPress={() => router.push('forgot_password')}
           >
             <Text className="text-[#797979] text-right">
@@ -95,6 +96,7 @@ export default function Login() {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => login()}
+          testID="login"
           // onPress={() => router.push('restaurants')}
           className="px-4 py-2 w-8/12 bg-[#A60C0C] rounded-xl items-center"
         >
@@ -114,6 +116,7 @@ export default function Login() {
               ToastAndroid.CENTER,
             );
           }}
+          testID="loginWithG"
           className="px-4 py-2 w-8/12 bg-[#34416D] rounded-xl items-center"
         >
           <Text className="text-white text-base">
@@ -130,6 +133,7 @@ export default function Login() {
 
         <TouchableOpacity
           activeOpacity={0.7}
+          testID="registerButton"
           onPress={() => router.push('registration')}
         >
           <Text className="text-[#A60C0C]">

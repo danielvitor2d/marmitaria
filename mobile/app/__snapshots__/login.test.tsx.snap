@@ -1,0 +1,554 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test login page snapshot test 1`] = `
+<View
+  style={
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      {
+        "flexDirection": "column",
+      },
+      {
+        "alignItems": "center",
+      },
+      {
+        "justifyContent": "center",
+      },
+      {
+        "marginLeft": -40,
+        "marginTop": -40,
+      },
+    ]
+  }
+>
+  <Image
+    source={1}
+    style={
+      [
+        {
+          "height": 128,
+        },
+        {
+          "width": 176,
+        },
+        {
+          "borderBottomWidth": 1,
+          "borderLeftWidth": 1,
+          "borderRightWidth": 1,
+          "borderTopWidth": 1,
+        },
+        [
+          {
+            "marginLeft": 40,
+            "marginTop": 40,
+          },
+        ],
+      ]
+    }
+  />
+  <View
+    style={
+      [
+        {
+          "flexDirection": "column",
+        },
+        {
+          "width": "100%",
+        },
+        {
+          "alignItems": "center",
+        },
+        [
+          {
+            "marginLeft": 40,
+            "marginTop": 40,
+          },
+        ],
+      ]
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "width": "66.666667%",
+          },
+          {
+            "marginLeft": -4,
+            "marginTop": -4,
+          },
+          {
+            "marginBottom": 20,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontSize": 16,
+              "lineHeight": 24,
+            },
+            {
+              "color": "#A60C0C",
+            },
+            [
+              {
+                "marginLeft": 4,
+                "marginTop": 4,
+              },
+            ],
+          ]
+        }
+      >
+        Login
+      </Text>
+      <TextInput
+        collapsable={false}
+        handlerTag={1}
+        handlerType="NativeViewGestureHandler"
+        onChangeText={[Function]}
+        onGestureHandlerEvent={[Function]}
+        onGestureHandlerStateChange={[Function]}
+        placeholder="Digite seu e-mail"
+        selectionColor="black"
+        style={
+          [
+            {
+              "paddingLeft": 16,
+              "paddingRight": 16,
+            },
+            {
+              "paddingBottom": 8,
+              "paddingTop": 8,
+            },
+            {
+              "borderBottomWidth": 1,
+              "borderLeftWidth": 1,
+              "borderRightWidth": 1,
+              "borderTopWidth": 1,
+            },
+            {
+              "borderBottomColor": "#797979",
+              "borderLeftColor": "#797979",
+              "borderRightColor": "#797979",
+              "borderTopColor": "#797979",
+            },
+            {
+              "borderBottomLeftRadius": 12,
+              "borderBottomRightRadius": 12,
+              "borderTopLeftRadius": 12,
+              "borderTopRightRadius": 12,
+            },
+            [
+              {
+                "marginLeft": 4,
+                "marginTop": 4,
+              },
+            ],
+          ]
+        }
+      />
+    </View>
+    <View
+      style={
+        [
+          {
+            "width": "66.666667%",
+          },
+          {
+            "marginLeft": -4,
+            "marginTop": -4,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          [
+            {
+              "fontSize": 16,
+              "lineHeight": 24,
+            },
+            {
+              "color": "#A60C0C",
+            },
+            [
+              {
+                "marginLeft": 4,
+                "marginTop": 4,
+              },
+            ],
+          ]
+        }
+      >
+        Senha
+      </Text>
+      <TextInput
+        collapsable={false}
+        handlerTag={2}
+        handlerType="NativeViewGestureHandler"
+        onChangeText={[Function]}
+        onGestureHandlerEvent={[Function]}
+        onGestureHandlerStateChange={[Function]}
+        placeholder="Digite sua senha"
+        secureTextEntry={true}
+        selectionColor="black"
+        style={
+          [
+            {
+              "paddingLeft": 16,
+              "paddingRight": 16,
+            },
+            {
+              "paddingBottom": 8,
+              "paddingTop": 8,
+            },
+            {
+              "borderBottomWidth": 1,
+              "borderLeftWidth": 1,
+              "borderRightWidth": 1,
+              "borderTopWidth": 1,
+            },
+            {
+              "borderBottomColor": "#797979",
+              "borderLeftColor": "#797979",
+              "borderRightColor": "#797979",
+              "borderTopColor": "#797979",
+            },
+            {
+              "borderBottomLeftRadius": 12,
+              "borderBottomRightRadius": 12,
+              "borderTopLeftRadius": 12,
+              "borderTopRightRadius": 12,
+            },
+            [
+              {
+                "marginLeft": 4,
+                "marginTop": 4,
+              },
+            ],
+          ]
+        }
+      />
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "marginLeft": 4,
+            "marginTop": 4,
+            "opacity": 1,
+          }
+        }
+        testID="forgot_password"
+      >
+        <Text
+          style={
+            [
+              {
+                "color": "#797979",
+              },
+              {
+                "textAlign": "right",
+              },
+            ]
+          }
+        >
+          Esqueceu sua senha?
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      [
+        {
+          "marginTop": 40,
+        },
+        {
+          "width": "100%",
+        },
+        {
+          "alignItems": "center",
+        },
+        {
+          "marginLeft": -12,
+          "marginTop": -12,
+        },
+        [
+          {
+            "marginLeft": 40,
+            "marginTop": 40,
+          },
+        ],
+      ]
+    }
+  >
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#A60C0C",
+          "borderBottomLeftRadius": 12,
+          "borderBottomRightRadius": 12,
+          "borderTopLeftRadius": 12,
+          "borderTopRightRadius": 12,
+          "marginLeft": 12,
+          "marginTop": 12,
+          "opacity": 1,
+          "paddingBottom": 8,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 8,
+          "width": "66.666667%",
+        }
+      }
+      testID="login"
+    >
+      <Text
+        style={
+          [
+            {
+              "color": "#fff",
+            },
+            {
+              "fontSize": 16,
+              "lineHeight": 24,
+            },
+          ]
+        }
+      >
+        Entrar
+      </Text>
+    </View>
+    <Text
+      style={
+        [
+          [
+            {
+              "marginLeft": 12,
+              "marginTop": 12,
+            },
+          ],
+        ]
+      }
+    >
+      ou
+    </Text>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "alignItems": "center",
+          "backgroundColor": "#34416D",
+          "borderBottomLeftRadius": 12,
+          "borderBottomRightRadius": 12,
+          "borderTopLeftRadius": 12,
+          "borderTopRightRadius": 12,
+          "marginLeft": 12,
+          "marginTop": 12,
+          "opacity": 1,
+          "paddingBottom": 8,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 8,
+          "width": "66.666667%",
+        }
+      }
+      testID="loginWithG"
+    >
+      <Text
+        style={
+          [
+            {
+              "color": "#fff",
+            },
+            {
+              "fontSize": 16,
+              "lineHeight": 24,
+            },
+          ]
+        }
+      >
+        Login com G
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      [
+        {
+          "paddingTop": 20,
+        },
+        {
+          "flexDirection": "row",
+        },
+        {
+          "alignItems": "center",
+        },
+        {
+          "marginLeft": -4,
+          "marginTop": -4,
+        },
+        [
+          {
+            "marginLeft": 40,
+            "marginTop": 40,
+          },
+        ],
+      ]
+    }
+  >
+    <Text
+      style={
+        [
+          {
+            "color": "#797979",
+          },
+          [
+            {
+              "marginLeft": 4,
+              "marginTop": 4,
+            },
+          ],
+        ]
+      }
+    >
+      Não possui acesso?
+    </Text>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "marginLeft": 4,
+          "marginTop": 4,
+          "opacity": 1,
+        }
+      }
+      testID="registerButton"
+    >
+      <Text
+        style={
+          [
+            {
+              "color": "#A60C0C",
+            },
+          ]
+        }
+      >
+        Cadastre-se
+      </Text>
+    </View>
+  </View>
+</View>
+`;
