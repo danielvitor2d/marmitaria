@@ -18,3 +18,5 @@ https://projeto-integrado-3-es.atlassian.net/jira/software/projects/PIES3/boards
 https://docs.google.com/document/d/1Nl_U8-eOn6IGWiJ-3h_NJkggJ22Ls8znzy-SbOOYrJE
 ## Arquitetura e Tecnologias
 https://github.com/danielvitor2d/marmitaria/blob/main/arquitetura.md
+## Modelo Entidade-Relacionamento
+https://drive.google.com/file/d/1dYhD0hbd7EhCkl0OpPFe2ZSEuDLqLh3O/view?usp=drive_link
