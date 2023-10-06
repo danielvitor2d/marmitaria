@@ -25,7 +25,7 @@ https://drive.google.com/file/d/1dYhD0hbd7EhCkl0OpPFe2ZSEuDLqLh3O/view?usp=drive
 https://docs.google.com/document/d/1WaL1s2tI6JDspfaZPxnR61heJv3bTkGrxsywxPxr8R0/edit?usp=sharing
 ### Termo de Consentimento
 https://docs.google.com/forms/d/e/1FAIpQLSebf9wz8UCvYLaHfSd_cj3MoX5yUwEvfQbLYc78n4Mmr4NpRA/viewform?usp=sf_link
-### Relarótio
+### Relatório
 https://docs.google.com/spreadsheets/d/1XseDi_8p8rGfAqSAq2qnT00ht8o2V0EpR1hITF1jUGw/edit?usp=sharing
 ## Video do APP funcionando
 https://drive.google.com/file/d/1UYuspGhvNav2GShe1ZIJ3bqCUEqitdXY/view?usp=sharing
