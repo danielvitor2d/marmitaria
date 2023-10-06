@@ -20,3 +20,13 @@ https://docs.google.com/document/d/1Nl_U8-eOn6IGWiJ-3h_NJkggJ22Ls8znzy-SbOOYrJE
 https://github.com/danielvitor2d/marmitaria/blob/main/arquitetura.md
 ## Modelo Entidade-Relacionamento
 https://drive.google.com/file/d/1dYhD0hbd7EhCkl0OpPFe2ZSEuDLqLh3O/view?usp=drive_link
+## Entrevistas
+### Roteiro
+https://docs.google.com/document/d/1WaL1s2tI6JDspfaZPxnR61heJv3bTkGrxsywxPxr8R0/edit?usp=sharing
+### Termo de Consentimento
+https://docs.google.com/forms/d/e/1FAIpQLSebf9wz8UCvYLaHfSd_cj3MoX5yUwEvfQbLYc78n4Mmr4NpRA/viewform?usp=sf_link
+### Relarótio
+https://docs.google.com/spreadsheets/d/1XseDi_8p8rGfAqSAq2qnT00ht8o2V0EpR1hITF1jUGw/edit?usp=sharing
+## Video do APP funcionando
+https://drive.google.com/file/d/1UYuspGhvNav2GShe1ZIJ3bqCUEqitdXY/view?usp=sharing
+
