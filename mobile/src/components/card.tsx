@@ -57,7 +57,7 @@ export function Card({
 
           <View className='flex-row'>
             {generateRandomPatternArray().map((i, v) => (
-              i == 1 ? <FontAwesome name='star' /> : <FontAwesome name='star-o' disabled={true} />
+              i == 1 ? <FontAwesome key={v} name='star' /> : <FontAwesome key={v} name='star-o' disabled={true} />
             ))}
           </View>
         </View>

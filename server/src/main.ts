@@ -6,6 +6,8 @@ async function bootstrap() {
   app.enableCors({
     origin: '*',
   });
-  await app.listen(3000, () => console.log('Server is running 🚀'));
+  await app.listen(3000, async () =>
+    console.log(`Server is running 🚀 at ${await app.getUrl()}`),
+  );
 }
 bootstrap();
