@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
-    "types": ["nativewind/types"]
+    "types": ["jest", "nativewind/types"]
   },
   "extends": "expo/tsconfig.base",
 }

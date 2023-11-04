@@ -1,23 +1,18 @@
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import { Image, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
-import { useState } from "react";
 import logo from '../src/assets/logo.jpeg';
 import { api } from "../src/lib/api";
 
 export default function Login() {
   const router = useRouter()
+
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
 
   async function login() {
-    // ToastAndroid.showWithGravity(
-    //   `Logando... e-mail: ${email}, pwd: ${pwd}`,
-    //   ToastAndroid.SHORT,
-    //   ToastAndroid.CENTER,
-    // );
-
     try {
       const { isLogged } = (await api.post('/users/session', { email, pwd })).data as { isLogged: boolean };
     
@@ -82,6 +77,7 @@ export default function Login() {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => router.push('forgot_password')}
+            testID="forgot_password"
           >
             <Text className="text-[#797979] text-right">
               Esqueceu sua senha?
@@ -95,6 +91,7 @@ export default function Login() {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => login()}
+          testID="login"
           // onPress={() => router.push('restaurants')}
           className="px-4 py-2 w-8/12 bg-[#A60C0C] rounded-xl items-center"
         >
@@ -114,6 +111,7 @@ export default function Login() {
               ToastAndroid.CENTER,
             );
           }}
+          testID="loginWithG"
           className="px-4 py-2 w-8/12 bg-[#34416D] rounded-xl items-center"
         >
           <Text className="text-white text-base">
@@ -131,6 +129,7 @@ export default function Login() {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => router.push('registration')}
+          testID="registerButton"
         >
           <Text className="text-[#A60C0C]">
             Cadastre-se
@@ -138,8 +137,6 @@ export default function Login() {
         </TouchableOpacity>
 
       </View>
-
-      {/* <View className="flex-1" /> */}
     </View>
   )
 }
