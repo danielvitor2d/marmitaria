@@ -24,7 +24,6 @@ export class UsersService {
   }
 
   async checkLogin({ email, pwd }: LoginPayload) {
-    console.log(email, pwd);
     const res = await this.userModel.findOne({ email });
 
     return res && bcrypt.compareSync(pwd, res.pwd);

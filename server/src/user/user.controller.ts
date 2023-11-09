@@ -38,7 +38,6 @@ export class UserController {
   async login(@Body() login: LoginPayload) {
     try {
       const res = await this.userService.checkLogin(login);
-      console.log(res);
       return {
         isLogged: res,
       };

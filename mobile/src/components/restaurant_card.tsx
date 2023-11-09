@@ -1,6 +1,9 @@
 import { FontAwesome } from '@expo/vector-icons';
-import { Image, Text, View } from "react-native";
+import { Image, Text, ToastAndroid, View } from "react-native";
 
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import RestaurantImage from '../assets/restaurant.png';
 import { generateRandomPatternArray, generateRandomValue } from '../utils/fake';
 
@@ -8,19 +11,29 @@ interface Props {
   name: string
 }
 
-export function Card({
+export function RestaurantCard({
   name
 }: Props) {
+  const router = useRouter();
+
+  function handleSeeRestaurant() {
+    ToastAndroid.showWithGravity(
+      `Redirecionando para página do restaurante`,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER,
+    );
+
+    router.push('restaurant');
+  }
+
   return (
-    <View className="w-full h-32 p-1 flex-row gap-0">
+    <TouchableOpacity activeOpacity={0.7} onPress={() => handleSeeRestaurant()} className="w-full h-32 p-1 flex-row gap-0">
       <Image
         source={RestaurantImage}
         className="w-36 h-28"
       />
 
-      <View
-        className="w-full h-28 py-3 px-5 flex-1 bg-[#FFF2F2] flex-col justify-between"
-      >
+      <View className="w-full h-28 py-3 px-5 flex-1 bg-[#FFF2F2] flex-col justify-between">
         <View className="w-full flex-col">
 
           <View className="flex-row justify-between items-center">
@@ -63,6 +76,6 @@ export function Card({
         </View>
       </View>
 
-    </View>
+    </TouchableOpacity>
   )
 }

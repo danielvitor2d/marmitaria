@@ -53,6 +53,7 @@ export default function Layout() {
           <Stack.Screen name="registration" />
           <Stack.Screen name="forgot_password" />
 
+          <Stack.Screen name="restaurant" />
           <Stack.Screen name="restaurants" />
         </Stack>
       </SafeAreaView>
