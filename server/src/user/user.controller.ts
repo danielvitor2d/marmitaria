@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Logger, Post } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Param, Post } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginPayload } from './interfaces/login';
 import { UsersService } from './user.service';
 
@@ -20,6 +21,20 @@ export class UserController {
       this.logger.error(`could not create a new user due to error: ${error}`);
       return {
         registered: null,
+      };
+    }
+  }
+
+  @Post('/:id')
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    try {
+      const response = await this.userService.update(id, updateUserDto);
+      return {
+        updated: response !== undefined,
+      };
+    } catch (error) {
+      return {
+        updated: null,
       };
     }
   }

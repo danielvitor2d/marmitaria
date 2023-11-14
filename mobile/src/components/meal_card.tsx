@@ -1,6 +1,7 @@
 import { FontAwesome } from '@expo/vector-icons';
 import { Image, Text, ToastAndroid, View } from "react-native";
 
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import RestaurantImage from '../assets/restaurant.png';
@@ -13,16 +14,39 @@ interface Props {
 export function MealCard({
   name
 }: Props) {
-  function handleSeeRestaurant() {
+  const router = useRouter();
+
+  function handleSeeMeal() {
     ToastAndroid.showWithGravity(
       `Ver refeição`,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER,
+    );
+
+    router.push('meal_info');
+  }
+
+  function onClickPedirMarmita() {
+    ToastAndroid.showWithGravity(
+      `Pedir Marmita`,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER,
+    );
+  }
+
+  function onClickAddComentario() {
+    ToastAndroid.showWithGravity(
+      `Adicionar comentário`,
       ToastAndroid.SHORT,
       ToastAndroid.CENTER,
     );
   }
 
   return (
-    <TouchableOpacity activeOpacity={0.7} onPress={() => handleSeeRestaurant()} className="w-full h-32 p-1 flex-row gap-0">
+    <TouchableOpacity
+      onPress={() => handleSeeMeal()}
+      className="w-full h-32 p-1 flex-row gap-0"
+    >
       <Image
         source={RestaurantImage}
         className="w-36 h-28"
@@ -53,13 +77,22 @@ export function MealCard({
 
         <View className="w-full flex-col">
           <View className="flex-row justify-between items-center">
-            <TouchableOpacity className='px-4 py-2 bg-[#A60C0C] rounded-md'>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => onClickPedirMarmita()}
+              className='px-4 py-2 bg-[#A60C0C] rounded-md'
+            >
               <Text className='text-[10px] text-white'>
                 Pedir marmita
               </Text>
             </TouchableOpacity>
 
-            <FontAwesome size={24} color={'#A60C0C'} name={'plus-circle'} />
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => onClickAddComentario()}
+            >
+              <FontAwesome size={24} color={'#A60C0C'} name={'plus-circle'} />
+            </TouchableOpacity>
           </View>
         </View>
       </View>

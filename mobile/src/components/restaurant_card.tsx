@@ -1,9 +1,9 @@
 import { FontAwesome } from '@expo/vector-icons';
-import { Image, Text, ToastAndroid, View } from "react-native";
-
 import { useRouter } from 'expo-router';
 import React from 'react';
+import { Image, Text, ToastAndroid, View } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
 import RestaurantImage from '../assets/restaurant.png';
 import { generateRandomPatternArray, generateRandomValue } from '../utils/fake';
 

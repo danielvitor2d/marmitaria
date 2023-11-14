@@ -191,7 +191,7 @@ export default function Registration() {
         text={'Cadastrar'}
         type="PRIMARY"
         testID="registerButton"
-        className="self-center mt-10"
+        className="self-center mt-10 mb-10"
         onPress={() => register()}
       />
     </ScrollView>

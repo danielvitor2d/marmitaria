@@ -3,6 +3,7 @@ import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
 
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginPayload } from './interfaces/login';
 import { User } from './interfaces/user';
 
@@ -19,12 +20,26 @@ export class UsersService {
     return createdUser.save();
   }
 
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    return await this.userModel.updateOne(
+      {
+        _id: id,
+      },
+      {
+        $set: {
+          id,
+          ...updateUserDto,
+        },
+      },
+    );
+  }
+
   async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
   }
 
   async checkLogin({ email, pwd }: LoginPayload) {
-    const res = await this.userModel.findOne({ email });
+    const res = await this.userModel.findOne({ email }).exec();
 
     return res && bcrypt.compareSync(pwd, res.pwd);
   }
