@@ -31,13 +31,11 @@ export default function Layout() {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       onLayout={onLayoutRootView}
       className="flex-1 py-6"
     >
-      <SafeAreaView
-        className="flex-1 w-full"
-      >
+      <SafeAreaView className="flex-1 w-full">
         <StatusBar style="light" translucent />
 
         <Stack

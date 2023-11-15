@@ -3,5 +3,5 @@
     "strict": true,
     "types": ["jest", "nativewind/types"]
   },
-  "extends": "expo/tsconfig.base",
+  "extends": "expo/tsconfig.base"
 }

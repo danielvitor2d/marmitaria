@@ -4,26 +4,26 @@ import { ScrollView, Text, TextInput, ToastAndroid, View } from "react-native";
 
 import { BackButton } from "../src/components/back_button";
 import { CustomButton } from "../src/components/custom_button";
-import { serviceRegister } from '../src/services/AuthService';
+import { serviceRegister } from "../src/services/AuthService";
 
 export default function Registration() {
   const router = useRouter();
 
-  const [name, setname] = useState('')
-  const [lastname, setlastname] = useState('')
-  const [address, setaddress] = useState('')
-  const [email, setemail] = useState('')
-  const [pwd, setpwd] = useState('')
-  const [confirmpwd, setconfirmpwd] = useState('')
+  const [name, setname] = useState("");
+  const [lastname, setlastname] = useState("");
+  const [address, setaddress] = useState("");
+  const [email, setemail] = useState("");
+  const [pwd, setpwd] = useState("");
+  const [confirmpwd, setconfirmpwd] = useState("");
 
   async function register() {
     if (pwd != confirmpwd) {
       ToastAndroid.showWithGravity(
         `As senhas estão diferentes.`,
         ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
+        ToastAndroid.CENTER
       );
-      return
+      return;
     }
 
     const { registered } = await serviceRegister({
@@ -32,21 +32,21 @@ export default function Registration() {
       lastname,
       name,
       pwd,
-    })
+    });
 
     if (registered) {
       ToastAndroid.showWithGravity(
         `Cadastrado com sucesso!`,
         ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
+        ToastAndroid.CENTER
       );
 
-      router.replace('login')
+      router.replace("login");
     } else {
       ToastAndroid.showWithGravity(
         `Erro ao cadastrar`,
         ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
+        ToastAndroid.CENTER
       );
     }
   }
@@ -55,133 +55,101 @@ export default function Registration() {
     <ScrollView>
       <BackButton
         className="w-full ml-4"
-        name={'arrow-left'}
-        type={'PRIMARY'}
+        name={"arrow-left"}
+        type={"PRIMARY"}
         testID="goBack"
         size={28}
       />
 
       <View className="w-full flex-col items-center">
-
-        <Text className="text-2xl text-[#A60C0C] font-bold">
-          Cadastre-se
-        </Text>
+        <Text className="text-2xl text-[#A60C0C] font-bold">Cadastre-se</Text>
 
         <View className="w-full flex-col gap-2 items-center">
           <View className="w-8/12 gap-1 mb-5">
-            <Text
-              className="text-base text-[#A60C0C]"
-            >
-              Nome
-            </Text>
+            <Text className="text-base text-[#A60C0C]">Nome</Text>
 
             <TextInput
               testID="name"
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Ex. João"}
-              selectionColor={'black'}
+              selectionColor={"black"}
               onChangeText={setname}
             ></TextInput>
-
           </View>
 
           <View className="w-8/12 gap-1 mb-5">
-            <Text
-              className="text-base text-[#A60C0C]"
-            >
-              Sobrenome
-            </Text>
+            <Text className="text-base text-[#A60C0C]">Sobrenome</Text>
 
             <TextInput
               testID="lastname"
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Ex. Ferreira"}
-              selectionColor={'black'}
+              selectionColor={"black"}
               onChangeText={setlastname}
             ></TextInput>
-
           </View>
 
           <View className="w-8/12 gap-1 mb-5">
-            <Text
-              className="text-base text-[#A60C0C]"
-            >
-              Endereço
-            </Text>
+            <Text className="text-base text-[#A60C0C]">Endereço</Text>
 
             <TextInput
               testID="address"
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Av. Equador, 556, Centro"}
-              selectionColor={'black'}
+              selectionColor={"black"}
               onChangeText={setaddress}
             ></TextInput>
-
           </View>
 
           <View className="w-8/12 gap-1 mb-5">
-            <Text
-              className="text-base text-[#A60C0C]"
-            >
-              E-mail
-            </Text>
+            <Text className="text-base text-[#A60C0C]">E-mail</Text>
 
             <TextInput
               testID="email"
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"fulano1234@gmail.com"}
-              selectionColor={'black'}
+              selectionColor={"black"}
               onChangeText={setemail}
             ></TextInput>
-
           </View>
 
           <View className="w-8/12 gap-1 mb-5">
-            <Text
-              className="text-base text-[#A60C0C]"
-            >
-              Senha
-            </Text>
+            <Text className="text-base text-[#A60C0C]">Senha</Text>
 
             <TextInput
               testID="pwd"
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Digite sua senha"}
-              selectionColor={'black'}
+              selectionColor={"black"}
               secureTextEntry={true}
               onChangeText={setpwd}
             ></TextInput>
-
           </View>
 
           <View className="w-8/12 gap-1 mb-5">
-            <Text
-              className="text-base text-[#A60C0C]"
-            >
+            <Text className="text-base text-[#A60C0C]">
               Confirmação de senha
             </Text>
 
             <TextInput
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Digite novamente sua senha"}
-              selectionColor={'black'}
+              selectionColor={"black"}
               secureTextEntry={true}
               onChangeText={setconfirmpwd}
             ></TextInput>
-
           </View>
         </View>
-
       </View>
 
       <CustomButton
         fontSize={14}
-        text={'Cadastrar'}
+        text={"Cadastrar"}
         type="PRIMARY"
         testID="registerButton"
         className="self-center mt-10 mb-10"
         onPress={() => register()}
       />
     </ScrollView>
-  )
+  );
 }

@@ -1,26 +1,25 @@
-import { render } from '@testing-library/react-native';
-import Profile from '../profile';
+import { render } from "@testing-library/react-native";
+import Profile from "../profile";
 
-jest.mock("../../src/assets/profile.svg", () => 'string qualquer')
-jest.mock("../../src/assets/mini_profile.svg", () => 'outra string qualquer')
+jest.mock("../../src/assets/profile.svg", () => "string qualquer");
+jest.mock("../../src/assets/mini_profile.svg", () => "outra string qualquer");
 
-describe('test profile page', () => {
-
-  it('snapshot test', () => {
+describe("test profile page", () => {
+  it("snapshot test", () => {
     const page = render(<Profile />);
 
     expect(page).toMatchSnapshot();
-  })
+  });
 
-  it('Testando botão de voltar', () => {
+  it("Testando botão de voltar", () => {
     const page = render(<Profile />);
 
-    expect(page.getByTestId('goBack')).toBeDefined();
-  })
+    expect(page.getByTestId("goBack")).toBeDefined();
+  });
 
-  it('Testando botão de ver restaurantes', () => {
+  it("Testando botão de ver restaurantes", () => {
     const page = render(<Profile />);
 
-    expect(page.getByTestId('seeRestaurants')).toBeDefined();
-  })
-})
+    expect(page.getByTestId("seeRestaurants")).toBeDefined();
+  });
+});

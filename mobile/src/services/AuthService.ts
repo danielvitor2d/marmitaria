@@ -19,19 +19,24 @@ interface LoginResponse {
 }
 
 interface RegisterResponse {
-  registered: boolean; 
+  registered: boolean;
 }
 
-async function serviceLogin({ email, pwd }: LoginInput): Promise<LoginResponse> {
+async function serviceLogin({
+  email,
+  pwd,
+}: LoginInput): Promise<LoginResponse> {
   try {
-    const response = 
-      await api.post<{}, AxiosResponse<LoginResponse>>('/users/session', { email, pwd })
-    return response.data
+    const response = await api.post<{}, AxiosResponse<LoginResponse>>(
+      "/users/session",
+      { email, pwd }
+    );
+    return response.data;
   } catch (err) {
     console.error(err);
     return {
       isLogged: false,
-    }
+    };
   }
 }
 
@@ -40,27 +45,26 @@ async function serviceRegister({
   email,
   lastname,
   name,
-  pwd
+  pwd,
 }: RegisterInput): Promise<RegisterResponse> {
   try {
-    const response =
-      await api.post<{}, AxiosResponse<RegisterResponse>>('/users', {
+    const response = await api.post<{}, AxiosResponse<RegisterResponse>>(
+      "/users",
+      {
         name,
         lastname,
         address,
         email,
         pwd,
-      })
-    return response.data
+      }
+    );
+    return response.data;
   } catch (err) {
     console.error(err);
     return {
       registered: false,
-    }
+    };
   }
 }
 
-export {
-  serviceLogin,
-  serviceRegister,
-};
+export { serviceLogin, serviceRegister };

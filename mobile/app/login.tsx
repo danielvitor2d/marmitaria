@@ -1,78 +1,72 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Image, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Text,
+  ToastAndroid,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
-import logo from '../src/assets/logo.jpeg';
-import { serviceLogin } from '../src/services/AuthService';
+import logo from "../src/assets/logo.jpeg";
+import { serviceLogin } from "../src/services/AuthService";
 
 export default function Login() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [email, setEmail] = useState('');
-  const [pwd, setPwd] = useState('');
+  const [email, setEmail] = useState("");
+  const [pwd, setPwd] = useState("");
 
   async function login() {
     const { isLogged } = await serviceLogin({ email, pwd });
-  
+
     if (isLogged) {
       ToastAndroid.showWithGravity(
         `Dados corretos.`,
         ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
+        ToastAndroid.CENTER
       );
-      router.replace('restaurants');
+      router.replace("restaurants");
     } else {
       ToastAndroid.showWithGravity(
         `E-mail e/ou senha incorretos`,
         ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
+        ToastAndroid.CENTER
       );
     }
   }
 
   return (
-    <View
-      className="flex-1 flex-col items-center justify-center gap-10"
-    >
-      <Image
-        source={logo}
-        className="h-32 w-44 border"
-      />
+    <View className="flex-1 flex-col items-center justify-center gap-10">
+      <Image source={logo} className="h-32 w-44 border" />
 
       <View className="flex-col w-full items-center">
         <View className="w-8/12 gap-1 mb-5">
-          <Text
-            className="text-base text-[#A60C0C]"
-          >
-            Login
-          </Text>
+          <Text className="text-base text-[#A60C0C]">Login</Text>
 
           <TextInput
             className="px-4 py-2 border border-[#797979] rounded-xl"
             placeholder={"Digite seu e-mail"}
-            selectionColor={'black'}
+            selectionColor={"black"}
             onChangeText={setEmail}
           ></TextInput>
-
         </View>
 
         <View className="w-8/12 gap-1">
-          <Text
-            className="text-base text-[#A60C0C]"
-          >Senha</Text>
+          <Text className="text-base text-[#A60C0C]">Senha</Text>
 
           <TextInput
             className="px-4 py-2 border border-[#797979] rounded-xl"
             placeholder={"Digite sua senha"}
-            selectionColor={'black'}
+            selectionColor={"black"}
             onChangeText={setPwd}
             secureTextEntry={true}
           ></TextInput>
 
           <TouchableOpacity
             activeOpacity={0.7}
-            onPress={() => router.push('forgot_password')}
+            onPress={() => router.push("forgot_password")}
             testID="forgot_password"
           >
             <Text className="text-[#797979] text-right">
@@ -80,7 +74,6 @@ export default function Login() {
             </Text>
           </TouchableOpacity>
         </View>
-
       </View>
 
       <View className="mt-10 w-full items-center gap-3">
@@ -90,9 +83,7 @@ export default function Login() {
           testID="login"
           className="px-4 py-2 w-8/12 bg-[#A60C0C] rounded-xl items-center"
         >
-          <Text className="text-white text-base">
-            Entrar
-          </Text>
+          <Text className="text-white text-base">Entrar</Text>
         </TouchableOpacity>
 
         <Text className="text-[#797979">ou</Text>
@@ -103,35 +94,27 @@ export default function Login() {
             ToastAndroid.showWithGravity(
               `Em breve.`,
               ToastAndroid.SHORT,
-              ToastAndroid.CENTER,
+              ToastAndroid.CENTER
             );
           }}
           testID="loginWithG"
           className="px-4 py-2 w-8/12 bg-[#34416D] rounded-xl items-center"
         >
-          <Text className="text-white text-base">
-            Login com G
-          </Text>
+          <Text className="text-white text-base">Login com G</Text>
         </TouchableOpacity>
-
       </View>
 
       <View className="pt-5 flex-row items-center gap-1">
-        <Text className="text-[#797979]">
-          Não possui acesso?
-        </Text>
+        <Text className="text-[#797979]">Não possui acesso?</Text>
 
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => router.push('registration')}
+          onPress={() => router.push("registration")}
           testID="registerButton"
         >
-          <Text className="text-[#A60C0C]">
-            Cadastre-se
-          </Text>
+          <Text className="text-[#A60C0C]">Cadastre-se</Text>
         </TouchableOpacity>
-
       </View>
     </View>
-  )
+  );
 }

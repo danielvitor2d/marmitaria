@@ -16,8 +16,8 @@ export function generateRandomPatternArray(): number[] {
 }
 
 export function generateRandomValue(): string {
-  const randomRealPart = Math.floor(Math.random() * 6) + 10;  // Gera um número aleatório entre 10 e 15 (inclusive)
-  const randomCentavosPart = (Math.random() < 0.5) ? '00' : '50';  // 50% de chance de ser 00, 50% de chance de ser 50
+  const randomRealPart = Math.floor(Math.random() * 6) + 10; // Gera um número aleatório entre 10 e 15 (inclusive)
+  const randomCentavosPart = Math.random() < 0.5 ? "00" : "50"; // 50% de chance de ser 00, 50% de chance de ser 50
 
   // Formata o valor no formato desejado
   const formattedValue = `${randomRealPart},${randomCentavosPart}`;

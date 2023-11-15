@@ -1,40 +1,39 @@
-import { render } from '@testing-library/react-native';
+import { render } from "@testing-library/react-native";
 
-import Login from '../login';
+import Login from "../login";
 
-describe('test login page', () => {
-
-  it('snapshot test', () => {
+describe("test login page", () => {
+  it("snapshot test", () => {
     const page = render(<Login />);
 
     expect(page).toMatchSnapshot();
-  })
+  });
 
-  it('Testando botão de logar', () => {
+  it("Testando botão de logar", () => {
     const page = render(<Login />);
 
-    expect(page.getByTestId('login')).toBeDefined();
-  })
+    expect(page.getByTestId("login")).toBeDefined();
+  });
 
-  it('Testando botão de logar com google', () => {
+  it("Testando botão de logar com google", () => {
     const page = render(<Login />);
 
-    expect(page.getByTestId('loginWithG')).toBeDefined();
-  })
+    expect(page.getByTestId("loginWithG")).toBeDefined();
+  });
 
-  it('Testando botão de cadastrar', () => {
+  it("Testando botão de cadastrar", () => {
     const page = render(<Login />);
 
-    expect(page.getByTestId('registerButton')).toBeDefined();
-  })
+    expect(page.getByTestId("registerButton")).toBeDefined();
+  });
 
-  it('Testando botão de esqueci a senha', () => {
+  it("Testando botão de esqueci a senha", () => {
     const page = render(<Login />);
 
-    expect(page.getByTestId('forgot_password')).toBeDefined();
-  })
+    expect(page.getByTestId("forgot_password")).toBeDefined();
+  });
 
-  it('isTrue', () => {
-    expect(true).toBe(true)
-  })
-})
+  it("isTrue", () => {
+    expect(true).toBe(true);
+  });
+});

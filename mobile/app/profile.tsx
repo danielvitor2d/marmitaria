@@ -12,65 +12,43 @@ export default function Profile() {
         type={"PRIMARY"}
         size={28}
         testID="goBack"
-        className={'w-full ml-4'}
+        className={"w-full ml-4"}
       />
 
       <View className="flex-1 w-full flex-col items-center gap-4">
-        <Text className="text-2xl text-[#A60C0C] font-bold">
-          Perfil
-        </Text>
+        <Text className="text-2xl text-[#A60C0C] font-bold">Perfil</Text>
 
-        <ProfileImage
-          className="h-32 w-44 border"
-        />
+        <ProfileImage className="h-32 w-44 border" />
 
         <View className="w-full flex-col gap-2 items-center">
           <View className="w-8/12 gap-1 mb-5">
-            <Text
-              className="text-base text-[#A60C0C]"
-            >
-              Nome
-            </Text>
+            <Text className="text-base text-[#A60C0C]">Nome</Text>
 
             <TextInput
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Ex. João"}
               selectionColor={"black"}
-            >
-            </TextInput>
-
+            ></TextInput>
           </View>
 
           <View className="w-8/12 gap-1 mb-5">
-            <Text
-              className="text-base text-[#A60C0C]"
-            >
-              Sobrenome
-            </Text>
+            <Text className="text-base text-[#A60C0C]">Sobrenome</Text>
 
             <TextInput
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Ex. Ferreira"}
               selectionColor={"black"}
-            >
-            </TextInput>
-
+            ></TextInput>
           </View>
 
           <View className="w-8/12 gap-1 mb-5">
-            <Text
-              className="text-base text-[#A60C0C]"
-            >
-              Endereço
-            </Text>
+            <Text className="text-base text-[#A60C0C]">Endereço</Text>
 
             <TextInput
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Av. Equador, 556, Centro"}
               selectionColor={"black"}
-            >
-            </TextInput>
-
+            ></TextInput>
           </View>
 
           {/* <View className="w-8/12 gap-1 mb-5">
@@ -89,7 +67,6 @@ export default function Profile() {
             </TextInput>
 
           </View> */}
-
         </View>
       </View>
 
@@ -102,5 +79,5 @@ export default function Profile() {
         onPress={() => {}}
       />
     </ScrollView>
-  )
+  );
 }

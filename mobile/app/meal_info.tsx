@@ -1,22 +1,30 @@
-import { Feather, FontAwesome } from '@expo/vector-icons';
+import { Feather, FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { Image, ScrollView, Text, TextInput, ToastAndroid, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  Text,
+  TextInput,
+  ToastAndroid,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-import FeijoadaImage from '../src/assets/feijoada.png';
-import ProfileImage from '../src/assets/mini_profile.svg';
+import FeijoadaImage from "../src/assets/feijoada.png";
+import ProfileImage from "../src/assets/mini_profile.svg";
 import { BackButton } from "../src/components/back_button";
-import { CustomButton } from '../src/components/custom_button';
+import { CustomButton } from "../src/components/custom_button";
 import { Header } from "../src/components/header";
 import { generateRandomPatternArray } from "../src/utils/fake";
 
 export default function MealInfo() {
-  const router = useRouter()
+  const router = useRouter();
 
   function onAddFoto() {
     ToastAndroid.showWithGravity(
       `Adicionar foto`,
       ToastAndroid.SHORT,
-      ToastAndroid.CENTER,
+      ToastAndroid.CENTER
     );
   }
 
@@ -24,7 +32,7 @@ export default function MealInfo() {
     ToastAndroid.showWithGravity(
       `Cadastrando avaliação`,
       ToastAndroid.SHORT,
-      ToastAndroid.CENTER,
+      ToastAndroid.CENTER
     );
   }
 
@@ -35,21 +43,17 @@ export default function MealInfo() {
           name={"arrow-left"}
           size={28}
           testID="goBack"
-          className={'text-white'}
+          className={"text-white"}
           onPress={() => router.back()}
         />
 
-        <Text className="text-white text-lg">
-          Cardápio
-        </Text>
+        <Text className="text-white text-lg">Cardápio</Text>
 
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => router.push('profile')}
+          onPress={() => router.push("profile")}
         >
-          <ProfileImage
-            className="h-2 w-2 border bg-green-600"
-          />
+          <ProfileImage className="h-2 w-2 border bg-green-600" />
         </TouchableOpacity>
       </Header>
 
@@ -61,10 +65,7 @@ export default function MealInfo() {
         </View>
 
         <View className="px-1 mt-2 flex-1">
-          <Image
-            source={FeijoadaImage}
-            className="w-full"
-          />
+          <Image source={FeijoadaImage} className="w-full" />
 
           <View className="flex-1 w-full mt-1 px-8 py-2 items-center">
             <View className="w-full mb-3">
@@ -75,8 +76,8 @@ export default function MealInfo() {
               <TextInput
                 className="h-28 w-full p-2 border border-s-2 border-[#797979] rounded-md"
                 multiline
-                cursorColor={'#5C6265'}
-                textAlignVertical='top'
+                cursorColor={"#5C6265"}
+                textAlignVertical="top"
                 numberOfLines={8}
               />
             </View>
@@ -97,8 +98,8 @@ export default function MealInfo() {
               </Text>
 
               <View className="w-full flex-row gap-2 items-center">
-                {[1, 1, 1, 1].map(() => (
-                  <TouchableOpacity activeOpacity={0.7}>
+                {[1, 2, 3, 4].map((idx) => (
+                  <TouchableOpacity key={idx} activeOpacity={0.7}>
                     <Image
                       source={FeijoadaImage}
                       className="w-12 h-12 bg-[#A60C0C] rounded-md"
@@ -110,11 +111,7 @@ export default function MealInfo() {
                   activeOpacity={0.7}
                   onPress={() => onAddFoto()}
                 >
-                  <Feather
-                    name={'plus-circle'}
-                    size={35}
-                    color={'#A60C0C'}
-                  />
+                  <Feather name={"plus-circle"} size={35} color={"#A60C0C"} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -124,12 +121,25 @@ export default function MealInfo() {
                 Experiência
               </Text>
 
-              <View className='flex-row'>
-                {generateRandomPatternArray().map((i, v) => (
-                  i == 1 
-                    ? <FontAwesome size={24} color='#E49024' key={v} name='star' />
-                    : <FontAwesome size={24} color='#FF8B3A' key={v} name='star-o' disabled={true} />
-                ))}
+              <View className="flex-row">
+                {generateRandomPatternArray().map((i, v) =>
+                  i == 1 ? (
+                    <FontAwesome
+                      size={24}
+                      color="#E49024"
+                      key={v}
+                      name="star"
+                    />
+                  ) : (
+                    <FontAwesome
+                      size={24}
+                      color="#FF8B3A"
+                      key={v}
+                      name="star-o"
+                      disabled={true}
+                    />
+                  )
+                )}
               </View>
             </View>
           </View>
@@ -138,12 +148,12 @@ export default function MealInfo() {
 
       <CustomButton
         fontSize={14}
-        text={'Cadastrar avaliação'}
+        text={"Cadastrar avaliação"}
         type="PRIMARY"
         testID="registerButton"
         className="self-center mt-5"
         onPress={() => onCadastrarAvaliacao()}
       />
     </View>
-  )
+  );
 }
