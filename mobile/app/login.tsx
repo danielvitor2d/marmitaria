@@ -13,8 +13,8 @@ export default function Login() {
   const [pwd, setPwd] = useState('');
 
   async function login() {
-    router.replace('restaurants');
-    return;
+    // router.replace('restaurants');
+    // return;
 
     try {
       const { isLogged } = (await api.post('/users/session', { email, pwd })).data as { isLogged: boolean };

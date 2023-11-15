@@ -10,6 +10,19 @@ export class UserController {
 
   constructor(private readonly userService: UsersService) {}
 
+  @Post('/session')
+  async login(@Body() login: LoginPayload) {
+    console.log(login);
+    try {
+      const res = await this.userService.checkLogin(login);
+      return {
+        isLogged: res,
+      };
+    } catch (error) {
+      this.logger.error(`could not find all users due to error: ${error}`);
+    }
+  }
+
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     try {
@@ -44,18 +57,6 @@ export class UserController {
     try {
       const users = await this.userService.findAll();
       return users;
-    } catch (error) {
-      this.logger.error(`could not find all users due to error: ${error}`);
-    }
-  }
-
-  @Post('/session')
-  async login(@Body() login: LoginPayload) {
-    try {
-      const res = await this.userService.checkLogin(login);
-      return {
-        isLogged: res,
-      };
     } catch (error) {
       this.logger.error(`could not find all users due to error: ${error}`);
     }

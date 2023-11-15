@@ -40,6 +40,7 @@ export class UsersService {
 
   async checkLogin({ email, pwd }: LoginPayload) {
     const res = await this.userModel.findOne({ email }).exec();
+    console.log(`res: ${res}`);
 
     return res && bcrypt.compareSync(pwd, res.pwd);
   }
