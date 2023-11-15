@@ -1,6 +1,9 @@
+import { AxiosResponse } from "axios";
+import { api } from "../lib/api";
+
 interface LoginInput {
   email: string;
-  password: string;
+  pwd: string;
 }
 
 interface RegisterInput {
@@ -12,17 +15,52 @@ interface RegisterInput {
 }
 
 interface LoginResponse {
-
+  isLogged: boolean;
 }
 
 interface RegisterResponse {
-  
+  registered: boolean; 
 }
 
-export async function Login(loginInput: LoginInput): Promise<LoginResponse> {
-  return {} as Promise<LoginResponse>
+async function serviceLogin({ email, pwd }: LoginInput): Promise<LoginResponse> {
+  try {
+    const response = 
+      await api.post<{}, AxiosResponse<LoginResponse>>('/users/session', { email, pwd })
+    return response.data
+  } catch (err) {
+    console.error(err);
+    return {
+      isLogged: false,
+    }
+  }
 }
 
-export async function Register(registerInput: RegisterInput): Promise<RegisterResponse> {
-  return {} as Promise<RegisterResponse>
+async function serviceRegister({
+  address,
+  email,
+  lastname,
+  name,
+  pwd
+}: RegisterInput): Promise<RegisterResponse> {
+  try {
+    const response =
+      await api.post<{}, AxiosResponse<RegisterResponse>>('/users', {
+        name,
+        lastname,
+        address,
+        email,
+        pwd,
+      })
+    return response.data
+  } catch (err) {
+    console.error(err);
+    return {
+      registered: false,
+    }
+  }
 }
+
+export {
+  serviceLogin,
+  serviceRegister,
+};

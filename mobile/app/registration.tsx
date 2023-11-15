@@ -1,10 +1,10 @@
-import { ScrollView, Text, TextInput, ToastAndroid, View } from "react-native";
-
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { ScrollView, Text, TextInput, ToastAndroid, View } from "react-native";
+
 import { BackButton } from "../src/components/back_button";
 import { CustomButton } from "../src/components/custom_button";
-import { api } from "../src/lib/api";
+import { serviceRegister } from '../src/services/AuthService';
 
 export default function Registration() {
   const router = useRouter();
@@ -26,25 +26,13 @@ export default function Registration() {
       return
     }
 
-    // ToastAndroid.showWithGravity(
-    //   `Verificando dados...
-    //   Nome: ${name}
-    //   Sobrenome: ${lastname}
-    //   Endereço: ${address}
-    //   E-mail: ${email}
-    //   Password: ${pwd}
-    //   `,
-    //   ToastAndroid.SHORT,
-    //   ToastAndroid.CENTER,
-    // );
-
-    const { registered } = (await api.post('/users', {
-      name,
-      lastname,
+    const { registered } = await serviceRegister({
       address,
       email,
-      pwd
-    })).data
+      lastname,
+      name,
+      pwd,
+    })
 
     if (registered) {
       ToastAndroid.showWithGravity(

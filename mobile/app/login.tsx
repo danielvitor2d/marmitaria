@@ -4,7 +4,7 @@ import { Image, Text, ToastAndroid, TouchableOpacity, View } from "react-native"
 import { TextInput } from "react-native-gesture-handler";
 
 import logo from '../src/assets/logo.jpeg';
-import { api } from "../src/lib/api";
+import { serviceLogin } from '../src/services/AuthService';
 
 export default function Login() {
   const router = useRouter()
@@ -13,28 +13,21 @@ export default function Login() {
   const [pwd, setPwd] = useState('');
 
   async function login() {
-    // router.replace('restaurants');
-    // return;
-
-    try {
-      const { isLogged } = (await api.post('/users/session', { email, pwd })).data as { isLogged: boolean };
-    
-      if (isLogged) {
-        ToastAndroid.showWithGravity(
-          `Dados corretos.`,
-          ToastAndroid.SHORT,
-          ToastAndroid.CENTER,
-        );
-        router.replace('restaurants');
-      } else {
-        ToastAndroid.showWithGravity(
-          `E-mail e/ou senha incorretos`,
-          ToastAndroid.SHORT,
-          ToastAndroid.CENTER,
-        );
-      }
-    } catch (error) {
-      console.error('err: ' + error);
+    const { isLogged } = await serviceLogin({ email, pwd });
+  
+    if (isLogged) {
+      ToastAndroid.showWithGravity(
+        `Dados corretos.`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
+      router.replace('restaurants');
+    } else {
+      ToastAndroid.showWithGravity(
+        `E-mail e/ou senha incorretos`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
     }
   }
 
@@ -95,7 +88,6 @@ export default function Login() {
           activeOpacity={0.7}
           onPress={() => login()}
           testID="login"
-          // onPress={() => router.push('restaurants')}
           className="px-4 py-2 w-8/12 bg-[#A60C0C] rounded-xl items-center"
         >
           <Text className="text-white text-base">
