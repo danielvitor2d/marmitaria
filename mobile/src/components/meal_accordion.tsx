@@ -56,7 +56,11 @@ export default function MealAccordion({ title, children, onRemove }: Props) {
           <View className="w-7/12 px-4 py-2 flex-row justify-between items-center border border-[#797979] rounded-lg">
             <Text className="text-lg">{title}</Text>
             <Animated.View style={{ transform: [{ rotateZ: arrowAngle }] }}>
-              <MaterialIcons name="keyboard-arrow-down" size={26} color="black" />
+              <MaterialIcons
+                name="keyboard-arrow-down"
+                size={26}
+                color="black"
+              />
             </Animated.View>
           </View>
         </TouchableWithoutFeedback>
@@ -66,10 +70,7 @@ export default function MealAccordion({ title, children, onRemove }: Props) {
           className="ml-2"
           onPress={() => onRemove()}
         >
-          <FontAwesome
-            size={20}
-            name={"trash"}
-          />
+          <FontAwesome size={20} name={"trash"} />
         </TouchableOpacity>
       </View>
 

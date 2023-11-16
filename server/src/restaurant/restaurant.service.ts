@@ -12,7 +12,7 @@ export class RestaurantService {
     private restaurantModel: Model<Restaurant>,
   ) {}
 
-  async create(createRestDto: CreateRestDto): Promise<Restaurant> {
+  async create(createRestDto: CreateRestDto) {
     const created = new this.restaurantModel(createRestDto);
     return created.save();
   }

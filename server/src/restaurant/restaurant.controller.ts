@@ -22,12 +22,20 @@ export class RestaurantController {
     try {
       const response = await this.restService.create(createRest);
       return {
-        registered: response !== undefined,
+        registered: response !== null,
+        rest: {
+          id: response._id,
+          name: response.name,
+          address: response.address,
+          value: response.value,
+          paymentforms: response.paymentforms,
+        },
       };
     } catch (error) {
       this.logger.error(`could not create a new rest due to error: ${error}`);
       return {
-        registered: null,
+        registered: false,
+        restaurant: null,
       };
     }
   }
@@ -38,11 +46,27 @@ export class RestaurantController {
     @Param('meal_id') meal_id: string,
   ) {
     try {
-      return this.restService.addMealToRest(id, meal_id);
+      const rest = await this.restService.addMealToRest(id, meal_id);
+      if (!rest)
+        return {
+          added: false,
+          rest: null,
+        };
+      return {
+        added: true,
+        rest: {
+          id: rest._id,
+          name: rest.name,
+          address: rest.address,
+          value: rest.value,
+          paymentforms: rest.paymentforms,
+          meals: rest.meals,
+        },
+      };
     } catch (error) {
       this.logger.error(`could not update rest due to error: ${error}`);
       return {
-        updated: false,
+        added: false,
         rest: null,
       };
     }

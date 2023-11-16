@@ -24,6 +24,12 @@ export class MealController {
       const response = await this.mealsService.create(createMealDto);
       return {
         registered: response !== undefined,
+        meal: {
+          id: response._id,
+          name: response.name,
+          desc: response.desc,
+          value: response.value,
+        },
       };
     } catch (error) {
       this.logger.error(`could not create a new meal due to error: ${error}`);

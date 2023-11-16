@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { ScrollView, Text, TextInput, ToastAndroid, View } from "react-native";
 
+import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { BackButton } from "../../src/components/back_button";
 import { CustomButton } from "../../src/components/custom_button";
 import MealAccordion from "../../src/components/meal_accordion";
+import { register } from "../../src/services/meal-service";
+import { addMeal, register as registerRest } from "../../src/services/rest-service";
 
 interface Prato {
   id: number;
@@ -14,6 +17,8 @@ interface Prato {
 }
 
 export default function RegisterRestaurant() {
+  const router = useRouter()
+
   const [name, setName] = useState("");
   const [address, setaddress] = useState("");
   const [price, setprice] = useState("");
@@ -23,7 +28,13 @@ export default function RegisterRestaurant() {
   const [pratos, setPratos] = useState<Array<Prato>>([]);
 
   async function onRegister() {
-    if (!name.length || !address.length || !price.length || !paymentforms.length || !pratos.length) {
+    if (
+      !name.length ||
+      !address.length ||
+      !price.length ||
+      !paymentforms.length ||
+      !pratos.length
+    ) {
       ToastAndroid.showWithGravity(
         `Existem informações faltando.`,
         ToastAndroid.SHORT,
@@ -32,8 +43,45 @@ export default function RegisterRestaurant() {
 
       return;
     }
-    
-    
+
+    let mealsId: Array<string> = [];
+    for await (const prato of pratos) {
+      const { registered, meal } = await register({
+        name: prato.name,
+        desc: prato.description,
+        value: prato.value,
+      });
+      if (registered && meal) {
+        mealsId.push(meal?.id);
+      }
+    }
+
+    const { rest, registered: restRegistered } = await registerRest({
+      name,
+      address,
+      paymentforms,
+      value: price,
+    });
+
+    if (restRegistered && rest) {
+      for await (const mealId of mealsId) {
+        await addMeal(rest.id, mealId)
+      }
+
+      ToastAndroid.showWithGravity(
+        `Restaurante cadastrado com sucesso!`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+
+      router.back();
+    } else {
+      ToastAndroid.showWithGravity(
+        `Erro ao cadastrar restaurante.`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+    }
   }
 
   function onAddPrato() {
@@ -46,7 +94,7 @@ export default function RegisterRestaurant() {
         value: "",
       },
     ]);
-    setCounterIdx(prev => prev + 1)
+    setCounterIdx((prev) => prev + 1);
   }
 
   function onRemovePrato(idx: number) {
@@ -111,9 +159,7 @@ export default function RegisterRestaurant() {
             </View>
 
             <View className="w-8/12 gap-1 mb-5">
-              <Text className="text-base text-black">
-                Formas de Pagamento
-              </Text>
+              <Text className="text-base text-black">Formas de Pagamento</Text>
 
               <TextInput
                 testID="name"
@@ -142,8 +188,12 @@ export default function RegisterRestaurant() {
               </View>
 
               <View className="w-full">
-                {pratos.map(prato => (
-                  <MealAccordion key={prato.id} title={prato.name} onRemove={() => onRemovePrato(prato.id)}>
+                {pratos.map((prato) => (
+                  <MealAccordion
+                    key={prato.id}
+                    title={prato.name}
+                    onRemove={() => onRemovePrato(prato.id)}
+                  >
                     <View className="w-full pt-2">
                       {/* <TouchableOpacity
                         activeOpacity={0.5}
@@ -207,9 +257,7 @@ export default function RegisterRestaurant() {
                       </View>
 
                       <View className="w-full gap-1 mb-5">
-                        <Text className="text-base text-[#A60C0C]">
-                          Valor
-                        </Text>
+                        <Text className="text-base text-[#A60C0C]">Valor</Text>
 
                         <TextInput
                           testID="name"
