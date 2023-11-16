@@ -5,7 +5,7 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { useContext, useState } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import ProfileImage from "../src/assets/mini_profile.svg";
@@ -13,9 +13,23 @@ import { BackButton } from "../src/components/back_button";
 import { Header } from "../src/components/header";
 import { RestaurantCard } from "../src/components/restaurant_card";
 import AuthContext from "../src/contexts/auth";
+import { getRests } from "../src/services/rest-service";
+import { addFavorite, rmvFavorite } from "../src/services/user-service";
 
-interface Restaurant {
+export interface Meal {
+  id: string;
   name: string;
+  desc: string;
+  value: string;
+}
+
+export interface Restaurant {
+  id: string;
+  name: string;
+  address: string;
+  value: string;
+  paymentforms: string;
+  meals: Array<Meal>;
 }
 
 type ModeType = "list" | "fav-list" | "map";
@@ -24,34 +38,14 @@ export default function Restaurants() {
   const authContext = useContext(AuthContext);
   if (!authContext) return null;
 
-  const { logout, isAdmin } = authContext;
+  const { logout, isAdmin, setRest, user, refetchUser } = authContext;
+  if (!user) return null;
+
   const router = useRouter();
 
   const [mode, setMode] = useState<ModeType>("list");
 
-  const restaurants: Array<Restaurant> = [
-    {
-      name: "Restaurante Bondiboka",
-    },
-    {
-      name: "Sabores do Sertão",
-    },
-    {
-      name: "Nori",
-    },
-    {
-      name: `Pizza's`,
-    },
-    {
-      name: `Vila da Telha`,
-    },
-    {
-      name: `Quinta Estação`,
-    },
-    {
-      name: `Pannetus`,
-    },
-  ];
+  const [restaurants, setrestaurants] = useState<Array<Restaurant>>([]);
 
   function onChangeMode(newMode: ModeType) {
     setMode(newMode);
@@ -67,6 +61,32 @@ export default function Restaurants() {
 
     router.push("admin/register_restaurant");
   }
+
+  async function fetchRestaurants() {
+    const rests = await getRests();
+    // console.log(rests);
+    setrestaurants([...rests]);
+  }
+
+  async function onClickFavorite(rest_id: string) {
+    if (!user) return;
+
+    if (user.favorites.includes(rest_id)) {
+      rmvFavorite(user.id, rest_id);
+    } else {
+      addFavorite(user.id, rest_id);
+    }
+
+    await new Promise((resolve) => setTimeout(() => resolve(true), 500))
+    await fetchRestaurants()
+    await new Promise((resolve) => setTimeout(() => resolve(true), 500))
+    await refetchUser()
+  }
+
+  useLayoutEffect(() => {
+    fetchRestaurants();
+    setRest(null);
+  }, []);
 
   return (
     <View className="flex-1 relative">
@@ -156,18 +176,31 @@ export default function Restaurants() {
         {mode === "list" ? (
           <View className="px-1">
             {restaurants.map((rest, idx) => (
-              <RestaurantCard key={idx} name={rest.name} />
+              <RestaurantCard
+                key={idx}
+                rest={rest}
+                isFavorite={!!user.favorites.includes(rest.id)}
+                onClickFavorite={() => onClickFavorite(rest.id)}
+              />
             ))}
           </View>
         ) : mode === "fav-list" ? (
           <View className="px-1">
-            {restaurants.map((rest, idx) => (
-              <RestaurantCard key={idx} name={rest.name} />
-            ))}
+            {restaurants.map(
+              (rest, idx) =>
+                user.favorites.includes(rest.id) && (
+                  <RestaurantCard
+                    key={idx}
+                    rest={rest}
+                    isFavorite={true}
+                    onClickFavorite={() => onClickFavorite(rest.id)}
+                  />
+                )
+            )}
           </View>
         ) : (
           <View className="w-full h-full p-1 flex-1 items-center justify-center">
-            <Text>Mapa</Text>
+            <Text className="text-lg font-bold">Em Breve!</Text>
           </View>
         )}
       </ScrollView>

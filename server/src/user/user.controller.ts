@@ -32,6 +32,30 @@ export class UserController {
     }
   }
 
+  @Patch('/:id/favorite/add/:rest_id')
+  async addFavorite(
+    @Param('id') id: string,
+    @Param('rest_id') rest_id: string,
+  ) {
+    const user = await this.userService.addFavorite(id, rest_id);
+
+    return {
+      success: user !== undefined,
+    };
+  }
+
+  @Patch('/:id/favorite/rmv/:rest_id')
+  async rmvFavorite(
+    @Param('id') id: string,
+    @Param('rest_id') rest_id: string,
+  ) {
+    const user = await this.userService.rmvFavorite(id, rest_id);
+
+    return {
+      success: user !== undefined,
+    };
+  }
+
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     try {
@@ -57,6 +81,26 @@ export class UserController {
         updated: false,
         user: null,
       };
+    }
+  }
+
+  @Get('/:id')
+  async get(@Param('id') id: string) {
+    try {
+      const user = await this.userService.get(id);
+      return {
+        user: {
+          id: user._id,
+          name: user.name,
+          lastName: user.lastName,
+          email: user.email,
+          address: user.address,
+          pwd: user.pwd,
+          favorites: user.favorites.map((fav) => fav.toString()),
+        },
+      };
+    } catch (error) {
+      this.logger.error(`could not find all users due to error: ${error}`);
     }
   }
 

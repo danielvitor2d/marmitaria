@@ -20,8 +20,8 @@ export default function Login() {
 
   const router = useRouter();
 
-  const [email, setEmail] = useState("admin");
-  const [pwd, setPwd] = useState("admin");
+  const [email, setEmail] = useState("daniel@mail.com");
+  const [pwd, setPwd] = useState("d123");
 
   async function login() {
     const { logged } = await signIn(email, pwd);

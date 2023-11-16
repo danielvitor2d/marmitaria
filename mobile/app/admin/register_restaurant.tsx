@@ -7,7 +7,10 @@ import { BackButton } from "../../src/components/back_button";
 import { CustomButton } from "../../src/components/custom_button";
 import MealAccordion from "../../src/components/meal_accordion";
 import { register } from "../../src/services/meal-service";
-import { addMeal, register as registerRest } from "../../src/services/rest-service";
+import {
+  addMeal,
+  register as registerRest,
+} from "../../src/services/rest-service";
 
 interface Prato {
   id: number;
@@ -17,7 +20,7 @@ interface Prato {
 }
 
 export default function RegisterRestaurant() {
-  const router = useRouter()
+  const router = useRouter();
 
   const [name, setName] = useState("");
   const [address, setaddress] = useState("");
@@ -65,8 +68,10 @@ export default function RegisterRestaurant() {
 
     if (restRegistered && rest) {
       for await (const mealId of mealsId) {
-        await addMeal(rest.id, mealId)
+        await addMeal(rest.id, mealId);
       }
+
+      await new Promise(resolve => setTimeout(() => resolve(true), 1000))
 
       ToastAndroid.showWithGravity(
         `Restaurante cadastrado com sucesso!`,

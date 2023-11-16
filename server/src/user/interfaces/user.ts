@@ -5,4 +5,5 @@ export interface User extends Document {
   readonly address: string;
   readonly pwd: string;
   readonly type?: string;
+  favorites: Array<string>;
 }

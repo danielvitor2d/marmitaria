@@ -88,7 +88,15 @@ export class RestaurantController {
   @Get()
   async findAll() {
     try {
-      return this.restService.findAll();
+      const rests = await this.restService.findAll();
+      return rests.map((rest) => ({
+        id: rest._id,
+        name: rest.name,
+        address: rest.address,
+        value: rest.value,
+        paymentforms: rest.paymentforms,
+        meals: rest.meals,
+      }));
     } catch (error) {
       this.logger.error(`could not find all users due to error: ${error}`);
     }

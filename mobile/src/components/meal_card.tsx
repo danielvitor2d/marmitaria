@@ -4,14 +4,15 @@ import { Image, Text, ToastAndroid, View } from "react-native";
 import { useRouter } from "expo-router";
 import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import RestaurantImage from "../assets/restaurant.png";
-import { generateRandomPatternArray, generateRandomValue } from "../utils/fake";
+import { Meal } from "../../app/restaurants";
+import FeijoadaImage from "../assets/feijoada.png";
+import { generateRandomPatternArray } from "../utils/fake";
 
 interface Props {
-  name: string;
+  meal: Meal;
 }
 
-export function MealCard({ name }: Props) {
+export function MealCard({ meal }: Props) {
   const router = useRouter();
 
   function handleSeeMeal() {
@@ -45,17 +46,17 @@ export function MealCard({ name }: Props) {
       onPress={() => handleSeeMeal()}
       className="w-full h-32 p-1 flex-row gap-0"
     >
-      <Image source={RestaurantImage} className="w-36 h-28" />
+      <Image source={FeijoadaImage} className="w-36 h-28" />
 
       <View className="w-full h-28 py-3 px-5 flex-1 bg-[#FFF2F2] flex-col justify-between">
-        <Text className="font-bold text-xs text-[#A60C0C]">{name}</Text>
+        <Text className="font-bold text-xs text-[#A60C0C]">{meal.name}</Text>
 
         <View className="flex-row items-center justify-between">
           <View className="flex-row">
             <Text className="text-[#EA6767] text-[10px]">Valor:</Text>
 
             <Text className="ml-1 text-[#EA6767] text-[10px]">
-              R$ {generateRandomValue()}
+              R$ {meal.value}
             </Text>
           </View>
 

@@ -24,8 +24,8 @@ interface RegisterResponse {
 }
 
 interface AddMealResponse {
-  added: boolean,
-  rest: Restaurant | null,
+  added: boolean;
+  rest: Restaurant | null;
 }
 
 async function register({ name, address, value, paymentforms }: RegisterInput) {
@@ -54,16 +54,30 @@ async function addMeal(id: string, mealId: string) {
     const response = await api.patch<{}, AxiosResponse<AddMealResponse>>(
       `/restaurants/${id}/meal/${mealId}`
     );
-    console.log(response.data)
+    // console.log(response.data);
 
     return response.data;
   } catch (err) {
     console.error(err);
     return {
       added: false,
-      restaurant: null
+      restaurant: null,
     };
   }
 }
 
-export { register, addMeal };
+async function getRests() {
+  try {
+    const response = await api.get<{}, AxiosResponse<Array<Restaurant>>>(
+      `/restaurants`
+    );
+    // console.log(response.data)
+
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
+}
+
+export { register, addMeal, getRests };

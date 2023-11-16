@@ -62,6 +62,24 @@ export class UsersService {
     };
   }
 
+  async addFavorite(id: string, rest_id: string) {
+    const user = await this.get(id);
+
+    if (!user) return false;
+    user.favorites.push(rest_id);
+
+    return user.save();
+  }
+
+  async rmvFavorite(id: string, rest_id: string) {
+    const user = await this.get(id);
+
+    if (!user) return false;
+    user.favorites = user.favorites.filter((fav) => fav.toString() !== rest_id);
+
+    return user.save();
+  }
+
   async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
   }
@@ -75,7 +93,7 @@ export class UsersService {
       };
     }
 
-    const { name, lastName, address, type, _id: id } = response;
+    const { name, lastName, address, type, favorites, _id: id } = response;
 
     return {
       logged: true,
@@ -86,6 +104,7 @@ export class UsersService {
         lastName,
         address,
         type,
+        favorites,
       },
     };
   }

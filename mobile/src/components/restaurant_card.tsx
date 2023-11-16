@@ -1,39 +1,39 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Image, Text, ToastAndroid, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+import { Restaurant } from "../../app/restaurants";
 import RestaurantImage from "../assets/restaurant.png";
 import AuthContext from "../contexts/auth";
-import { generateRandomPatternArray, generateRandomValue } from "../utils/fake";
+import { generateRandomPatternArray } from "../utils/fake";
 
 interface Props {
-  name: string;
+  rest: Restaurant;
+  isFavorite: boolean;
+  onClickFavorite: () => void;
 }
 
-export function RestaurantCard({ name }: Props) {
+export function RestaurantCard({ rest, isFavorite, onClickFavorite }: Props) {
   const authContext = useContext(AuthContext);
   if (!authContext) return null;
 
-  const { isAdmin } = authContext;
-
-  const [isFavourite, setIsFavourite] = useState(false);
+  const { isAdmin, setRest } = authContext;
 
   const router = useRouter();
 
-  function handleSeeRestaurant() {
+  async function handleSeeRestaurant() {
     ToastAndroid.showWithGravity(
       `Redirecionando para página do restaurante`,
       ToastAndroid.SHORT,
       ToastAndroid.CENTER
     );
 
-    router.push("restaurant");
-  }
+    setRest(rest);
+    // console.log(rest)
 
-  function onClickFavourite() {
-    setIsFavourite((prev) => !prev);
+    router.push("restaurant");
   }
 
   function onEditRestaurant() {
@@ -51,14 +51,14 @@ export function RestaurantCard({ name }: Props) {
       <View className="w-full h-28 py-3 px-5 flex-1 bg-[#FFF2F2] flex-col justify-between">
         <View className="w-full flex-col">
           <View className="flex-row justify-between items-center">
-            <Text className="text-[#A60C0C]">{name}</Text>
+            <Text className="text-[#A60C0C]">{rest.name}</Text>
 
             {!isAdmin ? (
               <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => onClickFavourite()}
+                onPress={() => onClickFavorite()}
               >
-                {isFavourite ? (
+                {isFavorite ? (
                   <FontAwesome size={16} color={"#A60C0C"} name={"bookmark"} />
                 ) : (
                   <FontAwesome
@@ -89,9 +89,7 @@ export function RestaurantCard({ name }: Props) {
           <View className="flex-row">
             <Text className="ml-1 text-[#EA6767] text-xs">Valor médio:</Text>
 
-            <Text className="ml-1 text-[#EA6767] text-xs">
-              R$ {generateRandomValue()}
-            </Text>
+            <Text className="ml-1 text-[#EA6767] text-xs">R$ {rest.value}</Text>
           </View>
 
           <View className="flex-row">

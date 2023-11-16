@@ -9,6 +9,7 @@ interface User {
   lastName: string;
   address: string;
   type?: string;
+  favorites: Array<string>;
 }
 
 interface LoginInput {

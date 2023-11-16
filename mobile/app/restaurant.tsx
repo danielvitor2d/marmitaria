@@ -1,4 +1,5 @@
 import { router } from "expo-router";
+import { useContext, useMemo } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import ProfileImage from "../src/assets/mini_profile.svg";
@@ -6,35 +7,23 @@ import RestaurantImage from "../src/assets/restaurant.png";
 import { BackButton } from "../src/components/back_button";
 import { Header } from "../src/components/header";
 import { MealCard } from "../src/components/meal_card";
+import AuthContext from "../src/contexts/auth";
 
 interface Restaurant {
   name: string;
 }
 
 export default function Restaurant() {
-  const meals: Array<Restaurant> = [
-    {
-      name: "Feijoada do Restaurante Bondiboka",
-    },
-    {
-      name: "Feijoada do Sabores do Sertão",
-    },
-    {
-      name: "Feijoada do Nori",
-    },
-    {
-      name: `Feijoada do Pizza's`,
-    },
-    {
-      name: `Feijoada do Vila da Telha`,
-    },
-    {
-      name: `Feijoada do Quinta Estação`,
-    },
-    {
-      name: `Feijoada do Pannetus`,
-    },
-  ];
+  const authContext = useContext(AuthContext);
+  if (!authContext) return null;
+
+  const { rest } = authContext;
+  if (!rest) return null;
+
+  const meals = useMemo(() => {
+    // console.log(rest);
+    return rest.meals ?? [];
+  }, [rest.meals]);
 
   return (
     <View className="flex-1 relative">
@@ -59,15 +48,15 @@ export default function Restaurant() {
 
       <ScrollView className="flex-1 mt-16">
         <View className="w-full h-20 bg-white items-center justify-center">
-          <Text className="text-xl text-[#A60C0C]">Restaurante Bondiboka</Text>
+          <Text className="text-xl text-[#A60C0C]">{rest.name}</Text>
         </View>
 
         <View className="px-1 mt-2">
           <Image source={RestaurantImage} className="w-full" />
 
           <View className="mt-2">
-            {meals.map((rest, idx) => (
-              <MealCard key={idx} name={rest.name} />
+            {meals.map((meal, idx) => (
+              <MealCard key={idx} meal={meal} />
             ))}
           </View>
         </View>

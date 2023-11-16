@@ -7,4 +7,5 @@ export const UserSchema = new mongoose.Schema({
   address: String,
   pwd: String,
   type: String,
+  favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' }],
 });

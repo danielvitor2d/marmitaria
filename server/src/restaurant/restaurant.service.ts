@@ -68,7 +68,7 @@ export class RestaurantService {
     };
   }
 
-  async findAll(): Promise<Restaurant[]> {
+  async findAll() {
     return this.restaurantModel.find().populate('meals').exec();
   }
 }
