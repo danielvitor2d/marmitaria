@@ -10,12 +10,13 @@
 - O back-end é construído usando o framework NestJS, baseado em Node.js, fornecendo arquitetura escalável para aplicativos server-side.
 - Expõe endpoints de API RESTful consumidos pelo front-end.
 - Usa JWT (JSON Web Tokens) para autenticação e autorização de solicitações.
-- Implementa documentação da API usando o Swagger para facilitar o desenvolvimento e a integração.
+- Está sendo mantido online pelo Fly.io
 
 ## Banco de Dados (MongoDB):
 
 - O MongoDB é o sistema de gerenciamento de banco de dados usado para armazenar dados do aplicativo.
 - É um banco de dados NoSQL escalável adequado para grandes volumes de dados não estruturados.
+- Está online no MongoDB Atlas
 
 ## Testes:
 
