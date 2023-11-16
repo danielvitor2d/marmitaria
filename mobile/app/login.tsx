@@ -20,11 +20,12 @@ export default function Login() {
 
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
+  const [email, setEmail] = useState("admin");
+  const [pwd, setPwd] = useState("admin");
 
   async function login() {
-    if (await signIn(email, pwd)) {
+    const { logged } = await signIn(email, pwd);
+    if (logged) {
       ToastAndroid.showWithGravity(
         `Dados corretos.`,
         ToastAndroid.SHORT,
@@ -52,6 +53,7 @@ export default function Login() {
             className="px-4 py-2 border border-[#797979] rounded-xl"
             placeholder={"Digite seu e-mail"}
             selectionColor={"black"}
+            value={email}
             onChangeText={setEmail}
           ></TextInput>
         </View>
@@ -63,6 +65,7 @@ export default function Login() {
             className="px-4 py-2 border border-[#797979] rounded-xl"
             placeholder={"Digite sua senha"}
             selectionColor={"black"}
+            value={pwd}
             onChangeText={setPwd}
             secureTextEntry={true}
           ></TextInput>

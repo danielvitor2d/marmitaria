@@ -21,10 +21,14 @@ export class UserController {
   @Post('/session')
   async login(@Body() login: LoginPayload) {
     try {
-      const response = await this.userService.checkLogin(login);
-      return response;
+      const r = await this.userService.checkLogin(login);
+      return r;
     } catch (error) {
-      this.logger.error(`could not find all users due to error: ${error}`);
+      this.logger.error(`could not login due to error: ${error}`);
+      return {
+        logged: false,
+        user: null,
+      };
     }
   }
 
@@ -48,6 +52,7 @@ export class UserController {
     try {
       return this.userService.update(id, updateUserDto);
     } catch (error) {
+      this.logger.error(`could not update user due to error: ${error}`);
       return {
         updated: false,
         user: null,
@@ -58,8 +63,7 @@ export class UserController {
   @Get()
   async findAll() {
     try {
-      const users = await this.userService.findAll();
-      return users;
+      return this.userService.findAll();
     } catch (error) {
       this.logger.error(`could not find all users due to error: ${error}`);
     }

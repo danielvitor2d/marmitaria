@@ -6,4 +6,5 @@ export const UserSchema = new mongoose.Schema({
   email: String,
   address: String,
   pwd: String,
+  type: String,
 });

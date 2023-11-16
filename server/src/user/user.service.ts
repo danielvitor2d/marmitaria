@@ -75,7 +75,7 @@ export class UsersService {
       };
     }
 
-    const { name, lastName, address, _id: id } = response;
+    const { name, lastName, address, type, _id: id } = response;
 
     return {
       logged: true,
@@ -85,6 +85,7 @@ export class UsersService {
         name,
         lastName,
         address,
+        type,
       },
     };
   }

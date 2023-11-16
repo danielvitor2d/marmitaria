@@ -4,7 +4,7 @@ import { ScrollView, Text, TextInput, ToastAndroid, View } from "react-native";
 
 import { BackButton } from "../src/components/back_button";
 import { CustomButton } from "../src/components/custom_button";
-import { serviceRegister } from "../src/services/AuthService";
+import { register } from "../src/services/auth-service";
 
 export default function Registration() {
   const router = useRouter();
@@ -16,7 +16,7 @@ export default function Registration() {
   const [pwd, setpwd] = useState("");
   const [confirmpwd, setconfirmpwd] = useState("");
 
-  async function register() {
+  async function onRegister() {
     if (pwd != confirmpwd) {
       ToastAndroid.showWithGravity(
         `As senhas estão diferentes.`,
@@ -26,7 +26,7 @@ export default function Registration() {
       return;
     }
 
-    const { registered } = await serviceRegister({
+    const { registered } = await register({
       address,
       email,
       lastName,
@@ -73,6 +73,7 @@ export default function Registration() {
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Ex. João"}
               selectionColor={"black"}
+              value={name}
               onChangeText={setname}
             ></TextInput>
           </View>
@@ -85,6 +86,7 @@ export default function Registration() {
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Ex. Ferreira"}
               selectionColor={"black"}
+              value={lastName}
               onChangeText={setLastName}
             ></TextInput>
           </View>
@@ -95,8 +97,9 @@ export default function Registration() {
             <TextInput
               testID="address"
               className="px-4 py-2 border border-[#797979] rounded-xl"
-              placeholder={"Av. Equador, 556, Centro"}
+              placeholder={"Ex. Av. Equador, 123, Itaoca"}
               selectionColor={"black"}
+              value={address}
               onChangeText={setaddress}
             ></TextInput>
           </View>
@@ -109,6 +112,7 @@ export default function Registration() {
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"fulano1234@gmail.com"}
               selectionColor={"black"}
+              value={email}
               onChangeText={setemail}
             ></TextInput>
           </View>
@@ -122,6 +126,7 @@ export default function Registration() {
               placeholder={"Digite sua senha"}
               selectionColor={"black"}
               secureTextEntry={true}
+              value={pwd}
               onChangeText={setpwd}
             ></TextInput>
           </View>
@@ -136,6 +141,7 @@ export default function Registration() {
               placeholder={"Digite novamente sua senha"}
               selectionColor={"black"}
               secureTextEntry={true}
+              value={confirmpwd}
               onChangeText={setconfirmpwd}
             ></TextInput>
           </View>
@@ -148,7 +154,7 @@ export default function Registration() {
         type="PRIMARY"
         testID="registerButton"
         className="self-center mt-10 mb-10"
-        onPress={() => register()}
+        onPress={() => onRegister()}
       />
     </ScrollView>
   );

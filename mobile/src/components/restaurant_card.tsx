@@ -1,10 +1,11 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Image, Text, ToastAndroid, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import RestaurantImage from "../assets/restaurant.png";
+import AuthContext from "../contexts/auth";
 import { generateRandomPatternArray, generateRandomValue } from "../utils/fake";
 
 interface Props {
@@ -12,6 +13,13 @@ interface Props {
 }
 
 export function RestaurantCard({ name }: Props) {
+  const authContext = useContext(AuthContext);
+  if (!authContext) return null;
+
+  const { isAdmin } = authContext;
+
+  const [isFavourite, setIsFavourite] = useState(false);
+
   const router = useRouter();
 
   function handleSeeRestaurant() {
@@ -22,6 +30,14 @@ export function RestaurantCard({ name }: Props) {
     );
 
     router.push("restaurant");
+  }
+
+  function onClickFavourite() {
+    setIsFavourite((prev) => !prev);
+  }
+
+  function onEditRestaurant() {
+    if (!isAdmin) return;
   }
 
   return (
@@ -37,7 +53,29 @@ export function RestaurantCard({ name }: Props) {
           <View className="flex-row justify-between items-center">
             <Text className="text-[#A60C0C]">{name}</Text>
 
-            <FontAwesome color={"#A60C0C"} name={"bookmark"} />
+            {!isAdmin ? (
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => onClickFavourite()}
+              >
+                {isFavourite ? (
+                  <FontAwesome size={16} color={"#A60C0C"} name={"bookmark"} />
+                ) : (
+                  <FontAwesome
+                    size={16}
+                    color={"#A60C0C"}
+                    name={"bookmark-o"}
+                  />
+                )}
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => onEditRestaurant()}
+              >
+                <FontAwesome size={16} color={"#A60C0C"} name={"pencil"} />
+              </TouchableOpacity>
+            )}
           </View>
 
           <View className="flex-row items-center justify-start">

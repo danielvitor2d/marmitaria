@@ -8,6 +8,7 @@ interface User {
   name: string;
   lastName: string;
   address: string;
+  type?: string;
 }
 
 interface LoginInput {
@@ -45,10 +46,7 @@ interface RegisterResponse {
   registered: boolean;
 }
 
-async function login({
-  email,
-  pwd,
-}: LoginInput): Promise<LoginResponse> {
+async function login({ email, pwd }: LoginInput): Promise<LoginResponse> {
   try {
     const response = await api.post<{}, AxiosResponse<LoginResponse>>(
       "/users/session",
@@ -81,13 +79,13 @@ async function update({
         email,
       }
     );
-    return response.data
+    return response.data;
   } catch (err) {
     console.error(err);
     return {
       updated: false,
       user: null,
-    }
+    };
   }
 }
 

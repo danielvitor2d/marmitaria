@@ -1,4 +1,5 @@
 import {
+  Feather,
   FontAwesome,
   Ionicons,
   MaterialCommunityIcons,
@@ -23,7 +24,7 @@ export default function Restaurants() {
   const authContext = useContext(AuthContext);
   if (!authContext) return null;
 
-  const { logout } = authContext;
+  const { logout, isAdmin } = authContext;
   const router = useRouter();
 
   const [mode, setMode] = useState<ModeType>("list");
@@ -61,6 +62,12 @@ export default function Restaurants() {
     router.replace("login");
   }
 
+  function onAddRestaurant() {
+    if (!isAdmin) return;
+
+    router.push("admin/register_restaurant");
+  }
+
   return (
     <View className="flex-1 relative">
       <Header className="absolute top-1 left-0 right-0">
@@ -71,7 +78,9 @@ export default function Restaurants() {
           size={26}
         ></BackButton>
 
-        <Text className="text-white text-lg">Restaurantes</Text>
+        <Text className="text-white text-lg">
+          Restaurantes {isAdmin ? " (admin)" : ""}
+        </Text>
 
         <TouchableOpacity
           activeOpacity={0.7}
@@ -127,18 +136,20 @@ export default function Restaurants() {
               <Text className="text-[#A60C0C] text-xs">Listagem</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => onChangeMode("fav-list")}
-              className="items-center gap-2"
-            >
-              {mode === "fav-list" ? (
-                <FontAwesome size={36} color={"#A60C0C"} name="bookmark" />
-              ) : (
-                <FontAwesome size={36} color={"#A60C0C"} name="bookmark-o" />
-              )}
-              <Text className="text-[#A60C0C] text-xs">Favoritos</Text>
-            </TouchableOpacity>
+            {!isAdmin && (
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => onChangeMode("fav-list")}
+                className="items-center gap-2"
+              >
+                {mode === "fav-list" ? (
+                  <FontAwesome size={36} color={"#A60C0C"} name="bookmark" />
+                ) : (
+                  <FontAwesome size={36} color={"#A60C0C"} name="bookmark-o" />
+                )}
+                <Text className="text-[#A60C0C] text-xs">Favoritos</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
 
@@ -160,6 +171,18 @@ export default function Restaurants() {
           </View>
         )}
       </ScrollView>
+
+      {isAdmin && (
+        <View className={"absolute bottom-4 right-4"}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => onAddRestaurant()}
+            className={"bg-[#A60C0C] p-4 rounded-full shadow-md"}
+          >
+            <Feather name="plus" size={24} color="white" />
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 }

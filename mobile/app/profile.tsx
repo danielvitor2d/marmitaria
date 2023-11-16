@@ -1,7 +1,7 @@
+import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
 import { ScrollView, Text, TextInput, View } from "react-native";
 
-import { useRouter } from "expo-router";
 import ProfileImage from "../src/assets/profile.svg";
 import { BackButton } from "../src/components/back_button";
 import { CustomButton } from "../src/components/custom_button";
@@ -28,7 +28,7 @@ export default function Profile() {
       name,
       lastName,
       address,
-      email
+      email,
     });
     if (router.canGoBack()) {
       router.back();
