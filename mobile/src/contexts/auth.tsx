@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-import { Restaurant } from "../../app/restaurants";
+import { Meal, Restaurant } from "../../app/restaurants";
 import * as auth from "../services/auth-service";
 import { refetch } from "../services/user-service";
 
@@ -23,11 +23,13 @@ export interface AuthContextData {
   user: UserType | null;
   isAdmin: boolean;
   rest: Restaurant | null;
+  meal: Meal | null;
   signIn: (
     email: string,
     pwd: string
   ) => Promise<{ logged: boolean; isAdmin: boolean }>;
   setRest: React.Dispatch<React.SetStateAction<Restaurant | null>>;
+  setMeal: React.Dispatch<React.SetStateAction<Meal | null>>;
   update: (user: UserType) => Promise<boolean>;
   refetchUser: () => Promise<void>
   logout: () => Promise<void>;
@@ -41,6 +43,7 @@ export const AuthProvider = ({ children }: AuthProps) => {
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   const [currentRest, setCurrentRest] = useState<Restaurant | null>(null);
+  const [currentMeal, setCurrentMeal] = useState<Meal | null>(null);
 
   async function signIn(email: string, pwd: string) {
     const response = await auth.login({ email, pwd });
@@ -50,6 +53,8 @@ export const AuthProvider = ({ children }: AuthProps) => {
       else setIsAdmin(false);
       setSigned(true);
       setUser(response.user);
+      setCurrentMeal(null);
+      setCurrentRest(null);
       return {
         logged: true,
         isAdmin: response.user?.type === "admin",
@@ -85,6 +90,8 @@ export const AuthProvider = ({ children }: AuthProps) => {
     setSigned(false);
     setUser(null);
     setIsAdmin(false);
+    setCurrentMeal(null);
+    setCurrentRest(null);
   }
 
   return (
@@ -98,7 +105,9 @@ export const AuthProvider = ({ children }: AuthProps) => {
         logout,
         refetchUser,
         rest: currentRest,
+        meal: currentMeal,
         setRest: setCurrentRest,
+        setMeal: setCurrentMeal,
       }}
     >
       {children}

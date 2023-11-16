@@ -17,7 +17,7 @@ export default function Restaurant() {
   const authContext = useContext(AuthContext);
   if (!authContext) return null;
 
-  const { rest } = authContext;
+  const { rest, setMeal } = authContext;
   if (!rest) return null;
 
   const meals = useMemo(() => {

@@ -2,10 +2,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Image, Text, ToastAndroid, View } from "react-native";
 
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useContext } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Meal } from "../../app/restaurants";
 import FeijoadaImage from "../assets/feijoada.png";
+import AuthContext from "../contexts/auth";
 import { generateRandomPatternArray } from "../utils/fake";
 
 interface Props {
@@ -13,14 +14,21 @@ interface Props {
 }
 
 export function MealCard({ meal }: Props) {
+  const authContext = useContext(AuthContext);
+  if (!authContext) return null;
+
+  const { setMeal } = authContext;
+
   const router = useRouter();
 
-  function handleSeeMeal() {
+  async function handleSeeMeal() {
     ToastAndroid.showWithGravity(
-      `Ver refeição`,
+      `Redirecionando para página da refeição`,
       ToastAndroid.SHORT,
       ToastAndroid.CENTER
     );
+
+    setMeal(meal);
 
     router.push("meal_info");
   }

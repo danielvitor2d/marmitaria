@@ -1,5 +1,6 @@
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { useContext } from "react";
 import {
   Image,
   ScrollView,
@@ -15,9 +16,16 @@ import ProfileImage from "../src/assets/mini_profile.svg";
 import { BackButton } from "../src/components/back_button";
 import { CustomButton } from "../src/components/custom_button";
 import { Header } from "../src/components/header";
+import AuthContext from "../src/contexts/auth";
 import { generateRandomPatternArray } from "../src/utils/fake";
 
 export default function MealInfo() {
+  const authContext = useContext(AuthContext);
+  if (!authContext) return null;
+
+  const { meal } = authContext;
+  if (!meal) return null;
+
   const router = useRouter();
 
   function onAddFoto() {
@@ -60,7 +68,7 @@ export default function MealInfo() {
       <ScrollView className="flex-1 mt-16">
         <View className="w-full h-20 bg-white items-center justify-center">
           <Text className="text-xl text-[#A60C0C] font-semibold">
-            Feijoada do Bondiboka
+            {meal.name}
           </Text>
         </View>
 
