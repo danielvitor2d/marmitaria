@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }: AuthProps) => {
 
   async function signIn(email: string, pwd: string) {
     const response = await auth.login({ email, pwd });
-    console.log(`LOGIN:`, response);
+    // console.log(`LOGIN:`, response);
     if (response.logged) {
       if (response.user?.type === "admin") setIsAdmin(true);
       else setIsAdmin(false);

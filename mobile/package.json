@@ -17,6 +17,7 @@
     "@expo-google-fonts/inter": "^0.2.3",
     "@expo-google-fonts/roboto": "^0.2.3",
     "axios": "^1.5.1",
+    "clsx": "^2.0.0",
     "expo": "~49.0.13",
     "expo-constants": "~14.4.2",
     "expo-dev-client": "~2.4.12",
