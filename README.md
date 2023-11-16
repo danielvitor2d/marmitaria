@@ -62,8 +62,6 @@ https://drive.google.com/file/d/1UYuspGhvNav2GShe1ZIJ3bqCUEqitdXY/view?usp=shari
 
 https://drive.google.com/file/d/135bmRT0ZeFIRZVMRegRmuSYJhqN8reUD/view?usp=drive_link
 
-https://drive.google.com/drive/folders/1Tntc-8M7vOsxWXNg16dbpgKP81VGnNGW?usp=sharing
-
 ## Figma
 
 https://www.figma.com/file/LkS3iDlLYhDI7hXc9FLaLJ/App-de-marmitas?type=design&node-id=0-1&mode=design&t=kzZMUayiLYlSt4nE-0
