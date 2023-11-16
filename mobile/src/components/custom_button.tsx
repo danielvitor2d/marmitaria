@@ -19,9 +19,9 @@ export function CustomButton({
       className={`px-4 py-2 w-8/12 bg-[${
         type === "PRIMARY"
           ? "#A60C0C"
-          : type === "SECONDARY"
+          : (type === "SECONDARY"
           ? "#34416D"
-          : "#797979"
+          : "#797979")
       }] rounded-xl items-center`}
     >
       <Text className="text-lg text-white">{text}</Text>
