@@ -1,28 +1,51 @@
 import { AxiosResponse } from "axios";
+
 import { api } from "../lib/api";
+
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  lastName: string;
+  address: string;
+}
 
 interface LoginInput {
   email: string;
   pwd: string;
 }
 
+interface UpdateInput {
+  id: string;
+  name: string;
+  lastName: string;
+  address: string;
+  email: string;
+}
+
 interface RegisterInput {
   name: string;
-  lastname: string;
+  lastName: string;
   address: string;
   email: string;
   pwd: string;
 }
 
 interface LoginResponse {
-  isLogged: boolean;
+  logged: boolean;
+  user: User | null;
+}
+
+interface UpdateResponse {
+  updated: boolean;
+  user: User | null;
 }
 
 interface RegisterResponse {
   registered: boolean;
 }
 
-async function serviceLogin({
+async function login({
   email,
   pwd,
 }: LoginInput): Promise<LoginResponse> {
@@ -35,15 +58,43 @@ async function serviceLogin({
   } catch (err) {
     console.error(err);
     return {
-      isLogged: false,
+      logged: false,
+      user: null,
     };
   }
 }
 
-async function serviceRegister({
+async function update({
+  id,
   address,
   email,
-  lastname,
+  lastName,
+  name,
+}: UpdateInput): Promise<UpdateResponse> {
+  try {
+    const response = await api.patch<{}, AxiosResponse<UpdateResponse>>(
+      `/users/${id}`,
+      {
+        name,
+        lastName,
+        address,
+        email,
+      }
+    );
+    return response.data
+  } catch (err) {
+    console.error(err);
+    return {
+      updated: false,
+      user: null,
+    }
+  }
+}
+
+async function register({
+  address,
+  email,
+  lastName,
   name,
   pwd,
 }: RegisterInput): Promise<RegisterResponse> {
@@ -52,7 +103,7 @@ async function serviceRegister({
       "/users",
       {
         name,
-        lastname,
+        lastName,
         address,
         email,
         pwd,
@@ -67,4 +118,4 @@ async function serviceRegister({
   }
 }
 
-export { serviceLogin, serviceRegister };
+export { login, update, register };

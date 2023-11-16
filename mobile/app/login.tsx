@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Image,
   Text,
@@ -10,18 +10,21 @@ import {
 import { TextInput } from "react-native-gesture-handler";
 
 import logo from "../src/assets/logo.jpeg";
-import { serviceLogin } from "../src/services/AuthService";
+import AuthContext from "../src/contexts/auth";
 
 export default function Login() {
+  const authContext = useContext(AuthContext);
+  if (!authContext) return null;
+
+  const { signIn } = authContext;
+
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
 
   async function login() {
-    const { isLogged } = await serviceLogin({ email, pwd });
-
-    if (isLogged) {
+    if (await signIn(email, pwd)) {
       ToastAndroid.showWithGravity(
         `Dados corretos.`,
         ToastAndroid.SHORT,

@@ -20,8 +20,16 @@ export class UsersService {
     return createdUser.save();
   }
 
+  async get(id: string) {
+    const user = await this.userModel.findOne({
+      _id: id,
+    });
+
+    return user;
+  }
+
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return await this.userModel.updateOne(
+    const response = await this.userModel.updateOne(
       {
         _id: id,
       },
@@ -32,6 +40,26 @@ export class UsersService {
         },
       },
     );
+
+    if (!response.modifiedCount) {
+      return {
+        updated: false,
+        user: null,
+      };
+    }
+
+    const { name, lastName, email, address } = await this.get(id);
+
+    return {
+      updated: true,
+      user: {
+        id,
+        name,
+        lastName,
+        email,
+        address,
+      },
+    };
   }
 
   async findAll(): Promise<User[]> {
@@ -39,9 +67,25 @@ export class UsersService {
   }
 
   async checkLogin({ email, pwd }: LoginPayload) {
-    const res = await this.userModel.findOne({ email }).exec();
-    console.log(`res: ${res}`);
+    const response = await this.userModel.findOne({ email }).exec();
+    if (!response || !bcrypt.compareSync(pwd, response.pwd)) {
+      return {
+        logged: false,
+        user: null,
+      };
+    }
 
-    return res && bcrypt.compareSync(pwd, res.pwd);
+    const { name, lastName, address, _id: id } = response;
+
+    return {
+      logged: true,
+      user: {
+        id,
+        email,
+        name,
+        lastName,
+        address,
+      },
+    };
   }
 }

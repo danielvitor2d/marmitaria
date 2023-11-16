@@ -9,6 +9,8 @@ import { useCallback, useState } from "react";
 import { KeyboardAvoidingView, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { AuthProvider } from "../src/contexts/auth";
+
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
@@ -35,28 +37,30 @@ export default function Layout() {
       onLayout={onLayoutRootView}
       className="flex-1 py-6"
     >
-      <SafeAreaView className="flex-1 w-full">
-        <StatusBar style="light" translucent />
+      <AuthProvider>
+        <SafeAreaView className="flex-1 w-full">
+          <StatusBar style="light" translucent />
 
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            contentStyle: { backgroundColor: "transparent" },
-            animation: "fade",
-          }}
-        >
-          <Stack.Screen name="index" redirect={!isUserAuthenticated} />
-          <Stack.Screen name="login" />
-          <Stack.Screen name="profile" />
-          <Stack.Screen name="registration" />
-          <Stack.Screen name="forgot_password" />
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              contentStyle: { backgroundColor: "transparent" },
+              animation: "fade",
+            }}
+          >
+            <Stack.Screen name="index" redirect={!isUserAuthenticated} />
+            <Stack.Screen name="login" />
+            <Stack.Screen name="profile" />
+            <Stack.Screen name="registration" />
+            <Stack.Screen name="forgot_password" />
 
-          <Stack.Screen name="meal_info" />
+            <Stack.Screen name="meal_info" />
 
-          <Stack.Screen name="restaurant" />
-          <Stack.Screen name="restaurants" />
-        </Stack>
-      </SafeAreaView>
+            <Stack.Screen name="restaurant" />
+            <Stack.Screen name="restaurants" />
+          </Stack>
+        </SafeAreaView>
+      </AuthProvider>
     </KeyboardAvoidingView>
   );
 }

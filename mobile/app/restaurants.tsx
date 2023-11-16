@@ -3,14 +3,15 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { router } from "expo-router";
-import { useState } from "react";
+import { useRouter } from "expo-router";
+import { useContext, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 import ProfileImage from "../src/assets/mini_profile.svg";
 import { BackButton } from "../src/components/back_button";
 import { Header } from "../src/components/header";
 import { RestaurantCard } from "../src/components/restaurant_card";
+import AuthContext from "../src/contexts/auth";
 
 interface Restaurant {
   name: string;
@@ -19,6 +20,12 @@ interface Restaurant {
 type ModeType = "list" | "fav-list" | "map";
 
 export default function Restaurants() {
+  const authContext = useContext(AuthContext);
+  if (!authContext) return null;
+
+  const { logout } = authContext;
+  const router = useRouter();
+
   const [mode, setMode] = useState<ModeType>("list");
 
   const restaurants: Array<Restaurant> = [
@@ -49,13 +56,18 @@ export default function Restaurants() {
     setMode(newMode);
   }
 
+  function onLogout() {
+    logout();
+    router.replace("login");
+  }
+
   return (
     <View className="flex-1 relative">
       <Header className="absolute top-1 left-0 right-0">
         <BackButton
           name={"log-out"}
           type={"NEUTRAL"}
-          onPress={() => router.replace("login")}
+          onPress={() => onLogout()}
           size={26}
         ></BackButton>
 

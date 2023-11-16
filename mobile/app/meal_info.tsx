@@ -121,7 +121,7 @@ export default function MealInfo() {
                 Experiência
               </Text>
 
-              <View className="flex-row">
+              <View className="flex-row gap-[2px]">
                 {generateRandomPatternArray().map((i, v) =>
                   i == 1 ? (
                     <FontAwesome

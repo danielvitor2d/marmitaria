@@ -10,7 +10,7 @@ export default function Registration() {
   const router = useRouter();
 
   const [name, setname] = useState("");
-  const [lastname, setlastname] = useState("");
+  const [lastName, setLastName] = useState("");
   const [address, setaddress] = useState("");
   const [email, setemail] = useState("");
   const [pwd, setpwd] = useState("");
@@ -29,7 +29,7 @@ export default function Registration() {
     const { registered } = await serviceRegister({
       address,
       email,
-      lastname,
+      lastName,
       name,
       pwd,
     });
@@ -85,7 +85,7 @@ export default function Registration() {
               className="px-4 py-2 border border-[#797979] rounded-xl"
               placeholder={"Ex. Ferreira"}
               selectionColor={"black"}
-              onChangeText={setlastname}
+              onChangeText={setLastName}
             ></TextInput>
           </View>
 

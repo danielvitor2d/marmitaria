@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Logger, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Logger,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginPayload } from './interfaces/login';
@@ -12,12 +20,9 @@ export class UserController {
 
   @Post('/session')
   async login(@Body() login: LoginPayload) {
-    console.log(login);
     try {
-      const res = await this.userService.checkLogin(login);
-      return {
-        isLogged: res,
-      };
+      const response = await this.userService.checkLogin(login);
+      return response;
     } catch (error) {
       this.logger.error(`could not find all users due to error: ${error}`);
     }
@@ -38,16 +43,14 @@ export class UserController {
     }
   }
 
-  @Post('/:id')
+  @Patch('/:id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     try {
-      const response = await this.userService.update(id, updateUserDto);
-      return {
-        updated: response !== undefined,
-      };
+      return this.userService.update(id, updateUserDto);
     } catch (error) {
       return {
-        updated: null,
+        updated: false,
+        user: null,
       };
     }
   }
