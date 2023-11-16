@@ -25,9 +25,25 @@ export class RestaurantController {
         registered: response !== undefined,
       };
     } catch (error) {
-      this.logger.error(`could not create a new user due to error: ${error}`);
+      this.logger.error(`could not create a new rest due to error: ${error}`);
       return {
         registered: null,
+      };
+    }
+  }
+
+  @Patch('/:id/meal/:meal_id')
+  async addMealToRest(
+    @Param('id') id: string,
+    @Param('meal_id') meal_id: string,
+  ) {
+    try {
+      return this.restService.addMealToRest(id, meal_id);
+    } catch (error) {
+      this.logger.error(`could not update rest due to error: ${error}`);
+      return {
+        updated: false,
+        rest: null,
       };
     }
   }
@@ -37,7 +53,7 @@ export class RestaurantController {
     try {
       return this.restService.update(id, updateRest);
     } catch (error) {
-      this.logger.error(`could not update user due to error: ${error}`);
+      this.logger.error(`could not update rest due to error: ${error}`);
       return {
         updated: false,
         rest: null,

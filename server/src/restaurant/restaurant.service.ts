@@ -25,6 +25,15 @@ export class RestaurantService {
     return rest;
   }
 
+  async addMealToRest(id: string, mealId: string) {
+    const rest = await this.get(id);
+
+    if (!rest) return false;
+    rest.meals.push(mealId);
+
+    return rest.save();
+  }
+
   async update(id: string, updateRestDto: UpdateRestDto) {
     const response = await this.restaurantModel.updateOne(
       {
@@ -60,6 +69,6 @@ export class RestaurantService {
   }
 
   async findAll(): Promise<Restaurant[]> {
-    return this.restaurantModel.find().exec();
+    return this.restaurantModel.find().populate('meals').exec();
   }
 }
