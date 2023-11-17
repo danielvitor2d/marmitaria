@@ -69,3 +69,9 @@ https://docs.google.com/spreadsheets/d/1XseDi_8p8rGfAqSAq2qnT00ht8o2V0EpR1hITF1j
 https://drive.google.com/file/d/1UYuspGhvNav2GShe1ZIJ3bqCUEqitdXY/view?usp=sharing
 
 ## Video do APP funcionando (Status Report 3)
+
+https://drive.google.com/file/d/1xQS1mRCnn1oW_Odfr5GhSfQjMiSdtQ1M/view?usp=sharing
+
+## Video do código do APP (Status Report 3)
+
+https://drive.google.com/file/d/1LNvblY3-hgqbLXtLKvp_sZ6-gYrfH4gk/view?usp=sharing
