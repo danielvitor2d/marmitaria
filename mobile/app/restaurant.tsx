@@ -17,7 +17,7 @@ export default function Restaurant() {
   const authContext = useContext(AuthContext);
   if (!authContext) return null;
 
-  const { rest, setMeal } = authContext;
+  const { rest } = authContext;
   if (!rest) return null;
 
   const meals = useMemo(() => {
@@ -40,6 +40,7 @@ export default function Restaurant() {
 
         <TouchableOpacity
           activeOpacity={0.7}
+          testID="profile"
           onPress={() => router.push("profile")}
         >
           <ProfileImage className="h-2 w-2 border bg-green-600" />
@@ -54,7 +55,7 @@ export default function Restaurant() {
         <View className="px-1 mt-2">
           <Image source={RestaurantImage} className="w-full" />
 
-          <View className="mt-2">
+          <View className="mt-2" testID="mealsList">
             {meals.map((meal, idx) => (
               <MealCard key={idx} meal={meal} />
             ))}

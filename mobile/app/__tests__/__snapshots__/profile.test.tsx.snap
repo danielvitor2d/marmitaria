@@ -50,7 +50,27 @@ exports[`test profile page snapshot test 1`] = `
           }
         }
       >
-        <Text />
+        <Text
+          allowFontScaling={false}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "#A60C0C",
+                "fontSize": 28,
+              },
+              undefined,
+              {
+                "fontFamily": "feather",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          
+        </Text>
       </View>
     </View>
     <View
@@ -178,9 +198,95 @@ exports[`test profile page snapshot test 1`] = `
               ]
             }
           >
+            E-mail
+          </Text>
+          <TextInput
+            onChangeText={[Function]}
+            placeholder="Ex. joao@mail.com"
+            selectionColor="black"
+            style={
+              [
+                {
+                  "paddingLeft": 16,
+                  "paddingRight": 16,
+                },
+                {
+                  "paddingBottom": 8,
+                  "paddingTop": 8,
+                },
+                {
+                  "borderBottomWidth": 1,
+                  "borderLeftWidth": 1,
+                  "borderRightWidth": 1,
+                  "borderTopWidth": 1,
+                },
+                {
+                  "borderBottomColor": "#797979",
+                  "borderLeftColor": "#797979",
+                  "borderRightColor": "#797979",
+                  "borderTopColor": "#797979",
+                },
+                {
+                  "borderBottomLeftRadius": 12,
+                  "borderBottomRightRadius": 12,
+                  "borderTopLeftRadius": 12,
+                  "borderTopRightRadius": 12,
+                },
+                [
+                  {
+                    "marginLeft": 4,
+                    "marginTop": 4,
+                  },
+                ],
+              ]
+            }
+          />
+        </View>
+        <View
+          style={
+            [
+              {
+                "width": "66.666667%",
+              },
+              {
+                "marginLeft": -4,
+                "marginTop": -4,
+              },
+              {
+                "marginBottom": 20,
+              },
+              [
+                {
+                  "marginLeft": 8,
+                  "marginTop": 8,
+                },
+              ],
+            ]
+          }
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontSize": 16,
+                  "lineHeight": 24,
+                },
+                {
+                  "color": "#A60C0C",
+                },
+                [
+                  {
+                    "marginLeft": 4,
+                    "marginTop": 4,
+                  },
+                ],
+              ]
+            }
+          >
             Nome
           </Text>
           <TextInput
+            onChangeText={[Function]}
             placeholder="Ex. João"
             selectionColor="black"
             style={
@@ -265,6 +371,7 @@ exports[`test profile page snapshot test 1`] = `
             Sobrenome
           </Text>
           <TextInput
+            onChangeText={[Function]}
             placeholder="Ex. Ferreira"
             selectionColor="black"
             style={
@@ -349,6 +456,7 @@ exports[`test profile page snapshot test 1`] = `
             Endereço
           </Text>
           <TextInput
+            onChangeText={[Function]}
             placeholder="Av. Equador, 556, Centro"
             selectionColor="black"
             style={
@@ -436,7 +544,7 @@ exports[`test profile page snapshot test 1`] = `
           "width": "66.666667%",
         }
       }
-      testID="seeRestaurants"
+      testID="saveUpdates"
     >
       <Text
         style={
@@ -451,7 +559,7 @@ exports[`test profile page snapshot test 1`] = `
           ]
         }
       >
-        Ver restaurante
+        Salvar alterações
       </Text>
     </View>
   </View>

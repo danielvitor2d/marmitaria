@@ -4,9 +4,15 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import { useContext, useLayoutEffect, useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useContext, useState } from "react";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import ProfileImage from "../src/assets/mini_profile.svg";
 import { BackButton } from "../src/components/back_button";
@@ -29,10 +35,11 @@ export interface Restaurant {
   address: string;
   value: string;
   paymentforms: string;
+  isSuggestion: boolean;
   meals: Array<Meal>;
 }
 
-type ModeType = "list" | "fav-list" | "map";
+type ModeType = "list" | "fav-list" | "map" | "suggestions";
 
 export default function Restaurants() {
   const authContext = useContext(AuthContext);
@@ -57,36 +64,35 @@ export default function Restaurants() {
   }
 
   function onAddRestaurant() {
-    if (!isAdmin) return;
-
-    router.push("admin/register_restaurant");
+    router.push("register_restaurant");
   }
 
   async function fetchRestaurants() {
     const rests = await getRests();
-    // console.log(rests);
     setrestaurants([...rests]);
   }
 
   async function onClickFavorite(rest_id: string) {
     if (!user) return;
 
-    if (user.favorites.includes(rest_id)) {
+    if (user.favorites && user.favorites.includes(rest_id)) {
       rmvFavorite(user.id, rest_id);
     } else {
       addFavorite(user.id, rest_id);
     }
 
-    await new Promise((resolve) => setTimeout(() => resolve(true), 500))
-    await fetchRestaurants()
-    await new Promise((resolve) => setTimeout(() => resolve(true), 500))
-    await refetchUser()
+    await new Promise((resolve) => setTimeout(() => resolve(true), 500));
+    await fetchRestaurants();
+    await new Promise((resolve) => setTimeout(() => resolve(true), 500));
+    await refetchUser();
   }
 
-  useLayoutEffect(() => {
-    fetchRestaurants();
-    setRest(null);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      setRest(null);
+      fetchRestaurants();
+    }, [])
+  );
 
   return (
     <View className="flex-1 relative">
@@ -110,7 +116,7 @@ export default function Restaurants() {
         </TouchableOpacity>
       </Header>
 
-      <ScrollView className="flex-1 mt-16">
+      <ScrollView className="flex-1 h-full mt-16">
         <View className="w-full h-20 bg-white items-center justify-center">
           <View className="flex-row gap-16 items-center justify-between">
             <TouchableOpacity
@@ -170,16 +176,31 @@ export default function Restaurants() {
                 <Text className="text-[#A60C0C] text-xs">Favoritos</Text>
               </TouchableOpacity>
             )}
+
+            {isAdmin && (
+              <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => onChangeMode("suggestions")}
+                className="items-center gap-2"
+              >
+                {mode === "suggestions" ? (
+                  <FontAwesome size={36} color={"#A60C0C"} name="bookmark" />
+                ) : (
+                  <FontAwesome size={36} color={"#A60C0C"} name="bookmark-o" />
+                )}
+                <Text className="text-[#A60C0C] text-xs">Sugestões</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
 
         {mode === "list" ? (
           <View className="px-1">
-            {restaurants.map((rest, idx) => (
+            {restaurants.filter(rest => !rest.isSuggestion).map((rest, idx) => (
               <RestaurantCard
                 key={idx}
                 rest={rest}
-                isFavorite={!!user.favorites.includes(rest.id)}
+                isFavorite={user.favorites && user.favorites.includes(rest.id)}
                 onClickFavorite={() => onClickFavorite(rest.id)}
               />
             ))}
@@ -188,6 +209,7 @@ export default function Restaurants() {
           <View className="px-1">
             {restaurants.map(
               (rest, idx) =>
+                user.favorites &&
                 user.favorites.includes(rest.id) && (
                   <RestaurantCard
                     key={idx}
@@ -198,24 +220,41 @@ export default function Restaurants() {
                 )
             )}
           </View>
+        ) : mode === "suggestions" ? (
+          <View className="px-1">
+            {restaurants.filter(rest => rest.isSuggestion).map((rest, idx) => (
+              <RestaurantCard
+                key={idx}
+                rest={rest}
+                isFavorite={user.favorites && user.favorites.includes(rest.id)}
+                onClickFavorite={() => onClickFavorite(rest.id)}
+              />
+            ))}
+          </View>
         ) : (
           <View className="w-full h-full p-1 flex-1 items-center justify-center">
             <Text className="text-lg font-bold">Em Breve!</Text>
+            {/* <MapView style={styles.map} provider={PROVIDER_GOOGLE} /> */}
           </View>
         )}
       </ScrollView>
 
-      {isAdmin && (
-        <View className={"absolute bottom-4 right-4"}>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => onAddRestaurant()}
-            className={"bg-[#A60C0C] p-4 rounded-full shadow-md"}
-          >
-            <Feather name="plus" size={24} color="white" />
-          </TouchableOpacity>
-        </View>
-      )}
+      <View className={"absolute bottom-4 right-4"}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => onAddRestaurant()}
+          className={"bg-[#A60C0C] p-4 rounded-full shadow-md"}
+        >
+          <Feather name="plus" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  map: {
+    width: "100%",
+    height: "100%",
+  },
+});

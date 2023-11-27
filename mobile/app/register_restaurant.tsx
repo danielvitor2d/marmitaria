@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ScrollView, Text, TextInput, ToastAndroid, View } from "react-native";
 
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { BackButton } from "../../src/components/back_button";
-import { CustomButton } from "../../src/components/custom_button";
-import MealAccordion from "../../src/components/meal_accordion";
-import { register } from "../../src/services/meal-service";
+import { BackButton } from "../src/components/back_button";
+import { CustomButton } from "../src/components/custom_button";
+import MealAccordion from "../src/components/meal_accordion";
+import AuthContext from "../src/contexts/auth";
+import { register } from "../src/services/meal-service";
 import {
   addMeal,
   register as registerRest,
-} from "../../src/services/rest-service";
+} from "../src/services/rest-service";
 
 interface Prato {
   id: number;
@@ -20,6 +21,11 @@ interface Prato {
 }
 
 export default function RegisterRestaurant() {
+  const authContext = useContext(AuthContext);
+  if (!authContext) return null;
+
+  const { isAdmin } = authContext;
+
   const router = useRouter();
 
   const [name, setName] = useState("");
@@ -64,6 +70,7 @@ export default function RegisterRestaurant() {
       address,
       paymentforms,
       value: price,
+      isSuggestion: !isAdmin ? true : false,
     });
 
     if (restRegistered && rest) {
@@ -71,7 +78,7 @@ export default function RegisterRestaurant() {
         await addMeal(rest.id, mealId);
       }
 
-      await new Promise(resolve => setTimeout(() => resolve(true), 1000))
+      await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
 
       ToastAndroid.showWithGravity(
         `Restaurante cadastrado com sucesso!`,
@@ -119,7 +126,7 @@ export default function RegisterRestaurant() {
       <ScrollView className="w-full mt-4">
         <View className="w-full flex-col items-center">
           <Text className="mb-4 text-2xl text-[#A60C0C] font-bold">
-            Novo Restaurante
+            {isAdmin ? "Novo Restaurante" : "Sugerir Restaurante"}
           </Text>
 
           <View className="w-full flex-col gap-2 items-center">
@@ -302,7 +309,7 @@ export default function RegisterRestaurant() {
 
       <CustomButton
         fontSize={14}
-        text={"Salvar"}
+        text={isAdmin ? "Salvar" : "Enviar sugestão"}
         type="PRIMARY"
         testID="registerButton"
         className="mt-4"

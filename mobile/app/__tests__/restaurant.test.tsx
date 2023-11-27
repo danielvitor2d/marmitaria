@@ -1,12 +1,12 @@
 import { render } from "@testing-library/react-native";
 
 import AuthContext, { UserType } from "../../src/contexts/auth";
-import Profile from "../profile";
+import Restaurant from "../restaurant";
 
 jest.mock("../../src/assets/profile.svg", () => "string qualquer");
-jest.mock("../../src/assets/mini_profile.svg", () => "outra string qualquer");
+jest.mock("../../src/assets/restaurant.png", () => "outra string qualquer");
 
-describe("test profile page", () => {
+describe("test login page", () => {
   let page: any;
 
   beforeEach(() => {
@@ -26,7 +26,7 @@ describe("test profile page", () => {
           update: async (user) => true,
         }}
       >
-        <Profile />
+        <Restaurant />
       </AuthContext.Provider>
     );
   });
@@ -39,7 +39,11 @@ describe("test profile page", () => {
     expect(page.getByTestId("goBack")).toBeDefined();
   });
 
-  it("Testando botão de salvar alterações", () => {
-    expect(page.getByTestId("saveUpdates")).toBeDefined();
+  it("Testando botão de perfil", () => {
+    expect(page.getByTestId("profile")).toBeDefined();
+  });
+
+  it("Testando lista de refeições", () => {
+    expect(page.getByTestId("mealsList")).toBeDefined();
   });
 });

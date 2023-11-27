@@ -153,6 +153,7 @@ exports[`test login page snapshot test 1`] = `
             ],
           ]
         }
+        value=""
       />
     </View>
     <View
@@ -235,6 +236,7 @@ exports[`test login page snapshot test 1`] = `
             ],
           ]
         }
+        value=""
       />
       <View
         accessibilityState={

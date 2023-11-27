@@ -57,9 +57,8 @@ export default function Layout() {
             <Stack.Screen name="meal_info" />
 
             <Stack.Screen name="restaurant" />
+            <Stack.Screen name="register_restaurant" />
             <Stack.Screen name="restaurants" />
-
-            <Stack.Screen name="admin/register_restaurant" />
           </Stack>
         </SafeAreaView>
       </AuthProvider>

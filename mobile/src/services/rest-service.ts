@@ -8,6 +8,7 @@ interface Restaurant {
   address: string;
   value: string;
   paymentforms: string;
+  isSuggestion: boolean;
   meals: Array<Meal>;
 }
 
@@ -16,6 +17,7 @@ interface RegisterInput {
   address: string;
   value: string;
   paymentforms: string;
+  isSuggestion: boolean;
 }
 
 interface RegisterResponse {
@@ -28,7 +30,13 @@ interface AddMealResponse {
   rest: Restaurant | null;
 }
 
-async function register({ name, address, value, paymentforms }: RegisterInput) {
+async function register({
+  name,
+  address,
+  value,
+  paymentforms,
+  isSuggestion,
+}: RegisterInput) {
   try {
     const response = await api.post<{}, AxiosResponse<RegisterResponse>>(
       "/restaurants",
@@ -37,6 +45,7 @@ async function register({ name, address, value, paymentforms }: RegisterInput) {
         address,
         value,
         paymentforms,
+        isSuggestion,
       }
     );
     return response.data;

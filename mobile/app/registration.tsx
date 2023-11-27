@@ -59,7 +59,7 @@ export default function Registration() {
         type={"PRIMARY"}
         testID="goBack"
         size={28}
-      />
+      ></BackButton>
 
       <View className="w-full flex-col items-center">
         <Text className="text-2xl text-[#A60C0C] font-bold">Cadastre-se</Text>

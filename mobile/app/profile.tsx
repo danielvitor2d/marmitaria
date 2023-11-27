@@ -38,12 +38,12 @@ export default function Profile() {
   return (
     <ScrollView>
       <BackButton
+        testID="goBack"
         name={"arrow-left"}
         type={"PRIMARY"}
         size={28}
-        testID="goBack"
         className={"w-full ml-4"}
-      />
+      ></BackButton>
 
       <View className="flex-1 w-full flex-col items-center gap-4">
         <Text className="text-2xl text-[#A60C0C] font-bold">Perfil</Text>
@@ -105,7 +105,7 @@ export default function Profile() {
         fontSize={14}
         text={"Salvar alterações"}
         type="PRIMARY"
-        testID="seeRestaurants"
+        testID="saveUpdates"
         className="self-center mt-10"
         onPress={() => onSaveUpdates()}
       />

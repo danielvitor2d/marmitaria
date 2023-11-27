@@ -20,8 +20,8 @@ export default function Login() {
 
   const router = useRouter();
 
-  const [email, setEmail] = useState("daniel@mail.com");
-  const [pwd, setPwd] = useState("d123");
+  const [email, setEmail] = useState("");
+  const [pwd, setPwd] = useState("");
 
   async function login() {
     const { logged } = await signIn(email, pwd);
@@ -84,9 +84,9 @@ export default function Login() {
 
       <View className="mt-10 w-full items-center gap-3">
         <TouchableOpacity
+          testID="login"
           activeOpacity={0.7}
           onPress={() => login()}
-          testID="login"
           className="px-4 py-2 w-8/12 bg-[#A60C0C] rounded-xl items-center"
         >
           <Text className="text-white text-base">Entrar</Text>

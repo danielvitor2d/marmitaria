@@ -69,7 +69,7 @@ async function update({
   email,
   lastName,
   name,
-}: UpdateInput): Promise<UpdateResponse> {
+}: Partial<UpdateInput>): Promise<UpdateResponse> {
   try {
     const response = await api.patch<{}, AxiosResponse<UpdateResponse>>(
       `/users/${id}`,

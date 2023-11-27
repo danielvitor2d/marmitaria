@@ -21,7 +21,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.danielvitor23.mobile"
+      "package": "com.danielvitor23.mobile",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC5igscbYV5gZR9xufwK_-sWYgpbxPWsYc"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

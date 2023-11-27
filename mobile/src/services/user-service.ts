@@ -44,7 +44,7 @@ async function refetch(id: string) {
     return response.data.user;
   } catch (err) {
     console.error(err);
-    return null
+    return null;
   }
 }
 

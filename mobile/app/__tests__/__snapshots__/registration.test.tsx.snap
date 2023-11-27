@@ -189,6 +189,7 @@ exports[`test registration page snapshot test 1`] = `
               ]
             }
             testID="name"
+            value=""
           />
         </View>
         <View
@@ -275,6 +276,7 @@ exports[`test registration page snapshot test 1`] = `
               ]
             }
             testID="lastname"
+            value=""
           />
         </View>
         <View
@@ -322,7 +324,7 @@ exports[`test registration page snapshot test 1`] = `
           </Text>
           <TextInput
             onChangeText={[Function]}
-            placeholder="Av. Equador, 556, Centro"
+            placeholder="Ex. Av. Equador, 123, Itaoca"
             selectionColor="black"
             style={
               [
@@ -361,6 +363,7 @@ exports[`test registration page snapshot test 1`] = `
               ]
             }
             testID="address"
+            value=""
           />
         </View>
         <View
@@ -447,6 +450,7 @@ exports[`test registration page snapshot test 1`] = `
               ]
             }
             testID="email"
+            value=""
           />
         </View>
         <View
@@ -534,6 +538,7 @@ exports[`test registration page snapshot test 1`] = `
               ]
             }
             testID="pwd"
+            value=""
           />
         </View>
         <View
@@ -620,6 +625,7 @@ exports[`test registration page snapshot test 1`] = `
                 ],
               ]
             }
+            value=""
           />
         </View>
       </View>

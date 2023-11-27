@@ -30,8 +30,8 @@ export interface AuthContextData {
   ) => Promise<{ logged: boolean; isAdmin: boolean }>;
   setRest: React.Dispatch<React.SetStateAction<Restaurant | null>>;
   setMeal: React.Dispatch<React.SetStateAction<Meal | null>>;
-  update: (user: UserType) => Promise<boolean>;
-  refetchUser: () => Promise<void>
+  update: (user: Partial<UserType>) => Promise<boolean>;
+  refetchUser: () => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }: AuthProps) => {
     };
   }
 
-  async function update(user: UserType) {
+  async function update(user: Partial<UserType>) {
     const response = await auth.update({ ...user });
     // console.log(`UPDATE:`, response)
     if (response.updated) {
@@ -77,11 +77,11 @@ export const AuthProvider = ({ children }: AuthProps) => {
   }
 
   async function refetchUser() {
-    if (!user) return
+    if (!user) return;
 
     const response = await refetch(user.id);
     if (response) {
-      console.log(response)
+      console.log(response);
       setUser(response);
     }
   }
