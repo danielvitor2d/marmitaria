@@ -2,11 +2,12 @@ import {
   Feather,
   FontAwesome,
   Ionicons,
-  MaterialCommunityIcons,
+  MaterialCommunityIcons
 } from "@expo/vector-icons";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useContext, useState } from "react";
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -15,12 +16,16 @@ import {
 } from "react-native";
 
 import ProfileImage from "../src/assets/mini_profile.svg";
+import SuggestionO from "../src/assets/suggestion-o.png";
+import Suggestion from "../src/assets/suggestion.png";
 import { BackButton } from "../src/components/back_button";
 import { Header } from "../src/components/header";
 import { RestaurantCard } from "../src/components/restaurant_card";
+import { SuggestionRestaurantCard } from "../src/components/suggestion_restaurant_card";
 import AuthContext from "../src/contexts/auth";
 import { getRests } from "../src/services/rest-service";
 import { addFavorite, rmvFavorite } from "../src/services/user-service";
+import { generateRandomPatternArray } from "../src/utils/fake";
 
 export interface Meal {
   id: string;
@@ -118,7 +123,7 @@ export default function Restaurants() {
 
       <ScrollView className="flex-1 h-full mt-16">
         <View className="w-full h-20 bg-white items-center justify-center">
-          <View className="flex-row gap-16 items-center justify-between">
+          <View className="w-full px-12 flex-row items-center justify-around">
             <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => onChangeMode("map")}
@@ -181,12 +186,12 @@ export default function Restaurants() {
               <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => onChangeMode("suggestions")}
-                className="items-center gap-2"
+                className="flex items-center gap-2"
               >
                 {mode === "suggestions" ? (
-                  <FontAwesome size={36} color={"#A60C0C"} name="bookmark" />
+                  <Image source={Suggestion} className="h-10 w-10" />
                 ) : (
-                  <FontAwesome size={36} color={"#A60C0C"} name="bookmark-o" />
+                  <Image source={SuggestionO} className="h-10 w-10" />
                 )}
                 <Text className="text-[#A60C0C] text-xs">Sugestões</Text>
               </TouchableOpacity>
@@ -200,6 +205,7 @@ export default function Restaurants() {
               <RestaurantCard
                 key={idx}
                 rest={rest}
+                estrelas={generateRandomPatternArray()}
                 isFavorite={user.favorites && user.favorites.includes(rest.id)}
                 onClickFavorite={() => onClickFavorite(rest.id)}
               />
@@ -214,6 +220,7 @@ export default function Restaurants() {
                   <RestaurantCard
                     key={idx}
                     rest={rest}
+                    estrelas={generateRandomPatternArray()}
                     isFavorite={true}
                     onClickFavorite={() => onClickFavorite(rest.id)}
                   />
@@ -223,7 +230,7 @@ export default function Restaurants() {
         ) : mode === "suggestions" ? (
           <View className="px-1">
             {restaurants.filter(rest => rest.isSuggestion).map((rest, idx) => (
-              <RestaurantCard
+              <SuggestionRestaurantCard
                 key={idx}
                 rest={rest}
                 isFavorite={user.favorites && user.favorites.includes(rest.id)}
@@ -232,6 +239,7 @@ export default function Restaurants() {
             ))}
           </View>
         ) : (
+          // MAP
           <View className="w-full h-full p-1 flex-1 items-center justify-center">
             <Text className="text-lg font-bold">Em Breve!</Text>
             {/* <MapView style={styles.map} provider={PROVIDER_GOOGLE} /> */}

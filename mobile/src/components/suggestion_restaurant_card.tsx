@@ -7,16 +7,14 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Restaurant } from "../../app/restaurants";
 import RestaurantImage from "../assets/restaurant.png";
 import AuthContext from "../contexts/auth";
-import { generateRandomPatternArray } from "../utils/fake";
 
 interface Props {
   rest: Restaurant;
   isFavorite: boolean;
-  estrelas: number[];
   onClickFavorite: () => void;
 }
 
-export function RestaurantCard({ rest, isFavorite, estrelas, onClickFavorite }: Props) {
+export function SuggestionRestaurantCard({ rest, isFavorite, onClickFavorite }: Props) {
   const authContext = useContext(AuthContext);
   if (!authContext) return null;
 
@@ -37,7 +35,7 @@ export function RestaurantCard({ rest, isFavorite, estrelas, onClickFavorite }: 
     router.push("restaurant");
   }
 
-  function onEditRestaurant() {
+  function onAcceptSuggestion() {
     if (!isAdmin) return;
   }
 
@@ -72,9 +70,9 @@ export function RestaurantCard({ rest, isFavorite, estrelas, onClickFavorite }: 
             ) : (
               <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => onEditRestaurant()}
+                onPress={() => onAcceptSuggestion()}
               >
-                <FontAwesome size={16} color={"#A60C0C"} name={"pencil"} />
+                <FontAwesome size={16} color={"#A60C0C"} name={"check"} />
               </TouchableOpacity>
             )}
           </View>
@@ -86,21 +84,11 @@ export function RestaurantCard({ rest, isFavorite, estrelas, onClickFavorite }: 
           </View>
         </View>
 
-        <View className="flex-row items-center justify-between">
+        <View className="flex-row items-center">
           <View className="flex-row">
             <Text className="ml-1 text-[#EA6767] text-xs">Valor médio:</Text>
 
             <Text className="ml-1 text-[#EA6767] text-xs">R$ {rest.value}</Text>
-          </View>
-
-          <View className="flex-row">
-            {estrelas.map((i, v) =>
-              i == 1 ? (
-                <FontAwesome key={v} name="star" />
-              ) : (
-                <FontAwesome key={v} name="star-o" disabled={true} />
-              )
-            )}
           </View>
         </View>
       </View>

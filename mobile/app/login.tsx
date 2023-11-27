@@ -1,3 +1,4 @@
+import { AntDesign } from '@expo/vector-icons';
 import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
 import {
@@ -106,7 +107,10 @@ export default function Login() {
           testID="loginWithG"
           className="px-4 py-2 w-8/12 bg-[#34416D] rounded-xl items-center"
         >
-          <Text className="text-white text-base">Login com G</Text>
+          <Text className=" text-white text-base">
+            Login com{' '}
+            <AntDesign size={18} name="google" />
+          </Text>
         </TouchableOpacity>
       </View>
 
