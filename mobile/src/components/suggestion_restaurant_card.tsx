@@ -14,7 +14,11 @@ interface Props {
   onClickFavorite: () => void;
 }
 
-export function SuggestionRestaurantCard({ rest, isFavorite, onClickFavorite }: Props) {
+export function SuggestionRestaurantCard({
+  rest,
+  isFavorite,
+  onClickFavorite,
+}: Props) {
   const authContext = useContext(AuthContext);
   if (!authContext) return null;
 

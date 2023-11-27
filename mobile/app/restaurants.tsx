@@ -2,7 +2,7 @@ import {
   Feather,
   FontAwesome,
   Ionicons,
-  MaterialCommunityIcons
+  MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useContext, useState } from "react";
@@ -201,15 +201,19 @@ export default function Restaurants() {
 
         {mode === "list" ? (
           <View className="px-1">
-            {restaurants.filter(rest => !rest.isSuggestion).map((rest, idx) => (
-              <RestaurantCard
-                key={idx}
-                rest={rest}
-                estrelas={generateRandomPatternArray()}
-                isFavorite={user.favorites && user.favorites.includes(rest.id)}
-                onClickFavorite={() => onClickFavorite(rest.id)}
-              />
-            ))}
+            {restaurants
+              .filter((rest) => !rest.isSuggestion)
+              .map((rest, idx) => (
+                <RestaurantCard
+                  key={idx}
+                  rest={rest}
+                  estrelas={generateRandomPatternArray()}
+                  isFavorite={
+                    user.favorites && user.favorites.includes(rest.id)
+                  }
+                  onClickFavorite={() => onClickFavorite(rest.id)}
+                />
+              ))}
           </View>
         ) : mode === "fav-list" ? (
           <View className="px-1">
@@ -229,14 +233,18 @@ export default function Restaurants() {
           </View>
         ) : mode === "suggestions" ? (
           <View className="px-1">
-            {restaurants.filter(rest => rest.isSuggestion).map((rest, idx) => (
-              <SuggestionRestaurantCard
-                key={idx}
-                rest={rest}
-                isFavorite={user.favorites && user.favorites.includes(rest.id)}
-                onClickFavorite={() => onClickFavorite(rest.id)}
-              />
-            ))}
+            {restaurants
+              .filter((rest) => rest.isSuggestion)
+              .map((rest, idx) => (
+                <SuggestionRestaurantCard
+                  key={idx}
+                  rest={rest}
+                  isFavorite={
+                    user.favorites && user.favorites.includes(rest.id)
+                  }
+                  onClickFavorite={() => onClickFavorite(rest.id)}
+                />
+              ))}
           </View>
         ) : (
           // MAP

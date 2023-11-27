@@ -16,7 +16,12 @@ interface Props {
   onClickFavorite: () => void;
 }
 
-export function RestaurantCard({ rest, isFavorite, estrelas, onClickFavorite }: Props) {
+export function RestaurantCard({
+  rest,
+  isFavorite,
+  estrelas,
+  onClickFavorite,
+}: Props) {
   const authContext = useContext(AuthContext);
   if (!authContext) return null;
 
