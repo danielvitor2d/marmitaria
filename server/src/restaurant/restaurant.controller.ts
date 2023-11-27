@@ -28,6 +28,7 @@ export class RestaurantController {
           name: response.name,
           address: response.address,
           value: response.value,
+          isSuggestion: response.isSuggestion,
           paymentforms: response.paymentforms,
         },
       };
@@ -60,6 +61,7 @@ export class RestaurantController {
           address: rest.address,
           value: rest.value,
           paymentforms: rest.paymentforms,
+          isSuggestion: rest.isSuggestion,
           meals: rest.meals,
         },
       };
@@ -95,6 +97,7 @@ export class RestaurantController {
         address: rest.address,
         value: rest.value,
         paymentforms: rest.paymentforms,
+        isSuggestion: rest.isSuggestion,
         meals: rest.meals,
       }));
     } catch (error) {

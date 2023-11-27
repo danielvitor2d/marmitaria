@@ -3,4 +3,5 @@ export interface CreateRestDto {
   address: string;
   value: string;
   paymentforms: string;
+  isSuggestion: boolean;
 }

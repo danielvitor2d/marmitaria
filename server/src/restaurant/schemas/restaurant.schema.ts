@@ -5,5 +5,6 @@ export const RestaurantSchema = new mongoose.Schema({
   address: String,
   value: String,
   paymentforms: String,
+  isSuggestion: Boolean,
   meals: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Meal' }],
 });

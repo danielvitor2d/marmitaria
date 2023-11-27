@@ -54,7 +54,9 @@ export class RestaurantService {
       };
     }
 
-    const { name, address, value, paymentforms } = await this.get(id);
+    const { name, address, value, paymentforms, isSuggestion } = await this.get(
+      id,
+    );
 
     return {
       updated: true,
@@ -64,6 +66,7 @@ export class RestaurantService {
         address,
         value,
         paymentforms,
+        isSuggestion,
       },
     };
   }

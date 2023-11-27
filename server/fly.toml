@@ -1,10 +1,12 @@
-# fly.toml app configuration file generated for marmitaria-backend on 2023-11-15T17:16:17-03:00
+# fly.toml app configuration file generated for marmitaria-backend-12345 on 2023-11-16T08:44:29-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "marmitaria-backend"
+app = "marmitaria-backend-12345"
 primary_region = "gig"
+
+[build]
 
 [http_service]
   internal_port = 3000
