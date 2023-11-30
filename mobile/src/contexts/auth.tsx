@@ -33,6 +33,8 @@ export interface AuthContextData {
   update: (user: Partial<UserType>) => Promise<boolean>;
   refetchUser: () => Promise<void>;
   logout: () => Promise<void>;
+  suggestion: object;
+  setSuggestion: React.Dispatch<React.SetStateAction<object>>;
 }
 
 const AuthContext = createContext<AuthContextData | null>(null);
@@ -44,6 +46,8 @@ export const AuthProvider = ({ children }: AuthProps) => {
 
   const [currentRest, setCurrentRest] = useState<Restaurant | null>(null);
   const [currentMeal, setCurrentMeal] = useState<Meal | null>(null);
+
+  const [suggestion, setSuggestion] = useState<object>({})
 
   async function signIn(email: string, pwd: string) {
     const response = await auth.login({ email, pwd });
@@ -108,6 +112,8 @@ export const AuthProvider = ({ children }: AuthProps) => {
         meal: currentMeal,
         setRest: setCurrentRest,
         setMeal: setCurrentMeal,
+        suggestion,
+        setSuggestion,
       }}
     >
       {children}

@@ -1,7 +1,7 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useFocusEffect, useRouter } from "expo-router";
 import React, { useContext, useMemo, useState } from "react";
-import { Image, Modal, Pressable, Text, ToastAndroid, View } from "react-native";
+import { Image, Linking, Modal, Pressable, Text, ToastAndroid, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { Meal } from "../../app/restaurants";
@@ -48,16 +48,22 @@ export function MealCard({ meal, onSuggestRemoveMeal }: Props) {
 
   const { setMeal } = authContext;
 
+  const WhatsApp = (text: string, phone: string) => {
+    Linking.openURL(`whatsapp://send?text=${text}&phone=${phone}`);
+  }
+
   const router = useRouter();
 
   const [modalSuggestDelete, setModalSuggestDelete] = useState(false);
 
   function onClickPedirMarmita() {
     ToastAndroid.showWithGravity(
-      `Pedir Marmita`,
+      `Redirecionando para whatsapp.`,
       ToastAndroid.SHORT,
       ToastAndroid.CENTER
     );
+
+    WhatsApp(`Olá, vou querer ${meal.name}`, '+5588994206628');
   }
 
   function onClickAddComentario() {

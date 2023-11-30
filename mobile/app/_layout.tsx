@@ -62,6 +62,8 @@ export default function Layout() {
             <Stack.Screen name="restaurant" />
             <Stack.Screen name="register_restaurant" />
             <Stack.Screen name="restaurants" />
+
+            <Stack.Screen name="suggestion" />
           </Stack>
         </SafeAreaView>
       </AuthProvider>

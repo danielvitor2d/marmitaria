@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { Modal, Pressable, Text, ToastAndroid, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+import { useRouter } from 'expo-router';
 import { Restaurant, Suggestion } from "../../app/restaurants";
 import AuthContext from "../contexts/auth";
 import { Meal } from '../services/meal-service';
@@ -19,7 +20,11 @@ export function SuggestionCard({
   const authContext = useContext(AuthContext);
   if (!authContext) return null;
 
+  const { setSuggestion } = authContext;
+
   const [modalVisible, setModalVisible] = useState(false);
+
+  const router = useRouter()
 
   const { type, model, data } = suggestion;
 
@@ -37,10 +42,16 @@ export function SuggestionCard({
 
   function handleClickVisualizeSuggestion() {
     ToastAndroid.showWithGravity(
-      `Visualizando...`,
+      `Redirecionando...`,
       ToastAndroid.SHORT,
       ToastAndroid.CENTER
     );
+
+    setSuggestion(suggestion);
+
+    router.push({
+      pathname: 'suggestion',
+    })
   }
 
   const getTitle = () => {

@@ -127,12 +127,12 @@ export function RestaurantCard({
               </View>
             ) : (
               <View className="flex-row gap-3">
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   activeOpacity={0.7}
                   onPress={() => onEditRestaurant()}
                 >
                   <FontAwesome size={16} color={"#A60C0C"} name={"pencil"} />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
                 <TouchableOpacity
                   activeOpacity={0.7}
