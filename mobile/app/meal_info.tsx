@@ -1,6 +1,6 @@
 import { Feather, FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { useContext } from "react";
+import { useContext, useMemo, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -17,7 +17,7 @@ import { BackButton } from "../src/components/back_button";
 import { CustomButton } from "../src/components/custom_button";
 import { Header } from "../src/components/header";
 import AuthContext from "../src/contexts/auth";
-import { generateRandomPatternArray } from "../src/utils/fake";
+import { addReview } from "../src/services/reviews-service";
 
 export default function MealInfo() {
   const authContext = useContext(AuthContext);
@@ -26,7 +26,25 @@ export default function MealInfo() {
   const { meal } = authContext;
   if (!meal) return null;
 
+  const [cntStar, setCntStar] = useState(0);
+  const [comments, setComments] = useState('');
+
+  const stars = useMemo(() => {
+    let arr = []
+    for (let i = 0; i < cntStar; ++i) {
+      arr.push(1);
+    }
+    for (let i = 0; i < 5-cntStar; ++i) {
+      arr.push(0);
+    }
+    return arr;
+  }, [cntStar])
+
   const router = useRouter();
+
+  function onSetCntStar(cnt: number) {
+    setCntStar(cnt)
+  }
 
   function onAddFoto() {
     ToastAndroid.showWithGravity(
@@ -36,12 +54,50 @@ export default function MealInfo() {
     );
   }
 
-  function onCadastrarAvaliacao() {
-    ToastAndroid.showWithGravity(
-      `Cadastrando avaliação`,
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
-    );
+  async function onCadastrarAvaliacao() {
+    if (!meal) return
+
+    if (cntStar === 0) {
+      ToastAndroid.showWithGravity(
+        `Deve ter ao menos uma estrela.`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+
+      return;
+    }
+
+    if (!comments) {
+      ToastAndroid.showWithGravity(
+        `Texto não deve estar vazio.`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+
+      return;
+    }
+
+    const { registered, review } = await addReview({
+      cntStar,
+      comments,
+      mealId: meal._id ?? '',
+    })
+
+    if (registered && review) {
+      ToastAndroid.showWithGravity(
+        `Avaliação cadastrada!.`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+
+      router.back();
+    } else {
+      ToastAndroid.showWithGravity(
+        `Erro ao cadastrar avaliação. Tente novamente.`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+    }
   }
 
   return (
@@ -66,9 +122,13 @@ export default function MealInfo() {
       </Header>
 
       <ScrollView className="flex-1 mt-16">
-        <View className="w-full h-20 bg-white items-center justify-center">
+        <View className="w-full min-h-20 bg-white items-center justify-center">
           <Text className="text-xl text-[#A60C0C] font-semibold">
-            {meal.name}
+            {meal.name + ' | ' + meal.value}
+          </Text>
+          
+          <Text className="text-md text-[#A60C0C] font-semibold">
+            {meal.desc}
           </Text>
         </View>
 
@@ -87,6 +147,8 @@ export default function MealInfo() {
                 cursorColor={"#5C6265"}
                 textAlignVertical="top"
                 numberOfLines={8}
+                value={comments}
+                onChangeText={setComments}
               />
             </View>
 
@@ -129,24 +191,18 @@ export default function MealInfo() {
                 Experiência
               </Text>
 
-              <View className="flex-row gap-[2px]">
-                {generateRandomPatternArray().map((i, v) =>
-                  i == 1 ? (
+              <View className="flex-row gap-[3px]">
+                {stars.map((value, idx) =>
+                  <TouchableOpacity
+                    key={idx}
+                  >
                     <FontAwesome
-                      size={24}
-                      color="#E49024"
-                      key={v}
-                      name="star"
+                      size={30}
+                      color={value == 1 ? "#E49024" : "#FF8B3A"}
+                      name={value == 1 ? "star" : "star-o"}
+                      onPress={() => onSetCntStar(idx+1)}
                     />
-                  ) : (
-                    <FontAwesome
-                      size={24}
-                      color="#FF8B3A"
-                      key={v}
-                      name="star-o"
-                      disabled={true}
-                    />
-                  )
+                  </TouchableOpacity>
                 )}
               </View>
             </View>

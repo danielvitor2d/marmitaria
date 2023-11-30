@@ -1,10 +1,9 @@
 export function generateRandomPatternArray(): number[] {
   const array: number[] = [];
 
-  // Gera um número aleatório entre 0 e 5 para determinar a quantidade de 1s no início
-  const numOnes = Math.floor(Math.random() * 6);
+  let numOnes = Math.floor(Math.random() * 6);
+  if (numOnes === 0) numOnes = 1;
 
-  // Preenche o array conforme o padrão
   for (let i = 0; i < numOnes; i++) {
     array.push(1);
   }

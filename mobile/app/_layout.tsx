@@ -54,6 +54,7 @@ export default function Layout() {
             <Stack.Screen name="registration" />
             <Stack.Screen name="forgot_password" />
 
+            <Stack.Screen name="meal" />
             <Stack.Screen name="meal_info" />
             <Stack.Screen name="edit_meal" />
             <Stack.Screen name="register_meal" />

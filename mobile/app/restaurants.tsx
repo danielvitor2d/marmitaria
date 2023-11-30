@@ -23,9 +23,10 @@ import { Header } from "../src/components/header";
 import { RestaurantCard } from "../src/components/restaurant_card";
 import { SuggestionCard } from "../src/components/suggestion_card";
 import AuthContext from "../src/contexts/auth";
-import { register, update, remove as removeMeal } from "../src/services/meal-service";
+import { register, remove as removeMeal, update } from "../src/services/meal-service";
 import { addMeal, getRests, register as registerRest, remove } from "../src/services/rest-service";
-import { addSuggestion, finishSuggestion, getSuggestions } from "../src/services/suggeestions-service";
+import { Review } from "../src/services/reviews-service";
+import { addSuggestion, finishSuggestion, getSuggestions } from "../src/services/suggestions-service";
 import { addFavorite, rmvFavorite } from "../src/services/user-service";
 import { generateRandomPatternArray } from "../src/utils/fake";
 
@@ -92,6 +93,7 @@ export default function Restaurants() {
 
   async function fetchRestaurants() {
     const rests = await getRests();
+    // console.log(rests)
     setrestaurants([...rests]);
   }
 
@@ -154,7 +156,7 @@ export default function Restaurants() {
   }
 
   async function handleAcceptSuggestion(suggestion: Suggestion) {
-    console.log(suggestion)
+    // console.log(suggestion)
 
     if (suggestion.model === 'meal') {
       if (suggestion.type === 'create') {
@@ -224,7 +226,7 @@ export default function Restaurants() {
         return;
       }
 
-      console.log(suggestion.data)
+      // console.log(suggestion.data)
       const { deleted } = await removeMeal((suggestion.data as { meal: Meal }).meal.id)
       if (!deleted) {
         ToastAndroid.showWithGravity(

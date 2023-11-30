@@ -1,13 +1,13 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import React, { useContext, useState } from "react";
+import { useFocusEffect, useRouter } from "expo-router";
+import React, { useContext, useMemo, useState } from "react";
 import { Image, Modal, Pressable, Text, ToastAndroid, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { Meal } from "../../app/restaurants";
 import FeijoadaImage from "../assets/feijoada.png";
 import AuthContext from "../contexts/auth";
-import { generateRandomPatternArray } from "../utils/fake";
+import { Review } from "../services/reviews-service";
 
 interface Props {
   meal: Meal;
@@ -17,6 +17,34 @@ interface Props {
 export function MealCard({ meal, onSuggestRemoveMeal }: Props) {
   const authContext = useContext(AuthContext);
   if (!authContext) return null;
+
+  const qtdStars = useMemo<number>(() => {
+    let acc = 0, cnt = 0;
+
+    for (const review of (meal as unknown as { reviews: Review[] }).reviews) {
+      acc += review.cntStar;
+      cnt += 1;
+    }
+
+    if (cnt === 0) return -1;
+
+    let m = acc / cnt
+    console.log(m)
+
+    return m;
+  }, [meal])
+
+  const stars = useMemo(() => {
+    let arr = [], i = 0
+
+    for (i = 0; i < qtdStars; ++i) {
+      arr.push(1);
+    }
+    for (; i < 5; ++i) {
+      arr.push(0);
+    }
+    return arr;
+  }, [qtdStars])
 
   const { setMeal } = authContext;
 
@@ -65,8 +93,16 @@ export function MealCard({ meal, onSuggestRemoveMeal }: Props) {
     onSuggestRemoveMeal()
   }
 
+  useFocusEffect(() => {
+    console.log(meal)
+  });
+
   return (
     <TouchableOpacity
+      onPress={() => {
+        setMeal(meal);
+        router.push('meal')
+      }}
       className="w-full h-32 p-1 flex-row gap-0"
     >
       <Image source={FeijoadaImage} className="w-36 h-28" />
@@ -125,13 +161,15 @@ export function MealCard({ meal, onSuggestRemoveMeal }: Props) {
           </View>
 
           <View className="flex-row">
-            {generateRandomPatternArray().map((i, v) =>
-              i == 1 ? (
-                <FontAwesome key={v} name="star" />
-              ) : (
-                <FontAwesome key={v} name="star-o" disabled={true} />
+            {
+              (qtdStars === -1) ? <Text>Não avaliado</Text> : stars.map((i, v) =>
+                i == 1 ? (
+                  <FontAwesome key={v} name="star" />
+                ) : (
+                  <FontAwesome key={v} name="star-o" disabled={true} />
+                )
               )
-            )}
+            }
           </View>
         </View>
 
@@ -145,12 +183,12 @@ export function MealCard({ meal, onSuggestRemoveMeal }: Props) {
               <Text className="text-[10px] text-white">Pedir marmita</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               activeOpacity={0.7}
               onPress={() => onClickAddComentario()}
             >
               <FontAwesome size={24} color={"#A60C0C"} name={"plus-circle"} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
       </View>

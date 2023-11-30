@@ -59,7 +59,7 @@ export class MealsService {
   }
 
   async findAll(): Promise<Meal[]> {
-    return this.mealModel.find().exec();
+    return this.mealModel.find().populate('reviews').exec();
   }
 
   async delete(id: string) {

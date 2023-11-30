@@ -43,7 +43,6 @@ export function RestaurantCard({
     );
 
     setRest(rest);
-    // console.log(rest)
 
     router.push("restaurant");
   }

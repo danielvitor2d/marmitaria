@@ -7,7 +7,7 @@ import { BackButton } from "../src/components/back_button";
 import { CustomButton } from "../src/components/custom_button";
 import { Header } from "../src/components/header";
 import AuthContext from "../src/contexts/auth";
-import { addSuggestion } from "../src/services/suggeestions-service";
+import { addSuggestion } from "../src/services/suggestions-service";
 
 interface Prato {
   id: string;

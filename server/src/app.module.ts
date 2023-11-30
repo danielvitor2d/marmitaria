@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MealsModule } from './meal/meal.module';
 import { RestaurantModule } from './restaurant/restaurant.module';
+import { ReviewModule } from './reviews/reviews.module';
 import { SuggestionsModule } from './suggestion/suggestion.module';
 import { UsersModule } from './user/user.module';
 
@@ -14,6 +15,7 @@ import { UsersModule } from './user/user.module';
     MealsModule,
     RestaurantModule,
     SuggestionsModule,
+    ReviewModule,
     ConfigModule.forRoot(),
   ],
   controllers: [AppController],

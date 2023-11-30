@@ -1,4 +1,5 @@
 import { Connection } from 'mongoose';
+
 import { MealSchema } from './schemas/meal.schema';
 
 export const mealsProviders = [

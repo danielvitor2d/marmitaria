@@ -12,7 +12,7 @@ import {
   addMeal,
   register as registerRest,
 } from "../src/services/rest-service";
-import { addSuggestion } from "../src/services/suggeestions-service";
+import { addSuggestion } from "../src/services/suggestions-service";
 
 export interface Prato {
   id: number;

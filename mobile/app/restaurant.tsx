@@ -8,7 +8,7 @@ import { BackButton } from "../src/components/back_button";
 import { Header } from "../src/components/header";
 import { MealCard } from "../src/components/meal_card";
 import AuthContext from "../src/contexts/auth";
-import { addSuggestion } from "../src/services/suggeestions-service";
+import { addSuggestion } from "../src/services/suggestions-service";
 import { Meal } from "./restaurants";
 
 interface Restaurant {
