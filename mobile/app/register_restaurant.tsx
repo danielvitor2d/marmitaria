@@ -1,8 +1,8 @@
+import { useRouter } from "expo-router";
 import { useContext, useState } from "react";
 import { ScrollView, Text, TextInput, ToastAndroid, View } from "react-native";
-
-import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
 import { BackButton } from "../src/components/back_button";
 import { CustomButton } from "../src/components/custom_button";
 import MealAccordion from "../src/components/meal_accordion";
@@ -12,8 +12,9 @@ import {
   addMeal,
   register as registerRest,
 } from "../src/services/rest-service";
+import { addSuggestion } from "../src/services/suggeestions-service";
 
-interface Prato {
+export interface Prato {
   id: number;
   name: string;
   description: string;
@@ -53,47 +54,84 @@ export default function RegisterRestaurant() {
       return;
     }
 
-    let mealsId: Array<string> = [];
+    if (isAdmin) {
+      let mealsId: Array<string> = [];
+      for await (const prato of pratos) {
+        const { registered, meal } = await register({
+          name: prato.name,
+          desc: prato.description,
+          value: prato.value,
+        });
+        if (registered && meal) {
+          mealsId.push(meal?.id);
+        }
+      }
+  
+      const { rest, registered: restRegistered } = await registerRest({
+        name,
+        address,
+        paymentforms,
+        value: price,
+        isSuggestion: false,
+      });
+  
+      if (restRegistered && rest) {
+        for await (const mealId of mealsId) {
+          await addMeal(rest.id, mealId);
+        }
+  
+        await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
+  
+        ToastAndroid.showWithGravity(
+          `Restaurante cadastrado com sucesso!`,
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
+  
+        router.back();
+      } else {
+        ToastAndroid.showWithGravity(
+          `Erro ao cadastrar restaurante.`,
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
+      }
+
+      return;
+    }
+
+    let meals: Array<object> = [];
     for await (const prato of pratos) {
-      const { registered, meal } = await register({
+      meals.push({
         name: prato.name,
         desc: prato.description,
         value: prato.value,
       });
-      if (registered && meal) {
-        mealsId.push(meal?.id);
-      }
     }
 
-    const { rest, registered: restRegistered } = await registerRest({
-      name,
-      address,
-      paymentforms,
-      value: price,
-      isSuggestion: !isAdmin ? true : false,
-    });
-
-    if (restRegistered && rest) {
-      for await (const mealId of mealsId) {
-        await addMeal(rest.id, mealId);
+    // suggestion
+    addSuggestion({
+      type: 'create',
+      model: 'rest',
+      data: {
+        rest: {
+          name,
+          address,
+          paymentforms,
+          value: price,
+          isSuggestion: false,
+        },
+        meals,
       }
+    })
 
-      await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
+    ToastAndroid.showWithGravity(
+      `Sugestão cadastrada!`,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER
+    );
 
-      ToastAndroid.showWithGravity(
-        `Restaurante cadastrado com sucesso!`,
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER
-      );
-
-      router.back();
-    } else {
-      ToastAndroid.showWithGravity(
-        `Erro ao cadastrar restaurante.`,
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER
-      );
-    }
+    router.back();
   }
 
   function onAddPrato() {

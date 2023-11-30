@@ -5,10 +5,17 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MealsModule } from './meal/meal.module';
 import { RestaurantModule } from './restaurant/restaurant.module';
+import { SuggestionsModule } from './suggestion/suggestion.module';
 import { UsersModule } from './user/user.module';
 
 @Module({
-  imports: [UsersModule, MealsModule, RestaurantModule, ConfigModule.forRoot()],
+  imports: [
+    UsersModule,
+    MealsModule,
+    RestaurantModule,
+    SuggestionsModule,
+    ConfigModule.forRoot(),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

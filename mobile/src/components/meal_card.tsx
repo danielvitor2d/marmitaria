@@ -1,9 +1,9 @@
 import { FontAwesome } from "@expo/vector-icons";
-import { Image, Text, ToastAndroid, View } from "react-native";
-
 import { useRouter } from "expo-router";
 import React, { useContext } from "react";
+import { Image, Text, ToastAndroid, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
 import { Meal } from "../../app/restaurants";
 import FeijoadaImage from "../assets/feijoada.png";
 import AuthContext from "../contexts/auth";
@@ -21,18 +21,6 @@ export function MealCard({ meal }: Props) {
 
   const router = useRouter();
 
-  async function handleSeeMeal() {
-    ToastAndroid.showWithGravity(
-      `Redirecionando para página da refeição`,
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
-    );
-
-    setMeal(meal);
-
-    router.push("meal_info");
-  }
-
   function onClickPedirMarmita() {
     ToastAndroid.showWithGravity(
       `Pedir Marmita`,
@@ -43,21 +31,48 @@ export function MealCard({ meal }: Props) {
 
   function onClickAddComentario() {
     ToastAndroid.showWithGravity(
-      `Adicionar comentário`,
+      `Adicionar avaliação`,
       ToastAndroid.SHORT,
       ToastAndroid.CENTER
     );
+
+    setMeal(meal);
+
+    router.push("meal_info");
+  }
+
+  function onEditMeal() {
+    ToastAndroid.showWithGravity(
+      `Redirecionando para página da refeição`,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER
+    );
+
+    setMeal({
+      ...meal,
+      id: meal._id ?? '',
+    });
+
+    router.push('edit_meal')
   }
 
   return (
     <TouchableOpacity
-      onPress={() => handleSeeMeal()}
       className="w-full h-32 p-1 flex-row gap-0"
     >
       <Image source={FeijoadaImage} className="w-36 h-28" />
 
       <View className="w-full h-28 py-3 px-5 flex-1 bg-[#FFF2F2] flex-col justify-between">
-        <Text className="font-bold text-xs text-[#A60C0C]">{meal.name}</Text>
+        <View className="flex-row justify-between items-center">
+          <Text className="font-bold text-xs text-[#A60C0C]">{meal.name}</Text>
+
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => onEditMeal()}
+          >
+            <FontAwesome size={16} color={"#A60C0C"} name={"pencil"} />
+          </TouchableOpacity>
+        </View>
 
         <View className="flex-row items-center justify-between">
           <View className="flex-row">

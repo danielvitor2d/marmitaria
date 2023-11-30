@@ -9,10 +9,10 @@ import { useCallback, useContext, useState } from "react";
 import {
   Image,
   ScrollView,
-  StyleSheet,
   Text,
+  ToastAndroid,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 
 import ProfileImage from "../src/assets/mini_profile.svg";
@@ -21,13 +21,17 @@ import Suggestion from "../src/assets/suggestion.png";
 import { BackButton } from "../src/components/back_button";
 import { Header } from "../src/components/header";
 import { RestaurantCard } from "../src/components/restaurant_card";
-import { SuggestionRestaurantCard } from "../src/components/suggestion_restaurant_card";
+import { SuggestionCard } from "../src/components/suggestion_card";
 import AuthContext from "../src/contexts/auth";
-import { getRests } from "../src/services/rest-service";
+import { register, update } from "../src/services/meal-service";
+import { addMeal, getRests, register as registerRest } from "../src/services/rest-service";
+import { finishSuggestion, getSuggestions } from "../src/services/suggeestions-service";
 import { addFavorite, rmvFavorite } from "../src/services/user-service";
 import { generateRandomPatternArray } from "../src/utils/fake";
+import { Prato } from "./register_restaurant";
 
 export interface Meal {
+  _id?: string;
   id: string;
   name: string;
   desc: string;
@@ -44,6 +48,13 @@ export interface Restaurant {
   meals: Array<Meal>;
 }
 
+export interface Suggestion {
+  id: string;
+  type: 'create' | 'update' | 'delete',
+  model: 'rest' | 'meal'
+  data: object;
+}
+
 type ModeType = "list" | "fav-list" | "map" | "suggestions";
 
 export default function Restaurants() {
@@ -58,6 +69,7 @@ export default function Restaurants() {
   const [mode, setMode] = useState<ModeType>("list");
 
   const [restaurants, setrestaurants] = useState<Array<Restaurant>>([]);
+  const [suggestions, setsuggestions] = useState<Array<Suggestion>>([]);
 
   function onChangeMode(newMode: ModeType) {
     setMode(newMode);
@@ -77,6 +89,11 @@ export default function Restaurants() {
     setrestaurants([...rests]);
   }
 
+  async function fetchSuggestions() {
+    const suggestions = await getSuggestions();
+    setsuggestions([...suggestions]);
+  }
+
   async function onClickFavorite(rest_id: string) {
     if (!user) return;
 
@@ -92,10 +109,138 @@ export default function Restaurants() {
     await refetchUser();
   }
 
+  async function handleAcceptSuggestion(suggestion: Suggestion) {
+    if (suggestion.model === 'meal') {
+      if (suggestion.type === 'create') {
+        const prato = (suggestion.data as { meal: Meal }).meal
+        const rest = (suggestion.data as { rest: Restaurant }).rest
+
+        const { registered, meal } = await register({
+          name: prato.name,
+          desc: prato.desc,
+          value: prato.value,
+        });
+
+        if (registered && meal) {
+          await addMeal(rest.id, meal.id)
+
+          await finishSuggestion(suggestion.id)
+  
+          await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
+
+          ToastAndroid.showWithGravity(
+            `Sugestão aceita!`,
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+          );
+    
+          setRest(null);
+          fetchRestaurants();
+          fetchSuggestions();
+        } else {
+          ToastAndroid.showWithGravity(
+            `Erro ao aceitar sugestão! Tente novamente mais tarde.`,
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+          );
+        }
+          
+        return;
+      }
+
+      if (suggestion.type === 'update') {
+        const { meal, updated } = await update({
+          ...(suggestion.data as Meal)
+        })
+
+        if (updated && meal) {
+          await finishSuggestion(suggestion.id)
+  
+          await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
+
+          ToastAndroid.showWithGravity(
+            `Sugestão aceita!`,
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+          );
+    
+          setRest(null);
+          fetchRestaurants();
+          fetchSuggestions();
+        } else {
+          ToastAndroid.showWithGravity(
+            `Erro ao aceitar sugestão! Tente novamente mais tarde.`,
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+          );
+        }
+
+        return;
+      }
+
+      
+
+      return;
+    }
+
+    if (suggestion.model === 'rest') {
+      console.log(suggestion)
+
+      const { rest: { name, address, paymentforms, value: price }, meals: pratos } = suggestion.data as { rest: Restaurant, meals: Prato[] };
+
+      let mealsId: Array<string> = [];
+      for await (const prato of pratos) {
+        const { registered, meal } = await register({
+          name: prato.name,
+          desc: prato.description,
+          value: prato.value,
+        });
+        if (registered && meal) {
+          mealsId.push(meal?.id);
+        }
+      }
+  
+      const { rest, registered: restRegistered } = await registerRest({
+        name,
+        address,
+        paymentforms,
+        value: price,
+        isSuggestion: false,
+      });
+  
+      if (restRegistered && rest) {
+        for await (const mealId of mealsId) {
+          await addMeal(rest.id, mealId);
+        }
+
+        await finishSuggestion(suggestion.id)
+  
+        await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
+  
+        ToastAndroid.showWithGravity(
+          `Sugestão aceita!`,
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
+  
+        setRest(null);
+        fetchRestaurants();
+        fetchSuggestions();
+      } else {
+        ToastAndroid.showWithGravity(
+          `Erro ao cadastrar restaurante. Tente novamente mais tarde.`,
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
+      }
+    }
+  }
+
   useFocusEffect(
     useCallback(() => {
       setRest(null);
       fetchRestaurants();
+      fetchSuggestions();
     }, [])
   );
 
@@ -107,6 +252,7 @@ export default function Restaurants() {
           type={"NEUTRAL"}
           onPress={() => onLogout()}
           size={26}
+          className="rotate-180"
         ></BackButton>
 
         <Text className="text-white text-lg">
@@ -233,21 +379,17 @@ export default function Restaurants() {
           </View>
         ) : mode === "suggestions" ? (
           <View className="px-1">
-            {restaurants
-              .filter((rest) => rest.isSuggestion)
-              .map((rest, idx) => (
-                <SuggestionRestaurantCard
+            {suggestions
+              .map((suggestion, idx) => (
+                <SuggestionCard
                   key={idx}
-                  rest={rest}
-                  isFavorite={
-                    user.favorites && user.favorites.includes(rest.id)
-                  }
-                  onClickFavorite={() => onClickFavorite(rest.id)}
+                  suggestion={suggestion}
+                  onAcceptSuggestion={() => handleAcceptSuggestion(suggestion)}
                 />
               ))}
           </View>
         ) : (
-          // MAP
+          // MAPA
           <View className="w-full h-full p-1 flex-1 items-center justify-center">
             <Text className="text-lg font-bold">Em Breve!</Text>
             {/* <MapView style={styles.map} provider={PROVIDER_GOOGLE} /> */}
@@ -267,10 +409,3 @@ export default function Restaurants() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  map: {
-    width: "100%",
-    height: "100%",
-  },
-});

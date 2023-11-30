@@ -1,4 +1,5 @@
 import { AxiosResponse } from "axios";
+
 import { UserType } from "../contexts/auth";
 import { api } from "../lib/api";
 

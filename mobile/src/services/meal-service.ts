@@ -14,9 +14,21 @@ interface RegisterInput {
   value: string;
 }
 
+interface UpdateInput {
+  id: string;
+  name: string;
+  desc: string;
+  value: string;
+}
+
 interface RegisterResponse {
   registered: boolean;
   meal: Meal;
+}
+
+interface UpdateResponse {
+  updated: boolean;
+  meal: Meal | null;
 }
 
 async function register({ name, desc, value }: RegisterInput) {
@@ -39,4 +51,32 @@ async function register({ name, desc, value }: RegisterInput) {
   }
 }
 
-export { register };
+async function update({
+  id,
+  name,
+  desc,
+  value,
+}: UpdateInput) {
+  try {
+    const response = await api.patch<{}, AxiosResponse<UpdateResponse>>(
+      `/meals/${id}`,
+      {
+        name,
+        desc,
+        value,
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return {
+      updated: false,
+      meal: null,
+    };
+  }
+}
+
+export {
+  register,
+  update,
+};

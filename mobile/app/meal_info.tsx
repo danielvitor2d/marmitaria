@@ -161,7 +161,7 @@ export default function MealInfo() {
         testID="registerButton"
         className="self-center mt-5"
         onPress={() => onCadastrarAvaliacao()}
-      />
+      ></CustomButton>
     </View>
   );
 }

@@ -42,6 +42,7 @@ export class MealController {
   @Patch('/:id')
   async update(@Param('id') id: string, @Body() updateMeal: UpdateMealDto) {
     try {
+      // console.log(id, updateMeal);
       return this.mealsService.update(id, updateMeal);
     } catch (error) {
       this.logger.error(`could not update meal due to error: ${error}`);
