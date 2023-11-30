@@ -24,7 +24,7 @@ import { RestaurantCard } from "../src/components/restaurant_card";
 import { SuggestionCard } from "../src/components/suggestion_card";
 import AuthContext from "../src/contexts/auth";
 import { register, update } from "../src/services/meal-service";
-import { addMeal, getRests, register as registerRest } from "../src/services/rest-service";
+import { addMeal, getRests, register as registerRest, remove } from "../src/services/rest-service";
 import { finishSuggestion, getSuggestions } from "../src/services/suggeestions-service";
 import { addFavorite, rmvFavorite } from "../src/services/user-service";
 import { generateRandomPatternArray } from "../src/utils/fake";
@@ -107,6 +107,28 @@ export default function Restaurants() {
     await fetchRestaurants();
     await new Promise((resolve) => setTimeout(() => resolve(true), 500));
     await refetchUser();
+  }
+
+  async function onRemoveRestaurant(rest: Restaurant) {
+    const { deleted } = await remove(rest.id)
+    if (!deleted) {
+      ToastAndroid.showWithGravity(
+        `Erro ao tentar deletar restaurante! Tente novamente.`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+      return
+    }
+
+    ToastAndroid.showWithGravity(
+      `Restaurante removido!`,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER
+    );
+
+    setRest(null);
+    fetchRestaurants();
+    fetchSuggestions();
   }
 
   async function handleAcceptSuggestion(suggestion: Suggestion) {
@@ -358,6 +380,7 @@ export default function Restaurants() {
                     user.favorites && user.favorites.includes(rest.id)
                   }
                   onClickFavorite={() => onClickFavorite(rest.id)}
+                  onRemoveRestaurant={() => onRemoveRestaurant(rest)}
                 />
               ))}
           </View>
@@ -373,6 +396,7 @@ export default function Restaurants() {
                     estrelas={generateRandomPatternArray()}
                     isFavorite={true}
                     onClickFavorite={() => onClickFavorite(rest.id)}
+                    onRemoveRestaurant={() => onRemoveRestaurant(rest)}
                   />
                 )
             )}

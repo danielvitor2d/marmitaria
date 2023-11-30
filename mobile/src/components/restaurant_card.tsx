@@ -1,19 +1,19 @@
 import { FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import React, { useContext } from "react";
-import { Image, Text, ToastAndroid, View } from "react-native";
+import React, { useContext, useState } from "react";
+import { Image, Modal, Pressable, Text, ToastAndroid, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { Restaurant } from "../../app/restaurants";
 import RestaurantImage from "../assets/restaurant.png";
 import AuthContext from "../contexts/auth";
-import { generateRandomPatternArray } from "../utils/fake";
 
 interface Props {
   rest: Restaurant;
   isFavorite: boolean;
   estrelas: number[];
   onClickFavorite: () => void;
+  onRemoveRestaurant: () => Promise<void>;
 }
 
 export function RestaurantCard({
@@ -21,11 +21,14 @@ export function RestaurantCard({
   isFavorite,
   estrelas,
   onClickFavorite,
+  onRemoveRestaurant,
 }: Props) {
   const authContext = useContext(AuthContext);
   if (!authContext) return null;
 
   const { isAdmin, setRest } = authContext;
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const router = useRouter();
 
@@ -44,6 +47,15 @@ export function RestaurantCard({
 
   function onEditRestaurant() {
     if (!isAdmin) return;
+
+    
+  }
+
+  function handleRemoveRestaurant() {
+    if (!isAdmin) return;
+    setModalVisible(false);
+
+    onRemoveRestaurant();
   }
 
   return (
@@ -75,12 +87,44 @@ export function RestaurantCard({
                 )}
               </TouchableOpacity>
             ) : (
-              <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={() => onEditRestaurant()}
-              >
-                <FontAwesome size={16} color={"#A60C0C"} name={"pencil"} />
-              </TouchableOpacity>
+              <View className="flex-row gap-3">
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => onEditRestaurant()}
+                >
+                  <FontAwesome size={16} color={"#A60C0C"} name={"pencil"} />
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => setModalVisible(true)}
+                >
+                  <FontAwesome size={16} color={"#A60C0C"} name={"trash"} />
+                </TouchableOpacity>
+
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={modalVisible}
+                  onRequestClose={() => setModalVisible(false)}
+                >
+                  <View className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-[#00000080]">
+                    <View className="bg-white rounded-lg p-8">
+                      <Text className="text-lg mb-4">Tem certeza de que deseja prosseguir?</Text>
+                      
+                      <View className='flex-row items-center justify-end'>
+                        <Pressable className='ml-2 px-2 py-1 bg-[#d9d9d9] rounded-md' onPress={() => setModalVisible(false)}>
+                          <Text className="text-black">Cancelar</Text>
+                        </Pressable>
+
+                        <Pressable className='ml-2 px-2 py-1 bg-[#ce1717] rounded-md' onPress={() => handleRemoveRestaurant()}>
+                          <Text className="text-white">Sim</Text>
+                        </Pressable>
+                      </View>
+                    </View>
+                  </View>
+                </Modal>
+              </View>
             )}
           </View>
 

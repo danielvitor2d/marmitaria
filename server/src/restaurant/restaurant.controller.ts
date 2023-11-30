@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Logger,
   Param,
@@ -101,7 +102,24 @@ export class RestaurantController {
         meals: rest.meals,
       }));
     } catch (error) {
-      this.logger.error(`could not find all users due to error: ${error}`);
+      this.logger.error(
+        `could not find all restaurants due to error: ${error}`,
+      );
+    }
+  }
+
+  @Delete('/:id')
+  async delete(@Param('id') id: string) {
+    try {
+      const result = await this.restService.delete(id);
+      return {
+        deleted: result !== null,
+      };
+    } catch (error) {
+      this.logger.error(`could not delete restaurant due to error: ${error}`);
+      return {
+        deleted: false,
+      };
     }
   }
 }

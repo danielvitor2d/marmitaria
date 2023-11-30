@@ -21,7 +21,6 @@ export default function Restaurant() {
   if (!rest) return null;
 
   const meals = useMemo(() => {
-    // console.log(rest);
     return rest.meals ?? [];
   }, [rest.meals]);
 
@@ -36,7 +35,7 @@ export default function Restaurant() {
           onPress={() => router.back()}
         />
 
-        <Text className="text-white text-lg">Cardápio</Text>
+        <Text className="text-white text-lg">Marmitas</Text>
 
         <TouchableOpacity
           activeOpacity={0.7}

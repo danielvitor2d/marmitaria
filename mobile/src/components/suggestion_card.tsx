@@ -100,7 +100,7 @@ export function SuggestionCard({
                   <Text className="text-lg mb-4">Tem certeza de que deseja prosseguir?</Text>
                   
                   <View className='flex-row items-center justify-end'>
-                   <Pressable className='ml-2 px-2 py-1 bg-[#d9d9d9] rounded-md' onPress={() => setModalVisible(false)}>
+                    <Pressable className='ml-2 px-2 py-1 bg-[#d9d9d9] rounded-md' onPress={() => setModalVisible(false)}>
                       <Text className="text-black">Cancelar</Text>
                     </Pressable>
 

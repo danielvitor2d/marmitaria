@@ -55,7 +55,7 @@ export default function MealInfo() {
           onPress={() => router.back()}
         />
 
-        <Text className="text-white text-lg">Cardápio</Text>
+        <Text className="text-white text-lg">Marmita</Text>
 
         <TouchableOpacity
           activeOpacity={0.7}

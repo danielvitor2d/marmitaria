@@ -74,4 +74,8 @@ export class RestaurantService {
   async findAll() {
     return this.restaurantModel.find().populate('meals').exec();
   }
+
+  async delete(id: string) {
+    return this.restaurantModel.findByIdAndDelete(id);
+  }
 }

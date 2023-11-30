@@ -30,6 +30,10 @@ interface AddMealResponse {
   rest: Restaurant | null;
 }
 
+interface DeleteResponse {
+  deleted: boolean;
+}
+
 async function register({
   name,
   address,
@@ -89,4 +93,19 @@ async function getRests() {
   }
 }
 
-export { register, addMeal, getRests };
+async function remove(id: string) {
+  try {
+    const response = await api.delete<{}, AxiosResponse<DeleteResponse>>(
+      `/restaurants/${id}`
+    );
+
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return {
+      deleted: false,
+    }
+  }
+}
+
+export { register, addMeal, getRests, remove };
