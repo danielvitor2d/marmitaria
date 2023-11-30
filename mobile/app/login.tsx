@@ -43,7 +43,7 @@ export default function Login() {
   }
 
   return (
-    <View className="flex-1 flex-col items-center justify-center gap-10">
+    <View testID="container" className="flex-1 flex-col items-center justify-center gap-10">
       <Image source={logo} className="h-32 w-44 border" />
 
       <View className="flex-col w-full items-center">
@@ -51,6 +51,7 @@ export default function Login() {
           <Text className="text-base text-[#A60C0C]">Login</Text>
 
           <TextInput
+            testID="typeEmail"
             className="px-4 py-2 border border-[#797979] rounded-xl"
             placeholder={"Digite seu e-mail"}
             selectionColor={"black"}
@@ -63,6 +64,7 @@ export default function Login() {
           <Text className="text-base text-[#A60C0C]">Senha</Text>
 
           <TextInput
+            testID="typePwd"
             className="px-4 py-2 border border-[#797979] rounded-xl"
             placeholder={"Digite sua senha"}
             selectionColor={"black"}
@@ -72,9 +74,9 @@ export default function Login() {
           ></TextInput>
 
           <TouchableOpacity
+            testID="forgot_password"
             activeOpacity={0.7}
             onPress={() => router.push("forgot_password")}
-            testID="forgot_password"
           >
             <Text className="text-[#797979] text-right">
               Esqueceu sua senha?
@@ -96,6 +98,7 @@ export default function Login() {
         <Text className="text-[#797979">ou</Text>
 
         <TouchableOpacity
+          testID="loginWithG"
           activeOpacity={0.7}
           onPress={() => {
             ToastAndroid.showWithGravity(
@@ -104,7 +107,6 @@ export default function Login() {
               ToastAndroid.CENTER
             );
           }}
-          testID="loginWithG"
           className="px-4 py-2 w-8/12 bg-[#34416D] rounded-xl items-center"
         >
           <Text className=" text-white text-base">
@@ -117,9 +119,9 @@ export default function Login() {
         <Text className="text-[#797979]">Não possui acesso?</Text>
 
         <TouchableOpacity
+          testID="registerButton"
           activeOpacity={0.7}
           onPress={() => router.push("registration")}
-          testID="registerButton"
         >
           <Text className="text-[#A60C0C]">Cadastre-se</Text>
         </TouchableOpacity>

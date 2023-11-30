@@ -49,6 +49,7 @@ exports[`test profile page snapshot test 1`] = `
             "opacity": 1,
           }
         }
+        testID="backButtonTestId"
       >
         <Text
           allowFontScaling={false}

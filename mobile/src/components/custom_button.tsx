@@ -14,6 +14,7 @@ export function CustomButton({
 }: Props) {
   return (
     <TouchableOpacity
+      testID="custom-button"
       {...rest}
       activeOpacity={0.7}
       className={`px-4 py-2 w-8/12 bg-[${

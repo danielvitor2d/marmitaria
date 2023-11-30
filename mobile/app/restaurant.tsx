@@ -51,9 +51,9 @@ export default function Restaurant() {
     <View className="flex-1 relative">
       <Header className="absolute top-0 left-0 right-0">
         <BackButton
+          testID="goBack"
           name={"arrow-left"}
           size={28}
-          testID="goBack"
           className={"text-white"}
           onPress={() => router.back()}
         />
@@ -61,8 +61,8 @@ export default function Restaurant() {
         <Text className="text-white text-lg">Marmitas</Text>
 
         <TouchableOpacity
-          activeOpacity={0.7}
           testID="profile"
+          activeOpacity={0.7}
           onPress={() => router.push("profile")}
         >
           <ProfileImage className="h-2 w-2 border bg-green-600" />
@@ -88,6 +88,7 @@ export default function Restaurant() {
           </View>
 
           <TouchableOpacity
+            testID="suggestNewMeal"
             activeOpacity={0.7}
             onPress={() => handleSuggestMeal()}
             className="px-4 py-2 bg-[#A60C0C] rounded-md items-center justify-center"

@@ -52,7 +52,7 @@ export default function MealAccordion({ title, children, onRemove }: Props) {
   return (
     <View className="w-full items-center mb-2">
       <View className="flex-row items-center justify-center">
-        <TouchableWithoutFeedback onPress={() => toggleListItem()}>
+        <TouchableWithoutFeedback testID="accordion-button" onPress={() => toggleListItem()}>
           <View className="w-7/12 px-4 py-2 flex-row justify-between items-center border border-[#797979] rounded-lg">
             <Text className="text-lg">{title}</Text>
             <Animated.View style={{ transform: [{ rotateZ: arrowAngle }] }}>
@@ -66,6 +66,7 @@ export default function MealAccordion({ title, children, onRemove }: Props) {
         </TouchableWithoutFeedback>
 
         <TouchableOpacity
+          testID="remove-button"
           activeOpacity={0.5}
           className="ml-2"
           onPress={() => onRemove()}
@@ -75,6 +76,7 @@ export default function MealAccordion({ title, children, onRemove }: Props) {
       </View>
 
       <Animated.View
+        testID="accordion-body"
         style={{ height: bodyHeight }}
         className={"w-full rounded-lg overflow-hidden items-center"}
       >

@@ -26,6 +26,7 @@ export function BackButton({
   return (
     <View {...rest}>
       <TouchableOpacity
+        testID="backButtonTestId"
         activeOpacity={0.7}
         onPress={onPress === undefined ? () => router.back() : onPress}
       >

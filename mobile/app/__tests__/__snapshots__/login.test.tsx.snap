@@ -24,6 +24,7 @@ exports[`test login page snapshot test 1`] = `
       },
     ]
   }
+  testID="container"
 >
   <Image
     source={1}
@@ -153,6 +154,7 @@ exports[`test login page snapshot test 1`] = `
             ],
           ]
         }
+        testID="typeEmail"
         value=""
       />
     </View>
@@ -236,6 +238,7 @@ exports[`test login page snapshot test 1`] = `
             ],
           ]
         }
+        testID="typePwd"
         value=""
       />
       <View

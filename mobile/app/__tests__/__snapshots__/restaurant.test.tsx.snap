@@ -1,3 +1,333 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test login page snapshot test 1`] = `null`;
+exports[`test login page snapshot test 1`] = `
+<View
+  style={
+    [
+      {
+        "flexBasis": "0%",
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+      {
+        "position": "relative",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      [
+        {
+          "width": "100%",
+        },
+        {
+          "height": 56,
+        },
+        {
+          "paddingLeft": 16,
+          "paddingRight": 16,
+        },
+        {
+          "backgroundColor": "#A60C0C",
+        },
+        {
+          "flexDirection": "row",
+        },
+        {
+          "justifyContent": "space-between",
+        },
+        {
+          "alignItems": "center",
+        },
+        [
+          {
+            "position": "absolute",
+          },
+          {
+            "top": 0,
+          },
+          {
+            "left": 0,
+          },
+          {
+            "right": 0,
+          },
+        ],
+      ]
+    }
+    testID="headerTestId"
+  >
+    <View
+      style={
+        [
+          {
+            "color": "#fff",
+          },
+        ]
+      }
+      testID="goBack"
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+        testID="backButtonTestId"
+      >
+        <Text
+          allowFontScaling={false}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "white",
+                "fontSize": 28,
+              },
+              undefined,
+              {
+                "fontFamily": "feather",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+    </View>
+    <Text
+      style={
+        [
+          {
+            "color": "#fff",
+          },
+          {
+            "fontSize": 18,
+            "lineHeight": 28,
+          },
+        ]
+      }
+    >
+      Marmitas
+    </Text>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "opacity": 1,
+        }
+      }
+      testID="profile"
+    >
+      <outra string qualquer
+        className="h-2 w-2 border bg-green-600"
+      />
+    </View>
+  </View>
+  <RCTScrollView
+    style={
+      [
+        {
+          "flexBasis": "0%",
+          "flexGrow": 1,
+          "flexShrink": 1,
+        },
+        {
+          "marginTop": 64,
+        },
+      ]
+    }
+  >
+    <View>
+      <View
+        style={
+          [
+            {
+              "width": "100%",
+            },
+            {
+              "height": 80,
+            },
+            {
+              "backgroundColor": "#fff",
+            },
+            {
+              "alignItems": "center",
+            },
+            {
+              "justifyContent": "center",
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            [
+              {
+                "fontSize": 20,
+                "lineHeight": 28,
+              },
+              {
+                "color": "#A60C0C",
+              },
+            ]
+          }
+        />
+      </View>
+      <View
+        style={
+          [
+            {
+              "paddingLeft": 4,
+              "paddingRight": 4,
+            },
+            {
+              "marginTop": 8,
+            },
+          ]
+        }
+      >
+        <Image
+          source="outra string qualquer"
+          style={
+            [
+              {
+                "width": "100%",
+              },
+            ]
+          }
+        />
+        <View
+          style={
+            [
+              {
+                "marginTop": 8,
+              },
+            ]
+          }
+          testID="mealsList"
+        />
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#A60C0C",
+              "borderBottomLeftRadius": 6,
+              "borderBottomRightRadius": 6,
+              "borderTopLeftRadius": 6,
+              "borderTopRightRadius": 6,
+              "justifyContent": "center",
+              "opacity": 1,
+              "paddingBottom": 8,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "paddingTop": 8,
+            }
+          }
+          testID="suggestNewMeal"
+        >
+          <Text
+            style={
+              [
+                {
+                  "fontSize": 20,
+                  "lineHeight": 28,
+                },
+                {
+                  "color": "#fff",
+                },
+              ]
+            }
+          >
+            Sugerir nova marmita
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

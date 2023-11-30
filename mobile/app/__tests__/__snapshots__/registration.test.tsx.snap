@@ -49,6 +49,7 @@ exports[`test registration page snapshot test 1`] = `
             "opacity": 1,
           }
         }
+        testID="backButtonTestId"
       >
         <Text />
       </View>

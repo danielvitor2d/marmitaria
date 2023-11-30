@@ -8,6 +8,7 @@ type Props = {
 export function Header({ children, ...rest }: Props) {
   return (
     <View
+      testID="headerTestId"
       className="w-full h-14 px-4 bg-[#A60C0C] flex-row justify-between items-center"
       {...rest}
     >

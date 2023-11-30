@@ -66,18 +66,6 @@ export function MealCard({ meal, onSuggestRemoveMeal }: Props) {
     WhatsApp(`Olá, vou querer ${meal.name}`, '+5588994206628');
   }
 
-  function onClickAddComentario() {
-    ToastAndroid.showWithGravity(
-      `Adicionar avaliação`,
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
-    );
-
-    setMeal(meal);
-
-    router.push("meal_info");
-  }
-
   function onEditMeal() {
     ToastAndroid.showWithGravity(
       `Redirecionando para página da refeição`,
@@ -126,6 +114,7 @@ export function MealCard({ meal, onSuggestRemoveMeal }: Props) {
             </TouchableOpacity>
 
             <TouchableOpacity
+              testID="delete-button"
               activeOpacity={0.7}
               onPress={() => setModalSuggestDelete(true)}
             >

@@ -19,8 +19,10 @@ describe("test login page", () => {
           refetchUser: async () => {},
           setMeal: () => {},
           setRest: () => {},
-          signIn: async (email, pwd) => ({ logged: true, isAdmin: false }),
-          update: async (user) => true,
+          signIn: async () => ({ logged: true, isAdmin: false }),
+          update: async () => true,
+          setSuggestion: () => {},
+          suggestion: {},
         }}
       >
         <Login />
@@ -46,5 +48,17 @@ describe("test login page", () => {
 
   it("Testando botão de esqueci a senha", () => {
     expect(page.getByTestId("forgot_password")).toBeDefined();
+  });
+
+  it("Testando campo de e-mail", () => {
+    expect(page.getByTestId("typeEmail")).toBeDefined();
+  });
+
+  it("Testando campo de senha", () => {
+    expect(page.getByTestId("typePwd")).toBeDefined();
+  });
+
+  it("Testando container", () => {
+    expect(page.getByTestId("container")).toBeDefined();
   });
 });

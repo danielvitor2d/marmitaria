@@ -5,6 +5,7 @@ import Restaurant from "../restaurant";
 
 jest.mock("../../src/assets/profile.svg", () => "string qualquer");
 jest.mock("../../src/assets/restaurant.png", () => "outra string qualquer");
+jest.mock("../../src/assets/mini_profile.svg", () => "outra string qualquer");
 
 describe("test login page", () => {
   let page: any;
@@ -15,15 +16,25 @@ describe("test login page", () => {
         value={{
           isAdmin: false,
           meal: null,
-          rest: null,
+          rest: {
+            address: '',
+            id: '',
+            isSuggestion: false,
+            meals: [],
+            name: '',
+            paymentforms: '',
+            value: '',
+          },
           signed: true,
           user: {} as UserType,
           logout: async () => {},
           refetchUser: async () => {},
           setMeal: () => {},
           setRest: () => {},
-          signIn: async (email, pwd) => ({ logged: true, isAdmin: false }),
-          update: async (user) => true,
+          signIn: async () => ({ logged: true, isAdmin: false }),
+          update: async () => true,
+          setSuggestion: () => {},
+          suggestion: {},
         }}
       >
         <Restaurant />
@@ -41,6 +52,10 @@ describe("test login page", () => {
 
   it("Testando botão de perfil", () => {
     expect(page.getByTestId("profile")).toBeDefined();
+  });
+
+  it("Testando botão de sugerir nova marmita", () => {
+    expect(page.getByTestId("suggestNewMeal")).toBeDefined();
   });
 
   it("Testando lista de refeições", () => {

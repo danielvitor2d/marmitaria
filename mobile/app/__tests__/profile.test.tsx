@@ -22,8 +22,10 @@ describe("test profile page", () => {
           refetchUser: async () => {},
           setMeal: () => {},
           setRest: () => {},
-          signIn: async (email, pwd) => ({ logged: true, isAdmin: false }),
-          update: async (user) => true,
+          signIn: async () => ({ logged: true, isAdmin: false }),
+          update: async () => true,
+          setSuggestion: () => {},
+          suggestion: {},
         }}
       >
         <Profile />

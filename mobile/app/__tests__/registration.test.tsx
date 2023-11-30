@@ -1,6 +1,5 @@
 import { render } from "@testing-library/react-native";
 
-import AuthContext, { UserType } from "../../src/contexts/auth";
 import Registration from "../registration";
 
 describe("test registration page", () => {

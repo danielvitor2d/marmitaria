@@ -33,9 +33,9 @@ export default function ReviewCard({
           <View className='flex-row gap-1'>
             {stars.map((value, idx) =>
               value == 1 ? (
-                <FontAwesome key={idx} name="star" disabled={true} />
+                <FontAwesome key={idx} name="star" disabled={true} accessibilityHint='star' />
               ) : (
-                <FontAwesome key={idx} name="star-o" disabled={true} />
+                <FontAwesome key={idx} name="star-o" disabled={true} accessibilityHint='star-o' />
               )
             )}
           </View>
