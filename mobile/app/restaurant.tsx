@@ -8,8 +8,8 @@ import { BackButton } from "../src/components/back_button";
 import { Header } from "../src/components/header";
 import { MealCard } from "../src/components/meal_card";
 import AuthContext from "../src/contexts/auth";
-import { Meal } from "./restaurants";
 import { addSuggestion } from "../src/services/suggeestions-service";
+import { Meal } from "./restaurants";
 
 interface Restaurant {
   name: string;
@@ -41,6 +41,10 @@ export default function Restaurant() {
       ToastAndroid.SHORT,
       ToastAndroid.CENTER
     );
+  }
+
+  function handleSuggestMeal() {
+    router.push('register_meal');
   }
 
   return (
@@ -82,6 +86,14 @@ export default function Restaurant() {
               />
             ))}
           </View>
+
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => handleSuggestMeal()}
+            className="px-4 py-2 bg-[#A60C0C] rounded-md items-center justify-center"
+          >
+            <Text className="text-xl text-white">Sugerir nova marmita</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>

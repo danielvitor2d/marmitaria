@@ -56,6 +56,7 @@ export default function Layout() {
 
             <Stack.Screen name="meal_info" />
             <Stack.Screen name="edit_meal" />
+            <Stack.Screen name="register_meal" />
 
             <Stack.Screen name="restaurant" />
             <Stack.Screen name="register_restaurant" />

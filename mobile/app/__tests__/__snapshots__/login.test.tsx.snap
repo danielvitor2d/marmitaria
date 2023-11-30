@@ -456,7 +456,28 @@ exports[`test login page snapshot test 1`] = `
           ]
         }
       >
-        Login com G
+        Login com 
+        <Text
+          allowFontScaling={false}
+          selectable={false}
+          style={
+            [
+              {
+                "color": undefined,
+                "fontSize": 18,
+              },
+              undefined,
+              {
+                "fontFamily": "anticon",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          
+        </Text>
       </Text>
     </View>
   </View>
