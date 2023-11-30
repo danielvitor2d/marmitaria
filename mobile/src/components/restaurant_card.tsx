@@ -7,6 +7,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Restaurant } from "../../app/restaurants";
 import RestaurantImage from "../assets/restaurant.png";
 import AuthContext from "../contexts/auth";
+import { addSuggestion } from "../services/suggeestions-service";
 
 interface Props {
   rest: Restaurant;
@@ -14,6 +15,7 @@ interface Props {
   estrelas: number[];
   onClickFavorite: () => void;
   onRemoveRestaurant: () => Promise<void>;
+  onSuggestRemoveRestaurant: () => Promise<void>;
 }
 
 export function RestaurantCard({
@@ -22,6 +24,7 @@ export function RestaurantCard({
   estrelas,
   onClickFavorite,
   onRemoveRestaurant,
+  onSuggestRemoveRestaurant,
 }: Props) {
   const authContext = useContext(AuthContext);
   if (!authContext) return null;
@@ -29,6 +32,7 @@ export function RestaurantCard({
   const { isAdmin, setRest } = authContext;
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalSuggestDelete, setModalSuggestDelete] = useState(false);
 
   const router = useRouter();
 
@@ -48,7 +52,12 @@ export function RestaurantCard({
   function onEditRestaurant() {
     if (!isAdmin) return;
 
-    
+  }
+
+  function handleSuggestRemoveRestaurant() {
+    setModalSuggestDelete(false);
+
+    onSuggestRemoveRestaurant()
   }
 
   function handleRemoveRestaurant() {
@@ -72,20 +81,52 @@ export function RestaurantCard({
             <Text className="text-[#A60C0C]">{rest.name}</Text>
 
             {!isAdmin ? (
-              <TouchableOpacity
-                activeOpacity={0.7}
-                onPress={() => onClickFavorite()}
-              >
-                {isFavorite ? (
-                  <FontAwesome size={16} color={"#A60C0C"} name={"bookmark"} />
-                ) : (
-                  <FontAwesome
-                    size={16}
-                    color={"#A60C0C"}
-                    name={"bookmark-o"}
-                  />
-                )}
-              </TouchableOpacity>
+              <View className="flex-row gap-3">
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => onClickFavorite()}
+                >
+                  {isFavorite ? (
+                    <FontAwesome size={16} color={"#A60C0C"} name={"bookmark"} />
+                  ) : (
+                    <FontAwesome
+                      size={16}
+                      color={"#A60C0C"}
+                      name={"bookmark-o"}
+                    />
+                  )}
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => setModalSuggestDelete(true)}
+                >
+                  <FontAwesome size={16} color={"#A60C0C"} name={"trash"} />
+                </TouchableOpacity>
+
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={modalSuggestDelete}
+                  onRequestClose={() => setModalSuggestDelete(false)}
+                >
+                  <View className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-[#00000080]">
+                    <View className="bg-white rounded-lg p-8">
+                      <Text className="text-lg mb-4">Tem certeza de que deseja prosseguir?</Text>
+                      
+                      <View className='flex-row items-center justify-end'>
+                        <Pressable className='ml-2 px-2 py-1 bg-[#d9d9d9] rounded-md' onPress={() => setModalSuggestDelete(false)}>
+                          <Text className="text-black">Cancelar</Text>
+                        </Pressable>
+
+                        <Pressable className='ml-2 px-2 py-1 bg-[#ce1717] rounded-md' onPress={() => handleSuggestRemoveRestaurant()}>
+                          <Text className="text-white">Sim</Text>
+                        </Pressable>
+                      </View>
+                    </View>
+                  </View>
+                </Modal>
+              </View>
             ) : (
               <View className="flex-row gap-3">
                 <TouchableOpacity

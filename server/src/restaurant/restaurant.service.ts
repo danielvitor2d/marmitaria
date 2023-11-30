@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 
+import { Meal } from 'src/meal/interfaces/meal';
 import { CreateRestDto } from './dto/create-rest.dto';
 import { UpdateRestDto } from './dto/update-rest.dto';
 import { Restaurant } from './interfaces/restaurant';
@@ -10,6 +11,8 @@ export class RestaurantService {
   constructor(
     @Inject('RESTAURANT_MODEL')
     private restaurantModel: Model<Restaurant>,
+    @Inject('MEAL_MODEL')
+    private mealModel: Model<Meal>,
   ) {}
 
   async create(createRestDto: CreateRestDto) {
@@ -76,6 +79,14 @@ export class RestaurantService {
   }
 
   async delete(id: string) {
+    const rest = await this.get(id);
+
+    await Promise.all(
+      rest.meals.map(async (meal) => {
+        await this.mealModel.findByIdAndDelete(meal);
+      }),
+    );
+
     return this.restaurantModel.findByIdAndDelete(id);
   }
 }

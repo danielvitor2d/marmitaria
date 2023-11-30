@@ -25,7 +25,7 @@ import { SuggestionCard } from "../src/components/suggestion_card";
 import AuthContext from "../src/contexts/auth";
 import { register, update } from "../src/services/meal-service";
 import { addMeal, getRests, register as registerRest, remove } from "../src/services/rest-service";
-import { finishSuggestion, getSuggestions } from "../src/services/suggeestions-service";
+import { addSuggestion, finishSuggestion, getSuggestions } from "../src/services/suggeestions-service";
 import { addFavorite, rmvFavorite } from "../src/services/user-service";
 import { generateRandomPatternArray } from "../src/utils/fake";
 import { Prato } from "./register_restaurant";
@@ -131,7 +131,25 @@ export default function Restaurants() {
     fetchSuggestions();
   }
 
+  async function onSuggestRemoveRestaurant(rest: Restaurant) {
+    await addSuggestion({
+      type: 'delete',
+      model: 'rest',
+      data: {
+        rest
+      }
+    })
+
+    ToastAndroid.showWithGravity(
+      `Sugestão cadastrada!`,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER
+    );
+  }
+
   async function handleAcceptSuggestion(suggestion: Suggestion) {
+    console.log(suggestion)
+
     if (suggestion.model === 'meal') {
       if (suggestion.type === 'create') {
         const prato = (suggestion.data as { meal: Meal }).meal
@@ -198,62 +216,90 @@ export default function Restaurants() {
         }
 
         return;
-      }
-
-      
+      }    
 
       return;
     }
 
     if (suggestion.model === 'rest') {
-      console.log(suggestion)
+      if (suggestion.type === 'create') {
+        const { rest: { name, address, paymentforms, value: price }, meals: pratos } = suggestion.data as { rest: Restaurant, meals: Prato[] };
 
-      const { rest: { name, address, paymentforms, value: price }, meals: pratos } = suggestion.data as { rest: Restaurant, meals: Prato[] };
-
-      let mealsId: Array<string> = [];
-      for await (const prato of pratos) {
-        const { registered, meal } = await register({
-          name: prato.name,
-          desc: prato.description,
-          value: prato.value,
-        });
-        if (registered && meal) {
-          mealsId.push(meal?.id);
+        let mealsId: Array<string> = [];
+        for await (const prato of pratos) {
+          const { registered, meal } = await register({
+            name: prato.name,
+            desc: prato.description,
+            value: prato.value,
+          });
+          if (registered && meal) {
+            mealsId.push(meal?.id);
+          }
         }
+    
+        const { rest, registered: restRegistered } = await registerRest({
+          name,
+          address,
+          paymentforms,
+          value: price,
+          isSuggestion: false,
+        });
+    
+        if (restRegistered && rest) {
+          for await (const mealId of mealsId) {
+            await addMeal(rest.id, mealId);
+          }
+  
+          await finishSuggestion(suggestion.id)
+    
+          await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
+    
+          ToastAndroid.showWithGravity(
+            `Sugestão aceita!`,
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+          );
+    
+          setRest(null);
+          fetchRestaurants();
+          fetchSuggestions();
+        } else {
+          ToastAndroid.showWithGravity(
+            `Erro ao cadastrar restaurante. Tente novamente mais tarde.`,
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+          );
+        }
+
+        return;
       }
-  
-      const { rest, registered: restRegistered } = await registerRest({
-        name,
-        address,
-        paymentforms,
-        value: price,
-        isSuggestion: false,
-      });
-  
-      if (restRegistered && rest) {
-        for await (const mealId of mealsId) {
-          await addMeal(rest.id, mealId);
+
+      if (suggestion.type === 'delete') {
+        const { deleted } = await remove((suggestion.data as { id: string }).id)
+        if (!deleted) {
+          ToastAndroid.showWithGravity(
+            `Erro ao tentar deletar restaurante! Tente novamente.`,
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+          );
+          return
         }
 
         await finishSuggestion(suggestion.id)
-  
+    
         await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
-  
+    
         ToastAndroid.showWithGravity(
-          `Sugestão aceita!`,
+          `Restaurante removido!`,
           ToastAndroid.SHORT,
           ToastAndroid.CENTER
         );
-  
+    
         setRest(null);
         fetchRestaurants();
         fetchSuggestions();
-      } else {
-        ToastAndroid.showWithGravity(
-          `Erro ao cadastrar restaurante. Tente novamente mais tarde.`,
-          ToastAndroid.SHORT,
-          ToastAndroid.CENTER
-        );
+
+        return;
       }
     }
   }
@@ -381,22 +427,24 @@ export default function Restaurants() {
                   }
                   onClickFavorite={() => onClickFavorite(rest.id)}
                   onRemoveRestaurant={() => onRemoveRestaurant(rest)}
-                />
-              ))}
+                  onSuggestRemoveRestaurant={() => onSuggestRemoveRestaurant(rest)}
+                  />
+                  ))}
           </View>
         ) : mode === "fav-list" ? (
           <View className="px-1">
             {restaurants.map(
               (rest, idx) =>
-                user.favorites &&
-                user.favorites.includes(rest.id) && (
-                  <RestaurantCard
+              user.favorites &&
+              user.favorites.includes(rest.id) && (
+                <RestaurantCard
                     key={idx}
                     rest={rest}
                     estrelas={generateRandomPatternArray()}
                     isFavorite={true}
                     onClickFavorite={() => onClickFavorite(rest.id)}
                     onRemoveRestaurant={() => onRemoveRestaurant(rest)}
+                    onSuggestRemoveRestaurant={() => onSuggestRemoveRestaurant(rest)}
                   />
                 )
             )}
