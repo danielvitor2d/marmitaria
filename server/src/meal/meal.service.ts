@@ -61,4 +61,8 @@ export class MealsService {
   async findAll(): Promise<Meal[]> {
     return this.mealModel.find().exec();
   }
+
+  async delete(id: string) {
+    return this.mealModel.findByIdAndDelete(id);
+  }
 }

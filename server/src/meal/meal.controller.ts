@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Logger,
   Param,
@@ -59,6 +60,21 @@ export class MealController {
       return this.mealsService.findAll();
     } catch (error) {
       this.logger.error(`could not find all meals due to error: ${error}`);
+    }
+  }
+
+  @Delete('/:id')
+  async delete(@Param('id') id: string) {
+    try {
+      const result = await this.mealsService.delete(id);
+      return {
+        deleted: result !== null,
+      };
+    } catch (error) {
+      this.logger.error(`could not delete meal due to error: ${error}`);
+      return {
+        deleted: false,
+      };
     }
   }
 }

@@ -67,7 +67,7 @@ export function SuggestionCard({
             <Text className="text-[#A60C0C] text-lg">{getTitle() + ' ' + getModel()}</Text>
             {
               model === 'meal'
-              ? <Text className="text-[#A60C0C] text-lg">{(data as Meal).name}</Text>
+              ? <Text className="text-[#A60C0C] text-lg">{(data as { meal: Meal }).meal.name}</Text>
               : <Text className="text-[#A60C0C] text-lg">{(data as { rest: Restaurant }).rest.name}</Text>
             }
           </View>

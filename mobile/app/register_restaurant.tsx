@@ -110,7 +110,7 @@ export default function RegisterRestaurant() {
     }
 
     // suggestion
-    addSuggestion({
+    await addSuggestion({
       type: 'create',
       model: 'rest',
       data: {

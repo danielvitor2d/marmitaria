@@ -23,12 +23,11 @@ import { Header } from "../src/components/header";
 import { RestaurantCard } from "../src/components/restaurant_card";
 import { SuggestionCard } from "../src/components/suggestion_card";
 import AuthContext from "../src/contexts/auth";
-import { register, update } from "../src/services/meal-service";
+import { register, update, remove as removeMeal } from "../src/services/meal-service";
 import { addMeal, getRests, register as registerRest, remove } from "../src/services/rest-service";
 import { addSuggestion, finishSuggestion, getSuggestions } from "../src/services/suggeestions-service";
 import { addFavorite, rmvFavorite } from "../src/services/user-service";
 import { generateRandomPatternArray } from "../src/utils/fake";
-import { Prato } from "./register_restaurant";
 
 export interface Meal {
   _id?: string;
@@ -53,6 +52,13 @@ export interface Suggestion {
   type: 'create' | 'update' | 'delete',
   model: 'rest' | 'meal'
   data: object;
+}
+
+export interface Prato {
+  id: number;
+  name: string;
+  desc: string;
+  value: string;
 }
 
 type ModeType = "list" | "fav-list" | "map" | "suggestions";
@@ -190,7 +196,7 @@ export default function Restaurants() {
 
       if (suggestion.type === 'update') {
         const { meal, updated } = await update({
-          ...(suggestion.data as Meal)
+          ...(suggestion.data as { meal: Meal }).meal
         })
 
         if (updated && meal) {
@@ -216,7 +222,32 @@ export default function Restaurants() {
         }
 
         return;
-      }    
+      }
+
+      console.log(suggestion.data)
+      const { deleted } = await removeMeal((suggestion.data as { meal: Meal }).meal.id)
+      if (!deleted) {
+        ToastAndroid.showWithGravity(
+          `Erro ao tentar deletar marmita! Tente novamente.`,
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+        );
+        return
+      }
+
+      await finishSuggestion(suggestion.id)
+    
+      await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
+  
+      ToastAndroid.showWithGravity(
+        `Marmita removida!`,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+      );
+  
+      setRest(null);
+      fetchRestaurants();
+      fetchSuggestions();
 
       return;
     }
@@ -229,7 +260,7 @@ export default function Restaurants() {
         for await (const prato of pratos) {
           const { registered, meal } = await register({
             name: prato.name,
-            desc: prato.description,
+            desc: prato.desc,
             value: prato.value,
           });
           if (registered && meal) {

@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { useContext, useMemo } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 
 import ProfileImage from "../src/assets/mini_profile.svg";
 import RestaurantImage from "../src/assets/restaurant.png";
@@ -8,6 +8,8 @@ import { BackButton } from "../src/components/back_button";
 import { Header } from "../src/components/header";
 import { MealCard } from "../src/components/meal_card";
 import AuthContext from "../src/contexts/auth";
+import { Meal } from "./restaurants";
+import { addSuggestion } from "../src/services/suggeestions-service";
 
 interface Restaurant {
   name: string;
@@ -23,6 +25,23 @@ export default function Restaurant() {
   const meals = useMemo(() => {
     return rest.meals ?? [];
   }, [rest.meals]);
+
+  async function handleSuggestRemoveMeal(meal: Meal) {
+    await addSuggestion({
+      type: 'delete',
+      model: 'meal',
+      data: {
+        ...meal,
+        id: meal._id,
+      }
+    })
+
+    ToastAndroid.showWithGravity(
+      `Sugestão cadastrada!`,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER
+    );
+  }
 
   return (
     <View className="flex-1 relative">
@@ -56,7 +75,11 @@ export default function Restaurant() {
 
           <View className="mt-2" testID="mealsList">
             {meals.map((meal, idx) => (
-              <MealCard key={idx} meal={meal} />
+              <MealCard
+                key={idx}
+                meal={meal}
+                onSuggestRemoveMeal={() => handleSuggestRemoveMeal(meal)}
+              />
             ))}
           </View>
         </View>

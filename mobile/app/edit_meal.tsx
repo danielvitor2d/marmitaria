@@ -32,7 +32,7 @@ export default function EditMeal() {
     value: meal.value,
   });
 
-  function onCadastrarSugestao() {
+  async function onCadastrarSugestao() {
     if (!prato.description || !prato.name || !prato.value) {
       ToastAndroid.showWithGravity(
         `Existem informações faltando.`,
@@ -43,12 +43,14 @@ export default function EditMeal() {
       return;
     }
 
-    addSuggestion({
+    await addSuggestion({
       type: 'update',
       model: 'meal',
       data: {
-        ...prato,
-        desc: prato.description,
+        meal: {
+          ...prato,
+          desc: prato.description,
+        }
       },
     })
 

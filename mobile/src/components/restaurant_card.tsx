@@ -7,7 +7,6 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Restaurant } from "../../app/restaurants";
 import RestaurantImage from "../assets/restaurant.png";
 import AuthContext from "../contexts/auth";
-import { addSuggestion } from "../services/suggeestions-service";
 
 interface Props {
   rest: Restaurant;

@@ -31,6 +31,10 @@ interface UpdateResponse {
   meal: Meal | null;
 }
 
+interface DeleteResponse {
+  deleted: boolean;
+}
+
 async function register({ name, desc, value }: RegisterInput) {
   try {
     const response = await api.post<{}, AxiosResponse<RegisterResponse>>(
@@ -76,7 +80,23 @@ async function update({
   }
 }
 
+async function remove(id: string) {
+  try {
+    const response = await api.delete<{}, AxiosResponse<DeleteResponse>>(
+      `/meals/${id}`
+    );
+
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    return {
+      deleted: false,
+    }
+  }
+}
+
 export {
   register,
   update,
+  remove
 };
